@@ -1,0 +1,162 @@
+﻿@model IList<CampaniasSB.Controllers.ReglasController.spReglasCaracteristicas>
+
+@{
+}
+
+<style>
+    #carEquityTable th, #carEquityTable td {
+        white-space: nowrap !important;
+    }
+
+    #carEquityTable_wrapper {
+        margin-top: -10px !important;
+    }
+
+    .checkCar [type="checkbox"] + span:not(.lever) {
+        position: relative !important;
+        cursor: default !important;
+        font-size: 12px !important;
+    }
+
+    #carEquityTable_wrapper .dataTables_filter {
+        float: left !important;
+        margin-top: -43px !important;
+    }
+
+    #carEquityTable .dataTables_scrollHead {
+        background-color: #067655;
+        border-radius: 10px
+    }
+</style>
+
+@using (Html.BeginForm("Caracteristicas", "Reglas", FormMethod.Post, new { onsubmit = "return SubmitFormCar(this)" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    <div style="max-height: 90vh !important; min-height: 70vh; height: 88.5vh; margin-top: -14px !important; text-align: center;">
+
+        <h5>@ViewBag.Regla</h5>
+
+        @*<button type="button" id="selectAll" class="btn btn-primary" style="float: right; margin-top: 0"> <span class="sub"></span> Habilitar</button>
+            <button type="button" id="deselectAll" class="btn btn-primary" style="float: right; margin-top: 0"> <span class="sub"></span> Deshabilitar</button>*@
+        <br />
+        <br />
+        <table id="carEquityTable" class="table table-striped row-border compact nowrap" style="width:100%; text-transform: uppercase; margin-top: 0 !important">
+            <thead>
+                <tr>
+                    <th class="dt-body-center text-center">Característica</th>
+                    <th class="dt-body-center text-center">SI</th>
+                    <th class="dt-body-center text-center">NO</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @Html.HiddenFor(m => item.ReglaId)
+                    @Html.HiddenFor(m => item.ReglaCatalogoId)
+                    @Html.HiddenFor(m => item.Regla)
+                    @Html.HiddenFor(m => item.Caracteristica)
+                    @Html.HiddenFor(m => item.Valor)
+                    @Html.HiddenFor(m => item.Seleccionado)
+
+                    <tr>
+                        <td>
+                            <input type="hidden" name="ReglaCaractersiticaId" value="@item.ReglaCaracteristicaId" />
+                            @item.Caracteristica
+                        </td>
+                        @*<td class="dt-body-center text-center checkCar">
+                                <label>
+                                    <input id="Seleccionado" name="Seleccionado" type="checkbox" value="@item.ReglaCaracteristicaId" checked="@item.Seleccionado" style="cursor: pointer" />
+                                    <span></span>
+                                </label>
+                            </td>*@
+                        <td class="dt-body-center text-center checkCar">
+                            <label>
+                                <input id="IsTrue" name="IsTrue" type="checkbox" value="@item.ReglaCaracteristicaId" checked="@item.IsTrue" style="cursor: pointer" />
+                                <span></span>
+                            </label>
+                        </td>
+                        <td class="dt-body-center text-center checkCar">
+                            <label>
+                                <input id="IsFalse" name="IsFalse" type="checkbox" value="@item.ReglaCaracteristicaId" checked="@item.IsFalse" style="cursor: pointer" />
+                                <span></span>
+                            </label>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="center-align col-sm-12" style="margin-top: 5px">
+            @if (Model.Count() > 0)
+            {
+                <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+                    <i class="large material-icons">check</i>
+                </button>
+            }
+        </div>
+
+    </div>
+
+}
+
+<script>
+
+    var dataTableCar;
+    $(document).ready(function () {
+        dataTableCar = $("#carEquityTable").removeAttr('width').DataTable({
+            //"order": [[0, "asc"]],
+            "language": {
+                "sSearch": "Buscar:",
+            },
+            'initComplete': function (settings) {
+                var api = new $.fn.dataTable.Api(settings);
+                api.columns().header().each(function (column) {
+                    if ($(column).text() == 'Característica') {
+                        $(column).attr('style', 'min-width: 378px');
+                    }
+                    else if ($(column).text() == 'SI') {
+                        $(column).attr('style', 'min-width: 80px');
+                    }
+                    else if ($(column).text() == 'NO') {
+                        $(column).attr('style', 'min-width: 80px');
+                    }
+                });
+            },
+            columnDefs: [
+                { width: '378px', targets: 0 },
+                { width: '80px', targets: 1 },
+                { width: '80px', targets: 2 },
+            ],
+            autoWidth: true,
+            fixedHeader: true,
+            fixedColumns: true,
+            select: true,
+            scrollY: true,
+            scrollX: true,
+            scrollCollapse: false,
+            keys: false,
+            dom: 'frt',
+            'bLengthChange': true,
+            'bInfo': true,
+            "lengthMenu": [[-1, 15, 25, 50, 100], ["TODOS", 15, 25, 50, 100]],
+        });
+    });
+
+    //$(document).ready(function () {
+
+    //    $("#selectAll").on("click", function () {
+    //        $("#carEquityTable tr").each(function () {
+    //            $(this).find("input[type='checkbox']").attr('checked', true);
+    //        });
+    //    });
+
+    //    $("#deselectAll").on("click", function () {
+    //        $("#carEquityTable tr").each(function () {
+    //            $(this).find("input[type='checkbox']").attr('checked', false);
+    //        });
+    //    });
+
+    //});
+
+</script>
+

@@ -1,0 +1,101 @@
+﻿@model IList<CampaniasSB.Controllers.RestaurantesController.spRestaurantesCaracteristicas>
+@{
+}
+
+<style>
+    #matEquityTable th, #matEquityTable td {
+        white-space: nowrap !important;
+    }
+
+    .checkMat [type="checkbox"] + span:not(.lever) {
+        position: relative !important;
+        cursor: default !important;
+        font-size: 12px !important;
+        display: none;
+    }
+
+    .editSwitch {
+        font-size: 19px !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        width: 3.5em !important;
+        height: 1.5em !important;
+        background: #ddd !important;
+        border-radius: 3em !important;
+        position: absolute !important;
+        cursor: pointer !important;
+        outline: none !important;
+        -webkit-transition: all .2s ease-in-out !important;
+        transition: all .2s ease-in-out !important;
+        opacity: 1 !important;
+        display: inline-table !important;
+        pointer-events: all !important;
+        margin-top: -11px !important;
+    }
+
+        .editSwitch:checked {
+            background: #92BABC !important;
+        }
+
+    .listBox {
+        text-transform: uppercase;
+        border-bottom-color: transparent !important;
+        position: absolute;
+        width: 30% !important;
+    }
+
+    .editInput {
+        height: auto !important;
+    }
+</style>
+
+@using (Html.BeginForm("EditCMEDev", "Restaurantes", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+
+    <div class="input-field col-sm-12" style="text-transform: uppercase !important; margin: -10px 0">
+        <h6 class="red-text center-align"><strong>CONFIGURACIÓN POR MATERIAL ESPECIFICO</strong></h6>
+    </div>
+
+    <div class="row">
+        <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+            <input type="text" value="@Model.FirstOrDefault().Restaurante" disabled style="text-transform: uppercase" />
+            <label class="active" for="Restaurante">Restaurante</label>
+        </div>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <input type="hidden" name="TiendaId" value="@item.TiendaId" />
+            <input type="hidden" name="ReglaCatalogoId" value="@item.ReglaCatalogoId" />
+
+            if (item.Valor == "SI")
+            {
+                var val = true;
+
+                <div class="input-field center-align col-sm-4">
+                    <input class="switch_1" name="Valor" type="checkbox" value="@item.ReglaCatalogoId" checked="@val" style="cursor: pointer" />
+                    <label class="active" for="Valor">@item.Nombre</label>
+                </div>
+
+            }
+            else if (item.Valor == "NO")
+            {
+                var val = false;
+
+                <div class="input-field center-align col-sm-4">
+                    <input class="switch_1" name="Valor" type="checkbox" value="@item.ReglaCatalogoId" checked="@val" style="cursor: pointer" />
+                    <label class="active" for="Valor">@item.Nombre</label>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="center-align col-sm-12">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+    </div>
+}
+
+

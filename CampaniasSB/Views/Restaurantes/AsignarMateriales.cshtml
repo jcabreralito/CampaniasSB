@@ -1,0 +1,141 @@
+﻿@model CampaniasSB.Models.Tienda
+@{
+}
+
+@using (Html.BeginForm("EditCG", "Restaurantes", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.TiendaId)
+    @Html.HiddenFor(model => model.EquityFranquicia)
+
+    @Html.HiddenFor(model => model.TerceraReceta)
+    @Html.HiddenFor(model => model.Arroz)
+    @Html.HiddenFor(model => model.Hamburgesas)
+    @Html.HiddenFor(model => model.Ensalada)
+    @Html.HiddenFor(model => model.PET2Litros)
+    @Html.HiddenFor(model => model.Postres)
+    @Html.HiddenFor(model => model.BisquetMiel)
+    @Html.HiddenFor(model => model.KeCono)
+    @Html.HiddenFor(model => model.KREAMBALL)
+
+    @Html.HiddenFor(model => model.MenuBackLigth)
+    @Html.HiddenFor(model => model.Autoexpress)
+    @Html.HiddenFor(model => model.AEMedidaEspecial)
+    @Html.HiddenFor(model => model.CopeteAERemodelado)
+    @Html.HiddenFor(model => model.CopeteAETradicional)
+    @Html.HiddenFor(model => model.PanelDeInnovacion)
+    @Html.HiddenFor(model => model.DisplayDeBurbuja)
+    @Html.HiddenFor(model => model.Delivery)
+    @Html.HiddenFor(model => model.MERCADO_DE_PRUEBA)
+    @Html.HiddenFor(model => model.AreaDeJuegos)
+    @Html.HiddenFor(model => model.COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS)
+    @Html.HiddenFor(model => model.COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L)
+    @Html.HiddenFor(model => model.DisplayDePiso)
+    @Html.HiddenFor(model => model.WCNACIONAL67X100cm)
+
+    @*@Html.HiddenFor(model => model.TipoDeCajaId)
+        @Html.HiddenFor(model => model.AcomodoDeCajas)
+        @Html.HiddenFor(model => model.NoMesaDeAreaComedor)
+        @Html.HiddenFor(model => model.NumeroDeVentanas)
+        @Html.HiddenFor(model => model.UbicacionPantallas)*@
+
+    @Html.HiddenFor(model => model.Observaciones)
+    @Html.HiddenFor(model => model.Activo)
+    @Html.HiddenFor(model => model.Clasificacion)
+    @Html.HiddenFor(model => model.CCoFranquicia)
+    @Html.HiddenFor(model => model.Restaurante)
+    @Html.HiddenFor(model => model.RegionId)
+    @Html.HiddenFor(model => model.CiudadId)
+    @Html.HiddenFor(model => model.Direccion)
+
+    @Html.HiddenFor(model => model.TipoId)
+    @Html.HiddenFor(model => model.NuevoNivelDePrecioId)
+    @Html.HiddenFor(model => model.MenuDigital)
+    @Html.HiddenFor(model => model.CantidadDePantallas)
+    @Html.HiddenFor(model => model.Telefono)
+    @Html.HiddenFor(model => model.TelefonoPersonalizado)
+
+    <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+        <h6 class="red-text center-align"><strong>CONFIGURACIÓN POR EQUIPO</strong></h6>
+    </div>
+
+    <div class="row" style="margin-top: 10px">
+        <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+            <input type="text" value="@Model.Restaurante" disabled style="text-transform: uppercase" />
+            <label class="active" for="Restaurante">Restaurante</label>
+        </div>
+    </div>
+
+    if (Model.EquityFranquicia == "EQUITY")
+    {
+        @Html.HiddenFor(model => model.UbicacionPantallas)
+
+        <div class="row">
+
+            <div class="input-field col-sm-4" style="padding-right: 10px;">
+                @Html.EditorFor(model => model.NumeroDeVentanas, new { htmlAttributes = new { @type = "text", @class = "validate center-align", style = "text-transform: uppercase !important" } })
+                <label class="active" for="NumeroDeVentanas">No De Ventanas</label>
+            </div>
+
+            <div class="input-field col-sm-4" style="padding-right: 10px;">
+                @Html.EditorFor(model => model.NoMesaDeAreaDeJuegos, new { htmlAttributes = new { @type = "text", @class = "validate center-align", style = "text-transform: uppercase !important" } })
+                <label class="active" for="NoMesaDeAreaDeJuegos">No Mesa De Área De Juegos</label>
+            </div>
+
+            <div class="input-field col-sm-4" style="padding-right: 10px;">
+                @Html.EditorFor(model => model.NoMesaDeAreaComedor, new { htmlAttributes = new { @type = "text", @class = "validate center-align", style = "text-transform: uppercase !important" } })
+                <label class="active" for="NoMesaDeAreaComedor">No Mesa De Área Comedor</label>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="form-group focus col-sm-6" style="text-transform: uppercase !important">
+                <label for="AcomodoDeCajas">Acomodo De Cajas</label>
+                <div class="customselect">
+                    @Html.DropDownList("AcomodoDeCajas", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[34].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+                </div>
+                <span class="focus-border"></span>
+            </div>
+
+            <div class="form-group focus col-sm-6" style="text-transform: uppercase !important;">
+                <label for="TipoDeCajaId">Tipo Caja</label>
+                <div class="customselect">
+                    @Html.DropDownList("TipoDeCajaId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[33].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+                </div>
+                <span class="focus-border"></span>
+            </div>
+
+        </div>
+    }
+    else if (Model.EquityFranquicia == "FRANQUICIAS")
+    {
+
+        @Html.HiddenFor(model => model.TipoDeCajaId)
+        @Html.HiddenFor(model => model.NoMesaDeAreaComedor)
+        @Html.HiddenFor(model => model.NumeroDeVentanas)
+        @Html.HiddenFor(model => model.UbicacionPantallas)
+
+        <div class="row">
+            <div class="form-group focus col-sm-6" style="text-transform: uppercase !important">
+                <label for="AcomodoDeCajas">Ubicación de Pantallas</label>
+                <div class="customselect">
+                    @Html.DropDownList("AcomodoDeCajas", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[34].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+                </div>
+                <span class="focus-border"></span>
+            </div>
+        </div>
+    }
+
+    <div class="center-align col-sm-12">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%">
+            <i class="large material-icons">check</i>
+        </button>
+
+        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
+                <i class="large material-icons">arrow_back</i>
+            </button>*@
+    </div>
+}
+
+

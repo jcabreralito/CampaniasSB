@@ -1,0 +1,24 @@
+﻿@model CampaniasSB.Models.Rol
+@{
+}
+
+@using (Html.BeginForm("AddOrEdit", "Roles", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.RolId)
+
+    <div class="input-field col s12">
+        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @type = "text", @class = "validate", @required = "true" } })
+        <label for="Nombre">Rol</label>
+    </div>
+
+    <div class="center-align">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+
+        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
+            <i class="large material-icons">arrow_back</i>
+        </button>*@
+    </div>
+}
+

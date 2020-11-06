@@ -1,0 +1,44 @@
+﻿@model CampaniasSB.Models.Usuario
+@{
+    ViewBag.Title = "CAMPAÑAS SB";
+    Layout = "~/Views/Shared/_Layout_Companias.cshtml";
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<div align="center">
+    <img src="~/Content/images/starbucks_logo.png" alt="Image" style="width: 400px; max-width: 100%; height: auto; border-radius: 10px" />
+</div>
+
+@*@if (Model != null && !string.IsNullOrEmpty(Model.Compañia.Logo))
+    {
+            <div align="center">
+                <h1 style="text-align:center"><i class="fas fa-calendar-alt"></i> @Model.Compañia.Nombre Campañas</h1>
+                <img src="@Url.Content(Model.Compañia.Logo)" alt="Image" style="width: 250px; height: 250px; max-width: 100%; height: auto; border-radius: 10px" />
+            </div>
+    }
+    else
+    {
+        <div align="center" style="height: 86vh">
+            <h1 style="text-align:center"><i class="fas fa-calendar-alt"></i> Campañas</h1>
+        </div>
+
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script src="~/Content/js/sweetalert.js" type="text/javascript"></script>
+        <script src="~/Scripts/sweetalert.min.js" type="text/javascript"></script>
+
+        <script>
+            window.onload = function () {
+                var contenedor = document.getElementById('contenedor_carga');
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
+            }
+        </script>
+    }*@

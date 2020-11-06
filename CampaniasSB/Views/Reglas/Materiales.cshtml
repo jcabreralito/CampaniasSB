@@ -1,0 +1,31 @@
+﻿@model CampaniasSB.Models.ReglaMaterial
+@{
+}
+
+@using (Html.BeginForm("Materiales", "Reglas", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.ReglaMaterialId)
+
+    <input type="hidden" name="ReglaId" value="@ViewBag.ReglaId" />
+
+    <div class="row">
+        <div class="form-group focus col-sm-12" style="padding: 0">
+            <label for="ArticuloKFCId" style="padding: 0 0 0 10px;">Material</label>
+            <div class="customselect">
+                @Html.DropDownList("ArticuloKFCId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[2].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+            </div>
+            <span class="focus-border"></span>
+        </div>
+    </div>
+
+    <div class="center-align">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+
+        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
+                <i class="large material-icons">arrow_back</i>
+            </button>*@
+    </div>
+}
+

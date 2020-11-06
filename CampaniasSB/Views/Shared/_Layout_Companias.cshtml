@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <script type="text/javascript">
+        {
+            if (history.forward(1))
+                location.replace(history.forward(1))
+        }
+
+        function nobackbutton() {
+            window.location.hash = "Litoprocess";
+            window.location.hash = "Again-No-back-button" //chrome
+            window.onhashchange = function () { window.location.hash = "Litoprocess"; }
+        }
+
+        window.onload = function () {
+            var contenedor = document.getElementById('contenedor_carga');
+            contenedor.style.visibility = 'hidden';
+            contenedor.style.opacity = '0';
+        }
+
+    </script>
+
+    <link href="~/Content/vendor/DataTables/datatables.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/DataTables/DataTables-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.min.css" media="screen,projection" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/vendor/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="icon" href="~/Content/images/starbucks_logo.png" sizes="32x32" />
+
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <a href="/" class="brand-logo" title="SB">
+                    <img src="~/Content/images/starbucks_logo.png" width="50" height="40" />
+                </a>
+
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+                <ul class="right hide-on-med-and-down">
+                    <li class="col-xs-1">
+                        <div>
+                            <a id="homeB" href="@Url.Action("IndexAdmin", "Home")" class="fas fa-home iconomenu @Session["homeB"].ToString()" title="Inicio" onclick="viewPageIndex()"></a>
+                        </div>
+                    </li>
+                    <li class="col-xs-1">
+                        <div>
+                            <a id="rolesB" href="@Url.Action("Index", "Roles")" class="fas fa-user-lock iconomenu @Session["rolesB"].ToString()" title="Roles" onclick="viewPageIndex()"></a>
+                        </div>
+                    </li>
+                    <li class="col-xs-1">
+                        <div>
+                            <a id="compañiasB" href="@Url.Action("Index", "Compañias")" class="fas fa-building iconomenu @Session["compañiasB"].ToString()" title="Compañias" onclick="viewPageIndex()"></a>
+                        </div>
+                    </li>
+                    <li class="col-xs-1 ">
+                        <div>
+                            <a id=" usuariosB" href="@Url.Action("Index", "Usuarios")" class="fas fa-users iconomenu @Session["usuariosB"].ToString()" title="Usuarios" onclick="viewPageIndex()"></a>
+                        </div>
+                    </li>
+                    <li class="col-xs-1 ">
+                        <div>
+                            <i class="fas fa-user iconomenu" title="@User.Identity.Name" style="background-color: #fff; color: #000; border-radius: 50%; height: 42px !important; width: 42px !important; line-height: initial !important; margin-left: 40px">
+                            </i>
+                        </div>
+                    </li>
+                    <li class="col-xs-1">
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div>
+                                <a href="javascript:document.getElementById('logoutForm').submit()"
+                                   class="fa fa-power-off iconomenu"
+                                   title="Salir" onclick="viewPageIndex()">
+                                </a>
+                            </div>
+                        }
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li>
+                <div class="center-align" style="padding: 20px 0">
+                    <h6 class="text-white">@User.Identity.Name</h6>
+                </div>
+            </li>
+            <li>
+                <a id="homeB" href="@Url.Action("Index", "Home")" class="iconomenu @Session["homeB"].ToString()" onclick="viewPageIndex()">
+                    Inicio
+                    <i class="fas fa-home"></i>
+                </a>
+            </li>
+            <li>
+                <a id="rolesB" href="@Url.Action("Index", "Roles")" class="iconomenu @Session["rolesB"].ToString()" onclick="viewPageIndex()">
+                    Roles
+                    <i class="fas fa-map-marked"></i>
+                </a>
+            </li>
+            <li>
+                <a id="compañiasB" href="@Url.Action("Index", "Compañias")" class="iconomenu @Session["compañiasB"].ToString()" onclick="viewPageIndex()">
+                    Compañias
+                    <i class="fas fa-map-marker-alt"></i>
+                </a>
+            </li>
+            <li>
+                <a id="usuariosB" href="@Url.Action("Index", "Usuarios")" class="iconomenu @Session["usuariosB"].ToString()" onclick="viewPageIndex()">
+                    Usuarios
+                    <i class="fas fa-boxes"></i>
+                </a>
+            </li>
+            <li>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a style="width: 100% !important" href="javascript:document.getElementById('logoutForm').submit()" class="iconomenu" onclick="viewPageIndex()">
+                        Salir
+                        <i class="fas fa-power-off"></i>
+                    </a>
+                }
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="container body-content" style="margin-top: 10px">
+        <div class="jumbotron">
+            <h4 class="center-align"><i class="@Session["iconoTitulo"].ToString()"></i>&nbsp;&nbsp;&nbsp;@ViewBag.Title</h4>
+        </div>
+        <div id="contenedor_carga">
+            <div id="carga">
+            </div>
+            @*<div id="inTurnBlurringTextG">
+                <div id="inTurnBlurringTextG_1" class="inTurnBlurringTextG">K</div>
+                <div id="inTurnBlurringTextG_2" class="inTurnBlurringTextG">F</div>
+                <div id="inTurnBlurringTextG_3" class="inTurnBlurringTextG">C</div>
+                <div id="inTurnBlurringTextG_4" class="inTurnBlurringTextG">.</div>
+                <div id="inTurnBlurringTextG_5" class="inTurnBlurringTextG">.</div>
+                <div id="inTurnBlurringTextG_6" class="inTurnBlurringTextG">.</div>
+            </div>*@
+        </div>
+        @RenderBody()
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+
+    </script>
+
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Content/vendor/DataTables/dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.jqueryui.js"></script>
+    <script type="text/javascript" src="~/Scripts/materialize/materialize.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jqueryForm.js"></script>
+    <script src="~/Scripts/site.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

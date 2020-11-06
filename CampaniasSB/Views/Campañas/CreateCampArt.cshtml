@@ -1,0 +1,1206 @@
+﻿@model IList<CampaniasSB.Controllers.CampañasController.MaterialesTiendasCampaña>
+
+@{
+    ViewBag.Title = "Campaña";
+    Layout = "~/Views/Shared/_Layout_Modales.cshtml";
+
+    var campañaId = Session["campaniaId"];
+    var tipoTienda = string.Empty;
+    var titulo = string.Empty;
+    var campañas = ViewBag.Campañas;
+}
+
+<link href="~/Content/vendor/DataTables/datatables.min.css" rel="stylesheet" />
+<link href="~/Content/vendor/DataTables/DataTables-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/vendor/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.min.css" media="screen,projection" />
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/vendor/font-awesome/css/all.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="icon" href="~/Content/images/starbucks_logo.png" sizes="32x32" />
+
+<style>
+    #crearCampañaTabla th, #crearCampañaTabla td {
+        white-space: nowrap !important;
+        text-align: center;
+    }
+
+    #crearCampañaTabla_wrapper {
+        margin-top: 20px !important;
+    }
+
+    #crearCampañaTabla_filter {
+        margin-top: -25px !important;
+    }
+
+    /*#miTabla_wrapper .dataTables_filter {
+        float: left !important;
+        margin-top: -43px !important;
+    }*/
+</style>
+
+@Html.AntiForgeryToken()
+
+<h2 style="font-size: 18px; font-weight: bold; margin-top: -20px; padding: 6px 0 6px 0;"><i class="fas fa-calendar-alt"></i> @ViewBag.Title @Model.FirstOrDefault().TipoTienda - CAMPAÑA : @Model.FirstOrDefault().Campaña &nbsp;&nbsp;&nbsp;&nbsp;TOTAL : @ViewBag.Total.ToString("N0")</h2>
+<a href="@Url.Action("Index", "Campañas")" style="border-radius:10px; float: right; margin-top: -50px; font-size: 17px" onclick="viewPageIndex()">
+    <i class="fas fa-times-circle btn btn-pilares" style="font-size: 20px; padding: 6px 12px 0 14px"></i>
+</a>
+
+<table id="crearCampañaTabla" class="table table-striped table-hover table-bordered compact" style="width:100%; text-transform: uppercase;">
+    <thead>
+        <tr>
+            <th style="background-color: #000 !important; text-align: center !important">
+                RESTAURANTE
+            </th>
+            <th style="background-color: #000 !important; text-align: center !important">
+                CC
+            </th>
+            <th style="background-color: #000 !important; text-align: center !important">
+                CLASIFICACIÓN
+            </th>
+            <th style="background-color: #000 !important; text-align: center !important">
+                REGIÓN
+            </th>
+            <th style="background-color: #000 !important; text-align: center !important">
+                CIUDAD
+            </th>
+            <th style="background-color: #000 !important; width: 400px !important">
+                DIRECCIÓN
+            </th>
+            @*@if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #FFDC5A !important; color: #000 !important">
+                        TIPO
+                    </th>
+                }
+                <th style="background-color: #FFDC5A !important; color: #000 !important">
+                    NUEVO NIVEL DE PRECIO
+                </th>
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #FFDC5A !important; color: #000 !important">
+                        MENÚ DIGITAL
+                    </th>
+                    <th style="background-color: #FFDC5A !important; color: #000 !important">
+                        CANTIDAD DE PANTALLAS
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                        3RA RECETA
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                        ARROZ
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                        HAMBURGUESAS
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                        ENSALADA
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY")
+                {
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                        PET DE 2 LITROS
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                        POSTRES
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                        BISQUET MIEL
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                        KE-KONO
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                        KREAMBALL
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        AUTOEXPRESS
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        AE MEDIDA ESPECIAL
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        MENÚ BACKLIGHT
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        COPETE AE REMODELADO
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        COPETE AE TRADICIONAL
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        ÁREA DE JUEGOS
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        PANEL DE INNNOVACIÓN
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        DISPLAY DE BURBUJA
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        DELIVERY
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        DISPLAY DE PISO
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        WC NACIONAL 67X100CM
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        AE HOLDING
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        AE CARIBE
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        PANEL DE COMPLEMENTOS HOLDING
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        PANEL DE COMPLEMENTOS SIN ARROZ SIN 3RA RECETA
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        PANEL A LA CARTA CARIBE
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        PANEL A LA CARTA CARIBE SIN 3RA RECETA
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        PANEL A LA CARTA HOLDING
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                        PANEL A LA CARTA HOLDING SIN 3RA RECETA
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY")
+                {
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                        NUMERO DE VENTANAS
+                    </th>
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                        # MESA ÁREAS DE JUEGO
+                    </th>
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                        # MESA ÁREAS DE COMEDOR
+                    </th>
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                        ACOMODO DE CAJA
+                    </th>
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                        TIPO DE CAJA
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                        UBICACIÓN PANTALLAS
+                    </th>
+                }*@
+            @foreach (var item in Model.Where(x => x.ProveedorId != 5).GroupBy(x => new { x.ArticuloKFC, x.ArticuloKFCId, x.CampañaId }))
+            {
+                <th>
+
+                    @if (@campañas == "NO")
+                    {
+                        <a onclick="PopupForm('@Url.Action("Cantidades","Materiales", new { id = item.Key.ArticuloKFCId, cam = item.Key.CampañaId })')" class="btn-danger" style="background-color: transparent; border:none; font-size: 20px; text-decoration: none">
+                            <i class="fas fa-plus-circle"></i>
+                        </a>
+                    }
+                    @item.Key.ArticuloKFC
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item2 in Model.GroupBy(x => new { x.TiendaId, x.Restaurante }))
+        {
+            <tr>
+                <td style="text-align: left !important">
+                    @item2.Key.Restaurante
+                </td>
+                @foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.CC }))
+                {
+                    <td align="center">
+                        @item.Key.CC
+                    </td>
+                }
+                @foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Clasificacion }))
+                {
+                    <td align="center">
+                        @item.Key.Clasificacion
+                    </td>
+                }
+                @foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Region }))
+                {
+                    <td align="center">
+                        @item.Key.Region
+                    </td>
+                }
+                @foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Ciudad }))
+                {
+                    <td align="center">
+                        @item.Key.Ciudad
+                    </td>
+                }
+                @foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Direccion }))
+                {
+                    <td>
+                        @item.Key.Direccion
+                    </td>
+                }
+                @*@if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Tipo }))
+                        {
+                            <td align="center">
+                                @item.Key.Tipo
+                            </td>
+                        }
+                    }
+                    @foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.NuevoNivelDePrecio }))
+                    {
+                        <td align="center">
+                            @item.Key.NuevoNivelDePrecio
+                        </td>
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.MenuDigital }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.MenuDigital == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.CantidadDePantallas }))
+                        {
+                            <td align="center">
+                                @item.Key.CantidadDePantallas
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.TerceraReceta }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.TerceraReceta == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Arroz }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.Arroz == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Hamburgesas }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.Hamburgesas == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Ensalada }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.Ensalada == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "EQUITY")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.PET2Litros }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.PET2Litros == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Postres }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.Postres == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.BisquetMiel }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.BisquetMiel == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.KeCono }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.KeCono == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.KREAMBALL }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.KREAMBALL == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Autoexpress }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.Autoexpress == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.AEMedidaEspecial }))
+                        {
+                            var menu = string.Empty;
+
+                            if (item.Key.AEMedidaEspecial == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "EQUITY")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.MenuBackLigth }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.MenuBackLigth == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.CopeteAERemodelado }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.CopeteAERemodelado == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.CopeteAETradicional }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.CopeteAETradicional == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.AreaDeJuegos }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.AreaDeJuegos == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.PanelDeInnovacion }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.PanelDeInnovacion == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.DisplayDeBurbuja }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.DisplayDeBurbuja == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.Delivery }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.Delivery == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.DisplayDePiso }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.DisplayDePiso == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.WCNACIONAL67X100cm }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.WCNACIONAL67X100cm == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.AEHolding }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.AEHolding == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.AECaribe }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.AECaribe == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.PanelComplementosHolding }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.PanelComplementosHolding == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.PanelDeComplementosSinArrozSin3raReceta }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.PanelDeComplementosSinArrozSin3raReceta == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.PanelALaCartaCaribe }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.PanelALaCartaCaribe == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.PanelALaCartaCaribeSin3raReceta }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.PanelALaCartaCaribeSin3raReceta == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.PanelALaCartaHolding }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.PanelALaCartaHolding == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.PanelALaCartaHoldingSin3raReceta }))
+                        {
+                            var menu = string.Empty;
+
+                            if (@item.Key.PanelALaCartaHoldingSin3raReceta == true)
+                            {
+                                menu = "SI";
+                            }
+                            else
+                            {
+                                menu = "NO";
+                            }
+
+                            <td align="center">
+                                @menu
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "EQUITY")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.NumeroDeVentanas }))
+                        {
+                            <td align="center">
+                                @item.Key.NumeroDeVentanas
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.NoMesaDeAreaDeJuegos }))
+                        {
+                            <td align="center">
+                                @item.Key.NoMesaDeAreaDeJuegos
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.NoMesaDeAreaComedor }))
+                        {
+                            <td align="center">
+                                @item.Key.NoMesaDeAreaComedor
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.AcomodoDeCajas }))
+                        {
+                            <td align="center">
+                                @item.Key.AcomodoDeCajas
+                            </td>
+                        }
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.TipoDeCaja }))
+                        {
+                            <td align="center">
+                                @item.Key.TipoDeCaja
+                            </td>
+                        }
+                    }
+                    @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                    {
+                        foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId).GroupBy(x => new { x.Restaurante, x.AcomodoDeCajas }))
+                        {
+                            <td align="center">
+                                @item.Key.AcomodoDeCajas
+                            </td>
+                        }
+                    }*@
+
+
+                @foreach (var item in Model.Where(x => x.TiendaId == item2.Key.TiendaId && x.ProveedorId != 5).GroupBy(x => new { x.ArticuloKFC, x.Restaurante, x.Cantidad, x.Habilitado }))
+                {
+                    <td align="center">
+                        @item.Key.Cantidad
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th style="background-color: #000 !important; text-align: center !important">
+                TOTAL
+            </th>
+            <th style="background-color: #000 !important; text-align: center !important">
+            </th>
+            <th style="background-color: #000 !important; text-align: center !important">
+            </th>
+            <th style="background-color: #000 !important; text-align: center !important">
+            </th>
+            <th style="background-color: #000 !important; text-align: center !important">
+            </th>
+            <th style="background-color: #000 !important">
+            </th>
+            @*@if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #FFDC5A !important; color: #000 !important">
+                    </th>
+                }
+                <th style="background-color: #FFDC5A !important; color: #000 !important">
+                </th>
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #FFDC5A !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #FFDC5A !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY")
+                {
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #00B0F0 !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY" || Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #BB93D0 !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "EQUITY")
+                {
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                    </th>
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                    </th>
+                }
+                @if (Model.FirstOrDefault().TipoTienda == "FRANQUICIAS")
+                {
+                    <th style="background-color: #AAE6FF !important; color: #000 !important">
+                    </th>
+                }*@
+            @foreach (var item in ViewBag.TotalMaterial)
+            {
+                <th align="center">
+                    @item.TotalCantidad
+                </th>
+            }
+        </tr>
+    </tfoot>
+</table>
+
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Content/vendor/DataTables/dataTables.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.jqueryui.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/materialize/materialize.min.js"></script>
+<script src="~/Scripts/site.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/notify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+<script>
+
+    var Popup, dataTableCrearCampaña;
+    $(document).ready(function () {
+        dataTableCrearCampaña = $('#crearCampañaTabla').DataTable({
+            "serverSide": false,
+            "deferRender": true,
+            "order": [[1, "asc"]],
+            "pagingType": "full_numbers",
+            "language": {
+                "emptyTable": "No hay datos, dar click en el botón <b>Agregar</b>",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sInfo": "_END_ registros",
+                "sInfoEmpty": "Registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "de un total de _MAX_",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando informacíon...",
+                "oPaginate": {
+                    "sFirst": "<<",
+                    "sLast": ">>",
+                    "sNext": ">",
+                    "sPrevious": "<"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "buttons": {
+                    "copy": "Copiar",
+                    "colvis": "Mostrar/Ocultar Columnas",
+                    "pageLength": 'Mostrar registros',
+                },
+                select: {
+                    rows: {
+                        _: "%d registros seleccionados",
+                        0: "",
+                        1: "1 registro seleccionado"
+                    }
+                },
+            },
+            "columnDefs": [
+                { "orderable": false, "targets": [-1] },
+                //{ "searchable": false, "targets": [1] },
+            ],
+            //initComplete: function () {
+            //    this.api().columns().every(function () {
+            //        var column = this;
+            //        var select = $('<select style="color: #fff"><option value="">TODOS</option></select>')
+            //            .appendTo($(column.footer()))
+            //            .on('change', function () {
+            //                var val = $.fn.dataTable.util.escapeRegex(
+            //                    $(this).val()
+            //                );
+
+            //                column
+            //                    .search(val ? '^' + val + '$' : '', true, false)
+            //                    .draw();
+            //            });
+
+            //        $(select).click(function (e) {
+            //            e.stopPropagation();
+            //        });
+
+            //        column.data().unique().sort().each(function (d, j) {
+            //            select.append('<option value="' + d + '">' + d + '</option>')
+            //        });
+            //    });
+            //},
+            dom: 'lfBrtip',
+            autoWidth: true,
+            //responsive: true,
+            buttons: [
+                {
+                    extend: 'colvis',
+                    columns: ':gt(1)',
+                    text: '<i class="fas fa-tasks" title="Mostrar / Ocultar Columnas"></i>',
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: null,
+                    text: '<i class="fas fa-file-excel" title="Exportar a Excel"></i>',
+                    exportOptions: {
+                        orthogonal: 'export',
+                        columns: "thead th:not(.noExport)",
+                        //columns: ':visible',
+                    },
+                    //customize: function (win) {
+                    //    $(win.document.body).find('table').addClass('display').css('font-size', '9px');
+                    //    $(win.document.body).find('tr:nth-child(odd) td').each(function () {
+                    //        $(this).css('background-color', '#D0D0D0');
+                    //    });
+                    //    $(win.document.body).find('h1').css('text-align', 'center');
+                    //},
+                    filename: 'Campañas',
+                    autoFilter: true,
+                    sheetName: 'Campañas',
+                    messageTop: null,
+                    body: true,
+                    footer: true,
+                    //autoClose: true,
+                    //customize: function (xlsx) {
+                    //    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                    //    // Loop over the cells in column `C`
+                    //    $('row c[r^="D"]', sheet).each(function () {
+                    //        // Get the value
+                    //        if ($('is t', this).text() == 'CENTRO') {
+                    //            $(this).attr('s', '20');
+                    //        }
+                    //    });
+                    //},
+                },
+            ],
+            autoWidth: true,
+            fixedColumns: true,
+            fixedColumns: {
+                leftColumns: 2,
+            },
+            stateSave: true,
+            select: true,
+            scrollY: true,
+            scrollX: true,
+            keys: false,
+            'bLengthChange': true,
+            'bInfo': true,
+            "lengthMenu": [[-1, 15, 25, 50, 100], ["TODOS", 15, 25, 50, 100]],
+        });
+    });
+
+    function PopupForm(url) {
+        viewPage();
+        var formDiv = $('<div/>');
+        $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'CANTIDADES',
+                    width: 750,
+                    modal: true,
+                    closeOnEscape: false,
+                    closeText: "Cerrar",
+                    hide: { effect: "fade", duration: 550 },
+                    show: { effect: "fade", duration: 550 },
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                        hidePages();
+                    }
+                });
+            });
+    }
+
+    function SubmitForm(form) {
+        var formData = new FormData(form);
+        $.validator.unobtrusive.parse(form);
+        if ($(form).valid()) {
+            $.ajax({
+                type: "POST",
+                url: form.action,
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    if (data.success) {
+                        Popup.dialog('close');
+                        //dataTableCrearCampaña.fnDraw(false);
+                        $.notify(data.message, {
+                            globalPosition: "top center",
+                            className: "success",
+                            autoHide: true,
+                            autoHideDelay: 2000,
+                        })
+                    }
+                }
+            });
+        }
+        return false;
+    }
+
+
+</script>

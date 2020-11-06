@@ -1,0 +1,105 @@
+﻿@model CampaniasSB.Models.Articulo
+@{
+}
+
+@using (Html.BeginForm("AddOrEdit", "Materiales", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.ArticuloKFCId)
+    @Html.HiddenFor(model => model.Eliminado)
+    @Html.HiddenFor(model => model.Imagen)
+
+    <div class="row">
+        <div class="input-field col s12" style="text-transform: uppercase !important">
+            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @type = "text", @class = "validate", @required = "true", style = "text-transform: uppercase !important" } })
+            <label class="active" for="Descripcion">Material</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group focus col-sm-6" style="text-transform: uppercase !important; padding-left: 0; padding-right: 0;">
+            <label for="FamiliaId" style="padding: 0 0 0 10px;">Familia</label>
+            <div class="customselect">
+                @Html.DropDownList("FamiliaId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[3].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+            </div>
+            <span class="focus-border"></span>
+        </div>
+        <div class="form-group focus col-sm-4" style="text-transform: uppercase !important; padding-left: 0; padding-right: 0;">
+            <label for="ProveedorId" style="padding: 0 0 0 10px;">Proveedor</label>
+            <div class="customselect">
+                @Html.DropDownList("ProveedorId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[2].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+            </div>
+            <span class="focus-border"></span>
+        </div>
+
+        <div class="input-field col-sm-2" style="margin-top: 11px">
+            @Html.EditorFor(model => model.CantidadDefault, new { htmlAttributes = new { @type = "text", @class = "validate center-align", @required = "true", style = "text-transform: uppercase !important" } })
+            <label class="active" for="CantidadDefault">Cantidad</label>
+        </div>
+    </div>
+
+    if (Model.ArticuloKFCId == 0)
+    {
+        <div class="row" style="margin-top: -20px !important; margin-bottom: 0; margin-left: 10px">
+
+            <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+                @Html.TextAreaFor(model => model.Observaciones, new { @class = "materialize-textarea validate", style = "text-transform: uppercase !important" })
+                <label class="active" for="Observaciones" style="margin-left: 5px">Observaciones</label>
+            </div>
+
+        </div>
+    }
+    else
+    {
+<div class="row" style="margin-top: -20px !important; margin-bottom: 0; margin-left: 10px">
+    <div class="input-field center-align col-sm-4">
+        @Html.CheckBoxFor(model => model.Activo, new { @class = "switch_1" })
+        <label class="active" for="Activo">Activo</label>
+    </div>
+
+    <div class="input-field col-sm-8" style="text-transform: uppercase !important">
+        @Html.TextAreaFor(model => model.Observaciones, new { @class = "materialize-textarea validate", style = "text-transform: uppercase !important" })
+        <label class="active" for="Observaciones" style="margin-left: 5px">Observaciones</label>
+    </div>
+
+</div>
+    }
+
+<div class="row" style="margin-bottom: -5px">
+
+    <div class="form-group focus col-sm-4" style="text-transform: uppercase !important; padding-left: 0; padding-right: 0;">
+        <label for="EquityFranquicia" style="padding: 0 0 0 10px;">Categoría</label>
+        <div class="customselect">
+            @Html.DropDownList("EquityFranquicia", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[5].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+        </div>
+        <span class="focus-border"></span>
+    </div>
+
+    <div class="input-field col-sm-8" style="text-transform: uppercase !important">
+        @Html.EditorFor(model => model.LigaImagen, new { htmlAttributes = new { @type = "text", @class = "validate", style = "text-transform: lowercase !important" } })
+        <label class="active" for="LigaImagen">Link de la Imagen</label>
+    </div>
+</div>
+
+    <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+        <div style="margin-top: -10px">
+            <label for="ImagenFile" class="subir">
+                <i class="fas fa-cloud-upload-alt"></i> Elegir Imagen...
+            </label>
+            &nbsp;&nbsp; @Html.TextBoxFor(modelo => modelo.ImagenFile, new { type = "file", accept = "image/*", style = "display: none;", onchange = "readURL(this);" })
+        </div>
+        <div class="center-align" style="margin-bottom: 5px">
+            <div id="info"></div>
+            <img id="blah" src="~/Content/images/Productos/@Model.Imagen" style="margin-top: 4px" height="220" alt="Imagen KFC" />
+        </div>
+    </div>
+
+    <div class="center-align col-sm-12">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+
+        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
+                <i class="large material-icons">arrow_back</i>
+            </button>*@
+    </div>
+}

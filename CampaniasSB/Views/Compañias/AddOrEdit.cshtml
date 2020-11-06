@@ -1,0 +1,46 @@
+﻿@model CampaniasSB.Models.Compañia
+@{
+}
+
+@using (Html.BeginForm("AddOrEdit", "Compañias", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.CompañiaId)
+    @Html.HiddenFor(model => model.Logo)
+
+    <div class="input-field col s12">
+        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @type = "text", @class = "validate", @required = "true" } })
+        <label for="Nombre">Compañia</label>
+    </div>
+
+    <div class="form-group col-sm-9" style="width: 100%; margin-bottom: 60px">
+        <div class="col-sm-12">
+            <div class="file-input-new">
+                <div class="input-group loadFile">
+                    <div tabindex="500" class="form-control file-caption">
+                        <input type="text" id="NombreArchivo" disabled="disabled">
+                        @*<div class="file-caption-name" id="NombreArchivo">
+                                Imagen
+                            </div>*@
+                    </div>
+                    <div class="input-group-btn" style="height:auto">
+                        <div tabindex="500" class="btn btn-primary btn-file">
+                            <i class="glyphicon glyphicon-folder-open"> </i>
+                            @Html.TextBoxFor(modelo => modelo.LogoFile, new { type = "file", id = "files", accept = "image/png, image/jpeg, image/gif" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="center-align">
+
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" formenctype="multipart/form-data" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+
+        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
+            <i class="large material-icons">arrow_back</i>
+        </button>*@
+    </div>
+}

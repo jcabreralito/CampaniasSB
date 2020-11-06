@@ -1,0 +1,233 @@
+﻿@{
+    ViewBag.Title = "Características";
+    Layout = "~/Views/Shared/_Layout_Restaurantes.cshtml";
+}
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-sm green" title="Agregar" onclick="PopupForm('@Url.Action("AddOrEdit","RestauranteCaracteristicas")')">
+        <i class="large material-icons">add_circle</i>
+    </a>
+</div>
+
+<table id="caracteristicasTable" class="table table-striped table-hover table-bordered compact" style="width:100%; text-transform: uppercase">
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+@section scripts{
+
+    <script>
+        var PopupRC, dataTableRC;
+        $(document).ready(function () {
+            dataTableRC = $("#caracteristicasTable").DataTable({
+                "ajax": {
+                    "url": "RestauranteCaracteristicas/GetData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    {
+                        "data": "Nombre", "render": function (data) {
+                            return "<span>" + data + "</span>";
+                        },
+                        "title": "Característica"
+                    },
+                    {
+                        "data": "TipoConfiguracion", "render": function (data) {
+                            return "<span>" + data + "</span>";
+                        },
+                        "title": "Categoría",
+                        "className": "dt-body-center text-center",
+                    },
+                    {
+                        "data": "EquityFranquicia", "render": function (data) {
+                            return "<span>" + data + "</span>";
+                        },
+                        "title": "Tipo",
+                        "searchable": true,
+                        "className": "dt-body-center text-center",
+                    },
+                    {
+                        "data": "TiendaConfiguracionId", "render": function (data) {
+                            return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' onclick=PopupForm('@Url.Action("AddOrEdit", "RestauranteCaracteristicas")/" + data + "')><i class='fas fa-pencil-alt'></i></a>";
+                        },
+                        "title": "Editar",
+                        "orderable": false,
+                        "searchable": false,
+                        "className": "dt-body-center text-center",
+                    },
+                    {
+                        "data": "TiendaConfiguracionId", "render": function (data) {
+                            return "<a class='btn-danger btn-lg' style='background-color: transparent; cursor: pointer' onclick=Delete(" + data + ")><i class='fas fa-trash' style='color: #067655'></i></a>";
+                        },
+                        "title": "Eliminar",
+                        "orderable": false,
+                        "searchable": false,
+                        "className": "dt-body-center text-center",
+                    },
+                ],
+                //"serverSide": true,
+                "language": {
+                    "emptyTable": "No hay datos, dar click en el botón <b>Agregar</b>",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sInfo": "_END_ registros",
+                    "sInfoEmpty": "Registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "de un total de _MAX_",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "<<",
+                        "sLast": ">>",
+                        "sNext": ">",
+                        "sPrevious": "<"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    },
+                    "buttons": {
+                        "copy": "Copiar",
+                        "colvis": "Mostrar/Ocultar Columnas"
+                    },
+                    select: {
+                        rows: {
+                            _: "%d registros seleccionados",
+                            0: "",
+                            1: "1 registro seleccionado"
+                        }
+                    },
+                },
+                dom: 'lfrtip',
+                //autoWidth: false,
+                //fixedColumns: true,
+                fixedColumns: {
+                    leftColumns: 1,
+                },
+                initComplete: function () {
+                    this.api().columns([1, 2]).every(function () {
+                        var column = this;
+                        var select = $('<select><option value="">=TODOS=</option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                },
+                stateSave: true,
+                select: true,
+                scrollY: true,
+                scrollX: false,
+                keys: false,
+                'bLengthChange': true,
+                'bInfo': true,
+                "lengthMenu": [[-1, 15, 25, 50, 100], ["TODOS", 15, 25, 50, 100]],
+            });
+        });
+
+        function PopupForm(url) {
+            viewPage();
+            var formDiv = $('<div/>');
+            $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'CARACTERÍSTICAS',
+                    width: 700,
+                    modal: true,
+                    closeOnEscape: false,
+                    closeText: "Cerrar",
+                    hide: { effect: "fade", duration: 550 },
+                    show: { effect: "fade", duration: 550 },
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                        hidePages();
+                    }
+                });
+            });
+        }
+
+        function SubmitForm(form) {
+            $.validator.unobtrusive.parse(form);
+            if($(form).valid()){
+                $.ajax({
+                    type : "POST",
+                    url : form.action,
+                    data : $(form).serialize(),
+                    success : function (data) {
+                        if(data.success)
+                        {
+                            Popup.dialog('close');
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message,{
+                                globalPosition :"top center",
+                                className: "success",
+                                autoHide: true,
+                                autoHideDelay: 2000,
+                            })
+
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function Delete(id) {
+            Swal.fire({
+                title: '¿ Eliminar Característica ?',
+                //text: "You won't be able to revert this!",
+                //icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#067655',
+                cancelButtonColor: '#067655',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+            }).then((result) => {
+                if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete", "RestauranteCaracteristicas")/' + id,
+                    success: function (data) {
+                        if (data.success)
+                        {
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+
+                        }
+                    }
+
+                });
+                }
+            })
+
+        }
+    </script>
+}

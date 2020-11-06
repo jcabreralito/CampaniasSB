@@ -1,0 +1,250 @@
+﻿@model CampaniasSB.Models.Tienda
+@{
+}
+
+@using (Html.BeginForm("EditCMES", "Restaurantes", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.TiendaId)
+    @Html.HiddenFor(model => model.EquityFranquicia)
+
+    @Html.HiddenFor(model => model.TerceraReceta)
+    @Html.HiddenFor(model => model.Arroz)
+    @Html.HiddenFor(model => model.Hamburgesas)
+    @Html.HiddenFor(model => model.Ensalada)
+    @Html.HiddenFor(model => model.PET2Litros)
+    @Html.HiddenFor(model => model.Postres)
+    @Html.HiddenFor(model => model.BisquetMiel)
+    @Html.HiddenFor(model => model.KeCono)
+    @Html.HiddenFor(model => model.KREAMBALL)
+
+    @Html.HiddenFor(model => model.MenuBackLigth)
+    @Html.HiddenFor(model => model.Autoexpress)
+    @*@Html.HiddenFor(model => model.AEMedidaEspecial)*@
+    @Html.HiddenFor(model => model.CopeteAERemodelado)
+    @Html.HiddenFor(model => model.CopeteAETradicional)
+    @Html.HiddenFor(model => model.PanelDeInnovacion)
+    @Html.HiddenFor(model => model.DisplayDeBurbuja)
+    @Html.HiddenFor(model => model.Delivery)
+    @Html.HiddenFor(model => model.MERCADO_DE_PRUEBA)
+    @Html.HiddenFor(model => model.AreaDeJuegos)
+    @Html.HiddenFor(model => model.COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS)
+    @Html.HiddenFor(model => model.COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L)
+    @Html.HiddenFor(model => model.DisplayDePiso)
+    @Html.HiddenFor(model => model.WCNACIONAL67X100cm)
+    @Html.HiddenFor(model => model.AEHolding)
+    @Html.HiddenFor(model => model.AECaribe)
+    @Html.HiddenFor(model => model.PanelComplementosHolding)
+    @Html.HiddenFor(model => model.PanelDeComplementosSinArrozSin3raReceta)
+    @Html.HiddenFor(model => model.PanelALaCartaCaribe)
+    @Html.HiddenFor(model => model.PanelALaCartaCaribeSin3raReceta)
+    @Html.HiddenFor(model => model.PanelALaCartaHolding)
+    @Html.HiddenFor(model => model.PanelALaCartaHoldingSin3raReceta)
+    @Html.HiddenFor(model => model.PanelDeComplementosDigital)
+    @Html.HiddenFor(model => model.PanelComplementosHoldingMR)
+    @Html.HiddenFor(model => model.StickerNavidad)
+    @Html.HiddenFor(model => model.AreaDeJuegos)
+
+    if (Model.EquityFranquicia == "FRANQUICIAS")
+    {
+        @Html.HiddenFor(model => model.AEMedidaEspecial)
+        @Html.HiddenFor(model => model.WCMedidaEspecial60_8x85cm)
+        @Html.HiddenFor(model => model.WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm)
+        @Html.HiddenFor(model => model.WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm)
+        @Html.HiddenFor(model => model.WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm)
+        @Html.HiddenFor(model => model.WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm)
+        @Html.HiddenFor(model => model.MedidaEspecialPanelDeComplementos)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm)
+        @Html.HiddenFor(model => model.MEDIDA_BACKLIGHT_55_5X75_5CM)
+        @Html.HiddenFor(model => model.MEDIDA_BACKLIGHT_59_5X79CM)
+        @Html.HiddenFor(model => model.MEDIDAS_ESPECIALES_MENU)
+    }
+
+    @*@Html.HiddenFor(model => model.AEMedidaEspecial)
+        @Html.HiddenFor(model => model.WCMedidaEspecial60_8x85cm)
+        @Html.HiddenFor(model => model.WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm)
+        @Html.HiddenFor(model => model.WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm)
+        @Html.HiddenFor(model => model.WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm)
+        @Html.HiddenFor(model => model.WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm)
+        @Html.HiddenFor(model => model.MedidaEspecialPanelDeComplementos)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_60_8x85cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_CORREO_MAYOR)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_ZARAGOZA_90x100cm_60x90cm)
+        @Html.HiddenFor(model => model.MEDIDA_ESPECIAL_ZUAZUA_87x120cm)
+        @Html.HiddenFor(model => model.MEDIDA_BACKLIGHT_55_5X75_5CM)
+        @Html.HiddenFor(model => model.MEDIDA_BACKLIGHT_59_5X79CM)
+        @Html.HiddenFor(model => model.MEDIDAS_ESPECIALES_MENU)*@
+
+    @Html.HiddenFor(model => model.TipoDeCajaId)
+    @Html.HiddenFor(model => model.AcomodoDeCajas)
+    @Html.HiddenFor(model => model.NoMesaDeAreaComedor)
+    @Html.HiddenFor(model => model.NoMesaDeAreaDeJuegos)
+    @Html.HiddenFor(model => model.NumeroDeVentanas)
+    @Html.HiddenFor(model => model.UbicacionPantallas)
+    @Html.HiddenFor(model => model.Telefono)
+    @Html.HiddenFor(model => model.TelefonoPersonalizado)
+
+    @Html.HiddenFor(model => model.Observaciones)
+    @Html.HiddenFor(model => model.Activo)
+    @Html.HiddenFor(model => model.Clasificacion)
+    @Html.HiddenFor(model => model.CCoFranquicia)
+    @Html.HiddenFor(model => model.Restaurante)
+    @Html.HiddenFor(model => model.RegionId)
+    @Html.HiddenFor(model => model.CiudadId)
+    @Html.HiddenFor(model => model.Direccion)
+
+    @Html.HiddenFor(model => model.TipoId)
+    @Html.HiddenFor(model => model.NuevoNivelDePrecioId)
+    @Html.HiddenFor(model => model.MenuDigital)
+    @Html.HiddenFor(model => model.CantidadDePantallas)
+
+    @*@Html.HiddenFor(model => model.MERCADO_DE_PRUEBA)
+        @Html.HiddenFor(model => model.COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS)
+        @Html.HiddenFor(model => model.COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L)*@
+
+    @*@Html.HiddenFor(model => model.DisplayDePiso)
+        @Html.HiddenFor(model => model.WCNACIONAL67X100cm)*@
+
+    <div class="input-field col-sm-12" style="text-transform: uppercase !important; margin-top: -10px">
+        <h6 class="red-text center-align"><strong>CONFIGURACIÓN POR MATERIALES ESPECIFICOS</strong></h6>
+    </div>
+
+    <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+        <input type="text" value="@Model.Restaurante" disabled style="text-transform: uppercase" />
+        <label class="active" for="Restaurante">Restaurante</label>
+    </div>
+
+    if (Model.EquityFranquicia == "FRANQUICIAS")
+    {
+        <div class="row">
+            <div class="input-field center-align col-sm-6">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm">MEDIDA ESPECIAL AE ZUAZUA 51x71cm</label>
+            </div>
+        </div>
+    }
+    else if (Model.EquityFranquicia == "EQUITY")
+    {
+        <div class="row">
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.AEMedidaEspecial, new { @class = "switch_1" })
+                <label class="active" for="AEMedidaEspecial">AE Medida Especial</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.WCMedidaEspecial60_8x85cm, new { @class = "switch_1" })
+                <label class="active" for="WCMedidaEspecial60_8x85cm">WC Medida Especial 60.8x85cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm, new { @class = "switch_1" })
+                <label class="active" for="WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm">WC MEDIDA ESPECIAL MALL ORIENTE 100x120cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm, new { @class = "switch_1" })
+                <label class="active" for="WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm">WC MEDIDA ESPECIAL ZUAZUA 87x120cm</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm, new { @class = "switch_1" })
+                <label class="active" for="WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm">WC MEDIDA ESPECIAL CORREO MAYOR 60x90cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm, new { @class = "switch_1" })
+                <label class="active" for="WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm">WC MEDIDA ESPECIAL ZARAGOZA 90x100cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MedidaEspecialPanelDeComplementos, new { @class = "switch_1" })
+                <label class="active" for="MedidaEspecialPanelDeComplementos">Medida Especial Panel De Complementos</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm">MED ESP PRE MENU AE SN ANTONIO 49x67.5cm</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm">MEDIDA ESPECIAL AE TECAMAC 48x67.5cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm">MEDIDA ESPECIAL AE VILLA GARCIA 45x65cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm">MEDIDA ESPECIAL AE XOLA 49.9x66.9cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm">MEDIDA ESPECIAL AE ZUAZUA 51x71cm</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm">MEDIDA ESPECIAL AE VALLE SOLEADO 51x71cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm">MEDIDA ESPECIAL AE MIRASIERRA 46x68cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm">MEDIDA ESPECIAL AE CELAYA 50x68.5cm</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm">MEDIDA ESPECIAL AE CANDILES 49.5x73.5cm</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_BACKLIGHT_55_5X75_5CM, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_BACKLIGHT_55_5X75_5CM">MEDIDA BACKLIGHT 55.5X75.5CM</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDA_BACKLIGHT_59_5X79CM, new { @class = "switch_1" })
+                <label class="active" for="MEDIDA_BACKLIGHT_59_5X79CM">MEDIDA BACKLIGHT 59.5X79CM</label>
+            </div>
+            <div class="input-field center-align col-sm-3">
+                @Html.CheckBoxFor(model => model.MEDIDAS_ESPECIALES_MENU, new { @class = "switch_1" })
+                <label class="active" for="MEDIDAS_ESPECIALES_MENU">MEDIDAS ESPECIALES MENU</label>
+            </div>
+        </div>
+
+    }
+
+    <div class="center-align col-sm-12">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+
+        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
+                <i class="large material-icons">arrow_back</i>
+            </button>*@
+    </div>
+}
+
+
+
+

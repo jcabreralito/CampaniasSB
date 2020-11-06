@@ -1,0 +1,35 @@
+﻿@model CampaniasSB.Models.Campaña
+@{
+}
+
+@using (Html.BeginForm("AddOrEdit", "Campañas", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.CampañaId)
+    @Html.HiddenFor(model => model.Nombre)
+    @Html.HiddenFor(model => model.Generada)
+
+    <div class="row">
+        <div class="input-field col s12" style="text-transform: uppercase !important">
+            @*<input type="text" id="Nombre" value="@ViewBag.Consecutivo" readonly />*@
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @type = "text", @class = "validate", @readonly = "readonly", style = "text-transform: uppercase !important" } })
+            <label for="Nombre" class="active">Campaña</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12" style="text-transform: uppercase !important">
+            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @type = "text", @class = "validate", @required = "true", style = "text-transform: uppercase !important" } })
+            <label for="Descripcion" class="active">Nombre</label>
+        </div>
+    </div>
+
+    <div class="center-align">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+
+        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
+                <i class="large material-icons">arrow_back</i>
+            </button>*@
+    </div>
+}

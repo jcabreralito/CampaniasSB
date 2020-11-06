@@ -1,0 +1,126 @@
+﻿@model IList<CampaniasSB.Controllers.MaterialesController.MaterialesTiendasCampaña>
+
+@{
+}
+
+<style>
+    #cantidadEquityTable th, #cantidadEquityTable td {
+        white-space: nowrap !important;
+    }
+
+    #cantidadEquityTable_wrapper {
+        margin-top: -10px !important;
+    }
+
+    .checkMat [type="checkbox"] + span:not(.lever) {
+        position: relative !important;
+        cursor: default !important;
+        font-size: 12px !important;
+    }
+
+    #cantidadEquityTable_wrapper .dataTables_filter {
+        float: left !important;
+        margin-top: -43px !important;
+    }
+
+    #cantidadEquityTable .dataTables_scrollHead {
+        background-color: #067655;
+        border-radius: 10px
+    }
+</style>
+
+@using (Html.BeginForm("Cantidades", "Materiales", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    <div style="max-height: 90vh !important; min-height: 70vh; height: 89vh; margin-top: -14px !important; text-align: center;">
+
+        <h5>@ViewBag.Material</h5>
+        <br />
+        <br />
+
+        <table id="cantidadEquityTable" class="table table-striped table-bordered compact nowrap" style="width:100%; text-transform: uppercase; margin-top: 0 !important">
+            <thead>
+                <tr>
+                    <th class="dt-body-center text-center">Restaurante</th>
+                    <th class="dt-body-center text-center">Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @Html.HiddenFor(m => item.ArticuloKFC)
+                    @Html.HiddenFor(m => item.ArticuloKFCId)
+                    @Html.HiddenFor(m => item.TiendaId)
+                    @Html.HiddenFor(m => item.CampañaId)
+                    <tr class="col-sm-12">
+                        <td>
+                            @item.CC / @item.Restaurante
+                        </td>
+                        <td class="dt-body-center text-center">
+                            <input type="hidden" name="TiendaId" value="@item.TiendaId" />
+                            <input type="hidden" name="CampañaId" value="@item.CampañaId" />
+                            <input type="hidden" name="ArticuloKFCId" value="@item.ArticuloKFCId" />
+                            <input style="border: none; text-align: center" id="@item.TiendaId" name="CantidadInput" type="text" value="@item.Cantidad" />
+                        </td>
+                    </tr>
+                }
+        </table>
+
+        <div class="center-align col-sm-12" style="margin-top: 5px">
+            @if (Model.Count() > 0)
+            {
+                <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+                    <i class="large material-icons">check</i>
+                </button>
+            }
+        </div>
+
+    </div>
+}
+
+<script>
+
+    var dataTableCantidades;
+    $(document).ready(function () {
+        dataTableCantidades = $("#cantidadEquityTable").DataTable({
+            "order": [[0, "asc"]],
+            "language": {
+                "sSearch": "Buscar:",
+            },
+            'initComplete': function (settings) {
+                var api = new $.fn.dataTable.Api(settings);
+                api.columns().header().each(function (column) {
+                    if ($(column).text() == 'Restaurante') {
+                        $(column).attr('style', 'min-width: 554px');
+                    }
+                    else if ($(column).text() == 'Cantidad') {
+                        $(column).attr('style', 'min-width: 90px');
+                    }
+                });
+            },
+            columnDefs: [
+                { width: '520px', targets: 0 },
+                { width: '132px', targets: 1 },
+                { "orderable": false, "targets": [1] },
+                { "searchable": false, "targets": [1] },
+            ],
+            autoWidth: false,
+            fixedHeader: true,
+            fixedColumns: false,
+            //fixedColumns: {
+            //    leftColumns: 1,
+            //},
+            select: false,
+            scrollY: true,
+            scrollX: true,
+            scrollCollapse: false,
+            keys: false,
+            dom: 'frt',
+            'bLengthChange': true,
+            'bInfo': true,
+            "lengthMenu": [[-1, 15, 25, 50, 100], ["TODOS", 15, 25, 50, 100]],
+        });
+
+    });
+
+</script>
+

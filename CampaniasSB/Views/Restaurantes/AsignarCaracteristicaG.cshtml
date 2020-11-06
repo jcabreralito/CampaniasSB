@@ -1,0 +1,32 @@
+﻿@model CampaniasSB.Models.AsignarConfiguracionTienda
+@{
+}
+
+@using (Html.BeginForm("AsignarCaracteristicaG", "Restaurantes", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.AsignarConfiguracionTiendaId)
+
+    <input type="hidden" name="TiendaId" value="@ViewBag.TiendaId" />
+
+    <div class="row">
+        <div class="form-group focus col-sm-10" style="text-transform: uppercase !important; padding: 0">
+            <label for="TiendaConfiguracionId" style="padding: 0 0 0 10px;">Característica</label>
+            <div class="customselect">
+                @Html.DropDownList("TiendaConfiguracionId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[1].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+            </div>
+            <span class="focus-border"></span>
+        </div>
+        <div class="input-field center-align col-sm-2">
+            @Html.CheckBoxFor(model => model.Seleccionado, new { @class = "switch_1" })
+            <label class="active" for="Seleccionado">Activo</label>
+        </div>
+    </div>
+
+
+    <div class="center-align">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+    </div>
+}
+

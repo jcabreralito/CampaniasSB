@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Error";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-body">
+    <div class="form-horizontal row responsivoUsuarioLabel">
+        <div class="col-xs-12">
+            <table>
+                <tr>
+                    <td align="center">
+                        @if (ViewBag.operacion != "")
+                        {
+                            <h5>¡ No estás Autorizado para @ViewBag.operacion Registros !</h5>
+                        }
+                    </td>
+                    <td align="right" class="red-text">
+                        <i class="fas fa-exclamation-triangle fa-5x"></i>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    @if (ViewBag.msjeErrorExcepcion != "")
+                    {
+                        <p>@ViewBag.msjeErrorExcepcion</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

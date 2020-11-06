@@ -1,0 +1,32 @@
+﻿@model CampaniasSB.Models.Familia
+@{
+}
+
+@using (Html.BeginForm("AddOrEdit", "Familias", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.FamiliaId)
+
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @type = "text", @class = "validate" } })
+            <label for="Descripcion">Descripción</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @type = "text", @class = "validate" } })
+            <label for="Codigo" class="active">Código</label>
+        </div>
+    </div>
+
+    <div class="center-align">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+
+        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
+                <i class="large material-icons">arrow_back</i>
+            </button>*@
+    </div>
+}

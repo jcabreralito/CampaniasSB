@@ -1,0 +1,151 @@
+﻿@using CampaniasSB.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Iniciar sesión";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/Content/LoginCSS/Login.css" rel="stylesheet" />
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/font-awesome/css/all.css" rel="stylesheet" />
+
+    <title>Lito - @ViewBag.Title </title>
+</head>
+<body>
+    <div class="had-container">
+
+        <div class="text-center center" style="padding-top: 40px">
+            <img class="ocultar" src="~/Content/images/Logo_LIto_azul.png"
+                 width="200">
+        </div>
+        <div class="row login">
+            <h4 class="text-center center">Acceso <strong>CAMPAÑAS</strong></h4>
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="mat-div"></div>
+
+                <div class="row">
+                    <div class="input-field col m12 s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "validate", @type = "text", @required = "true", autofocus = "true" })
+                        <label for="Email">Usuario</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col m12 s12">
+                        <i class="material-icons prefix">lock</i>
+                        @Html.TextBoxFor(m => m.Password, new { @class = "validate", @type = "password", @required = "true", autofocus = "true" })
+                        <label for="Password">Password</label>
+                    </div>
+                </div>
+
+                <div class="row center text-center">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Iniciar sesión</button>
+                </div>
+            }
+
+            <div class="row">
+                <div align="center">
+                    <a href="#" onclick="PopupForm('@Url.Action("ForgotPassword","Account")')">
+                        ¿Olvidaste tu Password?
+                    </a>
+                    @*@Html.ActionLink("¿Olvidaste tu Password?", "ForgotPassword", "Account", new { }, new { style = "font-size:14px; list-style: none;" })*@
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - Litoprocess
+        </div>
+    </footer>
+
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/materialize/materialize.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+    <script>
+        var Popup, dataTable;
+
+        function PopupForm(url) {
+            //viewPage();
+            var formDiv = $('<div />');
+            $.get(url)
+                .done(function (response) {
+                    formDiv.html(response);
+
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: 'REESTABLECER PASSWORD',
+                        width: 550,
+                        modal: true,
+                        closeOnEscape: false,
+                        closeText: "Cerrar",
+                        hide: { effect: "fade", duration: 550 },
+                        show: { effect: "fade", duration: 550 },
+                        close: function () {
+                            Popup.dialog('destroy').remove();
+                            //hidePages();
+                        }
+                    });
+                });
+        }
+
+        function SubmitForm(form) {
+            $.validator.unobtrusive.parse(form);
+            if ($(form).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            Popup.dialog('close');
+                            //dataTable.ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "info",
+                                autoHide: false,
+                                //autoHideDelay: 5000,
+                            })
+
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+    </script>
+
+
+</body>
+</html>

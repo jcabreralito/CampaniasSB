@@ -1,0 +1,178 @@
+﻿@model IList<CampaniasSB.Controllers.MaterialesController.spArticulosTiendas>
+
+@{
+    var display = "block";
+}
+
+<style>
+    #tiendaEquityTable th, #tiendaEquityTable td {
+        white-space: nowrap !important;
+    }
+
+    #tiendaEquityTable_wrapper {
+        margin-top: -10px !important;
+    }
+
+    .checkMat [type="checkbox"] + span:not(.lever) {
+        position: relative !important;
+        cursor: default !important;
+        font-size: 12px !important;
+    }
+
+    #tiendaEquityTable_wrapper .dataTables_filter {
+        float: left !important;
+        margin-top: -43px !important;
+    }
+
+    #tiendaEquityTable .dataTables_scrollHead {
+        background-color: #067655;
+        border-radius: 10px
+    }
+</style>
+
+@using (Html.BeginForm("Restaurantes", "Materiales", FormMethod.Post, new { onsubmit = "return SubmitFormTiendas(this)" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    <div style="max-height: 90vh !important; min-height: 70vh; height: 88.5vh; margin-top: -14px !important; text-align: center;">
+
+        <h5>@ViewBag.Material</h5>
+
+        <div style="margin-left: 36%; margin-top: -9px">
+            @foreach (var item in ViewBag.Campañas)
+            {
+                if (ViewBag.Campañas.Count <= 1)
+                {
+                    display = "none";
+                }
+                else if (ViewBag.Campañas.Count > 1)
+                {
+                    display = "inline";
+                }
+
+                <div style="float: left; display: @display">
+                    <strong>Campaña : </strong>
+                    @item.Nombre
+                    <label class="checkMat">
+                        <input id="Campaña" name="Campaña" type="checkbox" value="@item.CampañaId" checked="@item.CampañaId" style="cursor: pointer" />
+                        <span></span>
+                    </label>
+                </div>
+            }
+        </div>
+
+        <button type="button" id="selectAll" class="btn btn-primary" style="float: right; margin-top: 0"> <span class="sub"></span> Habilitar</button>
+        <button type="button" id="deselectAll" class="btn btn-primary" style="float: right; margin-top: 0"> <span class="sub"></span> Deshabilitar</button>
+        <br />
+        <br />
+        <table id="tiendaEquityTable" class="table table-striped table-bordered compact nowrap" style="width:100%; text-transform: uppercase; margin-top: 0 !important">
+            <thead>
+                <tr>
+                    <th class="dt-body-center text-center">Restaurante</th>
+                    <th class="dt-body-center text-center">Seleccionado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @Html.HiddenFor(m => item.ArticuloKFCId)
+                    @Html.HiddenFor(m => item.TiendaId)
+                    @Html.HiddenFor(m => item.Restaurante)
+                    @Html.HiddenFor(m => item.Material)
+                    @Html.HiddenFor(m => item.CantidadDefault)
+                    @Html.HiddenFor(m => item.EquityFranquicia)
+
+                    <tr>
+                        <td>
+                            <input type="hidden" name="TiendaArticuloId" value="@item.TiendaArticuloId" />
+                            @item.CCoFranquicia / @item.Restaurante
+                        </td>
+                        <td class="dt-body-center text-center checkMat">
+                            @*<label><input type='checkbox' checked='checked' /><span class='badge'></span></label>*@
+                            <label>
+                                <input id="Seleccionado" name="Seleccionado" type="checkbox" value="@item.TiendaArticuloId" checked="@item.Seleccionado" style="cursor: pointer" />
+                                <span></span>
+                            </label>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="center-align col-sm-12" style="margin-top: 5px">
+            @if (Model.Count() > 0)
+            {
+                <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+                    <i class="large material-icons">check</i>
+                </button>
+            }
+
+            @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
+                    <i class="large material-icons">arrow_back</i>
+                </button>*@
+        </div>
+
+    </div>
+
+}
+
+<script>
+
+    var dataTableTienda;
+    $(document).ready(function () {
+        dataTableTienda = $("#tiendaEquityTable").DataTable({
+            "order": [[0, "asc"]],
+            "language": {
+                "sSearch": "Buscar:",
+            },
+            'initComplete': function (settings) {
+                var api = new $.fn.dataTable.Api(settings);
+                api.columns().header().each(function (column) {
+                    if ($(column).text() == 'Restaurante') {
+                        $(column).attr('style', 'min-width: 578px');
+                    }
+                    else if ($(column).text() == 'Seleccionado') {
+                        $(column).attr('style', 'min-width: 119px');
+                    }
+                });
+            },
+            columnDefs: [
+                { width: '578px', targets: 0 },
+                { width: '119px', targets: 1 },
+            ],
+            autoWidth: true,
+            fixedHeader: true,
+            fixedColumns: true,
+            //fixedColumns: {
+            //    leftColumns: 1,
+            //},
+            select: true,
+            scrollY: true,
+            scrollX: true,
+            scrollCollapse: false,
+            keys: false,
+            dom: 'frt',
+            'bLengthChange': true,
+            'bInfo': true,
+            "lengthMenu": [[-1, 15, 25, 50, 100], ["TODOS", 15, 25, 50, 100]],
+        });
+
+    });
+
+    $(document).ready(function () {
+
+        $("#selectAll").on("click", function () {
+            $("#tiendaEquityTable tr").each(function () {
+                $(this).find("input[type='checkbox']").attr('checked', true);
+            });
+        });
+
+        $("#deselectAll").on("click", function () {
+            $("#tiendaEquityTable tr").each(function () {
+                $(this).find("input[type='checkbox']").attr('checked', false);
+            });
+        });
+
+    });
+
+</script>
+

@@ -1,0 +1,37 @@
+﻿@model CampaniasSB.Models.TiendaConfiguracion
+@{
+}
+
+@using (Html.BeginForm("AddOrEdit", "RestauranteCaracteristicas", FormMethod.Post, new { onsubmit = "return SubmitFormRC(this)" }))
+{
+    @Html.HiddenFor(model => model.TiendaConfiguracionId)
+
+    <div class="row">
+        <div class="input-field col s12" style="text-transform: uppercase !important">
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @type = "text", @class = "validate", @required = "true", style = "text-transform: uppercase !important" } })
+            <label for="Nombre">Característica</label>
+        </div>
+    </div>
+
+    <div class="form-group focus col-sm-12" style="text-transform: uppercase !important; padding: 0">
+        <label for="TipoConfiguracion" style="padding: 0 0 0 10px;">Categoría</label>
+        <div class="customselect">
+            @Html.DropDownList("TipoConfiguracion", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[3].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+        </div>
+        <span class="focus-border"></span>
+    </div>
+
+    <div class="form-group focus col-sm-12" style="text-transform: uppercase !important; padding: 0">
+        <label for="EquityFranquicia" style="padding: 0 0 0 10px;">Tipo</label>
+        <div class="customselect">
+            @Html.DropDownList("EquityFranquicia", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[2].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+        </div>
+        <span class="focus-border"></span>
+    </div>
+
+    <div class="center-align">
+        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+    </div>
+}
