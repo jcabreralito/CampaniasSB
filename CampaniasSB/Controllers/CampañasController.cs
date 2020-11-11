@@ -4,7 +4,6 @@ using CampaniasSB.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
-using Microsoft.Owin.Security.DataHandler.Encoder;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
@@ -14,7 +13,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
-using System.Web.Services.Description;
 
 namespace CampaniasSB.Controllers
 {
@@ -393,8 +391,10 @@ namespace CampaniasSB.Controllers
             Font fontRed = new Font(font, 10, 0, BaseColor.RED);
             Font fontRed2 = new Font(font, 14, 1, BaseColor.RED);
 
-            PdfPTable tabla = new PdfPTable(7);
-            tabla.WidthPercentage = 100f;
+            PdfPTable tabla = new PdfPTable(7)
+            {
+                WidthPercentage = 100f
+            };
 
             var codigosMateriales = db.Database.SqlQuery<CodigosMaterialesTotal>("spGetMaterialesCodigosCampaña @CampañaId",
                 new SqlParameter("@CampañaId", id)).ToList();
@@ -413,17 +413,21 @@ namespace CampaniasSB.Controllers
 
                 if (materialesFam.Count != 0)
                 {
-                    pCell = new PdfPCell(new Paragraph(familia.Key.ToUpper(), fontRed2));
-                    pCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    pCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    pCell.Colspan = 7;
-                    pCell.Border = 0;
+                    pCell = new PdfPCell(new Paragraph(familia.Key.ToUpper(), fontRed2))
+                    {
+                        VerticalAlignment = Element.ALIGN_MIDDLE,
+                        HorizontalAlignment = Element.ALIGN_CENTER,
+                        Colspan = 7,
+                        Border = 0
+                    };
                     tabla.AddCell(pCell);
 
-                    pCell = new PdfPCell(new Paragraph(linea));
-                    pCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    pCell.Colspan = 7;
-                    pCell.Border = 0;
+                    pCell = new PdfPCell(new Paragraph(linea))
+                    {
+                        VerticalAlignment = Element.ALIGN_MIDDLE,
+                        Colspan = 7,
+                        Border = 0
+                    };
                     tabla.AddCell(pCell);
                 }
 
@@ -440,31 +444,39 @@ namespace CampaniasSB.Controllers
                     image.Border = 0;
                     //document.Add(image);
 
-                    pCell = new PdfPCell(image, false);
-                    pCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    pCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    pCell.Border = 0;
-                    pCell.PaddingTop = 5f;
+                    pCell = new PdfPCell(image, false)
+                    {
+                        HorizontalAlignment = Element.ALIGN_CENTER,
+                        VerticalAlignment = Element.ALIGN_MIDDLE,
+                        Border = 0,
+                        PaddingTop = 5f
+                    };
                     tabla.AddCell(pCell);
 
-                    pCell = new PdfPCell(new Paragraph(codigo.Codigo.ToString(), fontBlack));
-                    pCell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    pCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    pCell.Border = 0;
+                    pCell = new PdfPCell(new Paragraph(codigo.Codigo.ToString(), fontBlack))
+                    {
+                        HorizontalAlignment = Element.ALIGN_LEFT,
+                        VerticalAlignment = Element.ALIGN_MIDDLE,
+                        Border = 0
+                    };
                     tabla.AddCell(pCell);
 
-                    pCell = new PdfPCell(new Paragraph(codigo.ArticuloKFC.ToUpper(), fontRed));
-                    pCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    pCell.Colspan = 5;
-                    pCell.Border = 0;
+                    pCell = new PdfPCell(new Paragraph(codigo.ArticuloKFC.ToUpper(), fontRed))
+                    {
+                        VerticalAlignment = Element.ALIGN_MIDDLE,
+                        Colspan = 5,
+                        Border = 0
+                    };
                     tabla.AddCell(pCell);
 
                     linea = new Chunk(new LineSeparator(2f, 100f, BaseColor.BLACK, Element.ALIGN_CENTER, 0f));
 
-                    pCell = new PdfPCell(new Paragraph(linea));
-                    pCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    pCell.Colspan = 7;
-                    pCell.Border = 0;
+                    pCell = new PdfPCell(new Paragraph(linea))
+                    {
+                        VerticalAlignment = Element.ALIGN_MIDDLE,
+                        Colspan = 7,
+                        Border = 0
+                    };
                     tabla.AddCell(pCell);
 
                     //document.Add(linea);
@@ -1224,7 +1236,7 @@ namespace CampaniasSB.Controllers
 
     }
 
-    class HeaderFooter : PdfPageEventHelper
+    internal class HeaderFooter : PdfPageEventHelper
     {
         public HeaderFooter(string logoPath)
         {
@@ -1256,30 +1268,38 @@ namespace CampaniasSB.Controllers
             //cb.SetGState(state);
             //cb.AddImage(image);
 
-            PdfPTable tbHeader = new PdfPTable(3);
-            tbHeader.TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin;
+            PdfPTable tbHeader = new PdfPTable(3)
+            {
+                TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin
+            };
             tbHeader.DefaultCell.Border = 0;
 
             tbHeader.AddCell(new Paragraph());
 
-            PdfPCell pCell = new PdfPCell(new Paragraph("Lista de Materiales"));
-            pCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            pCell.Border = 0;
+            PdfPCell pCell = new PdfPCell(new Paragraph("Lista de Materiales"))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                Border = 0
+            };
             tbHeader.AddCell(pCell);
 
             tbHeader.AddCell(new Paragraph());
 
             tbHeader.WriteSelectedRows(0, -1, document.LeftMargin, writer.PageSize.GetTop(document.TopMargin) + 40, writer.DirectContent);
 
-            PdfPTable tbFooter = new PdfPTable(3);
-            tbFooter.TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin;
+            PdfPTable tbFooter = new PdfPTable(3)
+            {
+                TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin
+            };
             tbFooter.DefaultCell.Border = 0;
 
             tbFooter.AddCell(new Paragraph());
 
-            pCell = new PdfPCell(new Paragraph("Página " + writer.PageNumber));
-            pCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            pCell.Border = 0;
+            pCell = new PdfPCell(new Paragraph("Página " + writer.PageNumber))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                Border = 0
+            };
             tbFooter.AddCell(pCell);
 
             tbFooter.AddCell(new Paragraph());

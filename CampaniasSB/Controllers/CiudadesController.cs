@@ -20,8 +20,6 @@ namespace CampaniasSB.Controllers
             public int CiudadId { get; set; }
             public string Nombre { get; set; }
             public string Region { get; set; }
-            public string EquityFranquicia { get; set; }
-
         }
         // GET: Regiones
         [AuthorizeUser(idOperacion: 5)]
@@ -46,7 +44,6 @@ namespace CampaniasSB.Controllers
         public ActionResult GetData()
         {
             var ciudadList = db.Database.SqlQuery<spCiudades>("spGetCiudades").ToList();
-            //var ciudadList = db.Ciudads.ToList();
 
             return Json(new { data = ciudadList }, JsonRequestBehavior.AllowGet);
         }
@@ -63,9 +60,8 @@ namespace CampaniasSB.Controllers
             }
             else
             {
-                var tipo = db.Ciudades.Where(x => x.CiudadId == id).FirstOrDefault().EquityFranquicia;
-                var regionId = db.Ciudades.Where(x => x.CiudadId == id && x.EquityFranquicia == tipo).FirstOrDefault().RegionId;
-                ViewBag.RegionId = new SelectList(CombosHelper.GetRegiones(tipo, true), "RegionId", "Nombre", regionId);
+                var regionId = db.Ciudades.Where(x => x.CiudadId == id).FirstOrDefault().RegionId;
+                ViewBag.RegionId = new SelectList(CombosHelper.GetRegiones(true), "RegionId", "Nombre", regionId);
                 return PartialView(db.Ciudades.Where(x => x.CiudadId == id).FirstOrDefault());
             }
         }
@@ -75,17 +71,16 @@ namespace CampaniasSB.Controllers
         public ActionResult AddOrEdit(Ciudad ciudad)
         {
             var usuario = db.Usuarios.Where(u => u.NombreUsuario == User.Identity.Name).FirstOrDefault().UsuarioId;
-
-            ciudad.EquityFranquicia = db.Regiones.Where(x => x.RegionId == ciudad.RegionId).FirstOrDefault().EquityFranquicia;
+            var nombreCiudad = ciudad.Nombre.ToUpper();
 
             if (ciudad.CiudadId == 0)
             {
-
+                ciudad.Nombre = nombreCiudad;
                 db.Ciudades.Add(ciudad);
                 var response = DBHelper.SaveChanges(db);
                 if (response.Succeeded)
                 {
-                    movimiento = "Agregar Ciudad " + ciudad.CiudadId + " " + ciudad.Nombre + " / " + ciudad.EquityFranquicia;
+                    movimiento = "Agregar Ciudad " + ciudad.CiudadId + " " + ciudad.Nombre;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                     return Json(new { success = true, message = "CIUDAD AGREGADA" }, JsonRequestBehavior.AllowGet);
@@ -97,11 +92,12 @@ namespace CampaniasSB.Controllers
             }
             else
             {
+                ciudad.Nombre = nombreCiudad;
                 db.Entry(ciudad).State = EntityState.Modified;
                 var response = DBHelper.SaveChanges(db);
                 if (response.Succeeded)
                 {
-                    movimiento = "Actualizar Ciudad " + ciudad.CiudadId + " " + ciudad.Nombre + " / " + ciudad.EquityFranquicia;
+                    movimiento = "Actualizar Ciudad " + ciudad.CiudadId + " " + ciudad.Nombre;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                     return Json(new { success = true, message = "CIUDAD ACTUALIZADA" }, JsonRequestBehavior.AllowGet);
@@ -124,7 +120,7 @@ namespace CampaniasSB.Controllers
             var response = DBHelper.SaveChanges(db);
             if (response.Succeeded)
             {
-                movimiento = "Eliminar Ciudad " + ciudad.CiudadId + " " + ciudad.Nombre + " / " + ciudad.EquityFranquicia;
+                movimiento = "Eliminar Ciudad " + ciudad.CiudadId + " " + ciudad.Nombre;
                 MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                 return Json(new { success = true, message = "CIUDAD ELIMINADA" }, JsonRequestBehavior.AllowGet);

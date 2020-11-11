@@ -92,31 +92,9 @@
                             </div>
                         </li>
                         <li class="iMenu">
-                            <a id="restaurantesB" href="@Url.Action("Index", "Restaurantes")" class="@Session["restaurantesB"].ToString()" title="Restaurantes" onclick="viewPageIndex()">
+                            <a id="restaurantesB" href="@Url.Action("Index", "Restaurantes")" class="@Session["restaurantesB"].ToString()" title="Tiendas" onclick="viewPageIndex()">
                                 <i class="fas fa-store fa-2x"></i>
                             </a>
-                        </li>
-
-
-
-
-
-                        @*<li class="iMenu">
-                            <a id="restaurantesB" href="@Url.Action("IndexDev", "Restaurantes")" class="@Session["restaurantesB"].ToString()" title="Restaurantes" onclick="viewPageIndex()">
-                                <i class="fas fa-store fa-2x"></i>
-                            </a>
-                        </li>*@
-                        
-                        
-                        
-                        
-                        
-                        <li class="iMenu">
-                            <div>
-                                <a id="familiasB" href="@Url.Action("Index", "Familias")" class="@Session["familiasB"].ToString()" title="Familias" onclick="viewPageIndex()">
-                                    <i class="fa fa-boxes fa-2x"></i>
-                                </a>
-                            </div>
                         </li>
                         <li class="iMenu">
                             <div>
@@ -163,30 +141,9 @@
                             </div>
                         </li>
                         <li class="iMenu">
-                            <a id="restaurantesB" href="@Url.Action("Index", "Restaurantes")" class="@Session["restaurantesB"].ToString()" title="Restaurantes" onclick="viewPageIndex()">
+                            <a id="restaurantesB" href="@Url.Action("Index", "Restaurantes")" class="@Session["restaurantesB"].ToString()" title="Tiendas" onclick="viewPageIndex()">
                                 <i class="fas fa-store fa-2x"></i>
                             </a>
-                        </li>
-
-
-
-
-                        @*<li class="iMenu">
-                            <a id="restaurantesB" href="@Url.Action("IndexDev", "Restaurantes")" class="@Session["restaurantesB"].ToString()" title="Restaurantes" onclick="viewPageIndex()">
-                                <i class="fas fa-store fa-2x"></i>
-                            </a>
-                        </li>*@
-                        
-                        
-                        
-                        
-                        
-                        <li class="iMenu">
-                            <div>
-                                <a id="familiasB" href="@Url.Action("Index", "Familias")" class="@Session["familiasB"].ToString()" title="Familias" onclick="viewPageIndex()">
-                                    <i class="fa fa-boxes fa-2x"></i>
-                                </a>
-                            </div>
                         </li>
                         <li class="iMenu">
                             <div>
@@ -195,14 +152,6 @@
                                 </a>
                             </div>
                         </li>
-                        <li class="iMenu">
-                            <a id="campañasB" href="@Url.Action("Index", "Campañas")" class="@Session["campañasB"].ToString()" title="Campañas" onclick="viewPageIndex()">
-                                <i class="fas fa-calendar-alt fa-2x"></i>
-                            </a>
-                        </li>
-                    }
-                    @if (User.IsInRole("Proveedor"))
-                    {
                         <li class="iMenu">
                             <a id="campañasB" href="@Url.Action("Index", "Campañas")" class="@Session["campañasB"].ToString()" title="Campañas" onclick="viewPageIndex()">
                                 <i class="fas fa-calendar-alt fa-2x"></i>
@@ -260,26 +209,8 @@
             </li>
             <li>
                 <a id="restaurantesB" href="@Url.Action("Index", "Restaurantes")" class="iconomenu @Session["restaurantesB"].ToString()" onclick="viewPageIndex()">
-                    Restaurantes
+                    Tiendas
                     <i class="fas fa-store-alt"></i>
-                </a>
-            </li>
-
-
-
-            @*<li>
-                <a id="restaurantesB" href="@Url.Action("IndexDev", "Restaurantes")" class="iconomenu @Session["restaurantesB"].ToString()" onclick="viewPageIndex()">
-                    Restaurantes
-                    <i class="fas fa-store-alt"></i>
-                </a>
-            </li>*@
-
-
-
-            <li>
-                <a id="familiasB" href="@Url.Action("Index", "Familias")" class="iconomenu @Session["familiasB"].ToString()" onclick="viewPageIndex()">
-                    Familias
-                    <i class="fas fa-boxes"></i>
                 </a>
             </li>
             <li>
@@ -315,27 +246,30 @@
 
     <div class="container body-content" style="margin-top: 20px">
         <div class="jumbotron">
-            @*<h4 class="center-align"><i class="@Session["iconoTitulo"].ToString()"></i>&nbsp;&nbsp;&nbsp;@ViewBag.Title</h4>*@
         </div>
+
         <div id="contenedor_carga">
+
             <div id="carga">
             </div>
 
-
             <div id="inTurnBlurringTextG">
-                <div id="inTurnBlurringTextG_1" class="inTurnBlurringTextG">K</div>
-                <div id="inTurnBlurringTextG_2" class="inTurnBlurringTextG">F</div>
-                <div id="inTurnBlurringTextG_3" class="inTurnBlurringTextG">C</div>
-                <div id="inTurnBlurringTextG_4" class="inTurnBlurringTextG">.</div>
-                <div id="inTurnBlurringTextG_5" class="inTurnBlurringTextG">.</div>
-                <div id="inTurnBlurringTextG_6" class="inTurnBlurringTextG">.</div>
+                <div id="inTurnBlurringTextG_1" class="inTurnBlurringTextG">S</div>
+                <div id="inTurnBlurringTextG_2" class="inTurnBlurringTextG">T</div>
+                <div id="inTurnBlurringTextG_3" class="inTurnBlurringTextG">A</div>
+                <div id="inTurnBlurringTextG_4" class="inTurnBlurringTextG">R</div>
+                <div id="inTurnBlurringTextG_5" class="inTurnBlurringTextG">B</div>
+                <div id="inTurnBlurringTextG_6" class="inTurnBlurringTextG">U</div>
+                <div id="inTurnBlurringTextG_7" class="inTurnBlurringTextG">K</div>
+                <div id="inTurnBlurringTextG_8" class="inTurnBlurringTextG">S</div>
+                <div id="inTurnBlurringTextG_9" class="inTurnBlurringTextG">.</div>
+                <div id="inTurnBlurringTextG_10" class="inTurnBlurringTextG">.</div>
+                <div id="inTurnBlurringTextG_11" class="inTurnBlurringTextG">.</div>
             </div>
-
 
         </div>
         @RenderBody()
     </div>
-
 
     <script src="~/Scripts/jquery-3.5.1.min.js"></script>
     <script src="~/Content/vendor/DataTables/dataTables.min.js"></script>
@@ -389,13 +323,11 @@
                     success: function (data) {
                         if (data.success) {
                             PopupPassword.dialog('close');
-                            //dataTable.ajax.reload();
 
                             $.notify(data.message, {
                                 globalPosition: "top center",
                                 className: "info",
                                 autoHide: false,
-                                //autoHideDelay: 5000,
                             })
 
                         }
@@ -405,7 +337,6 @@
             return false;
         }
     </script>
-
 
 </body>
 </html>

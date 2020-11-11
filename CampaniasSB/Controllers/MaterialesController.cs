@@ -254,25 +254,12 @@ namespace CampaniasSB.Controllers
 
                 Session["Categoria"] = categoria;
 
-                ViewBag.ProveedorId = new SelectList(CombosHelper.GetProveedores(true), "ProveedorId", "Nombre");
-                ViewBag.FamiliaId = new SelectList(CombosHelper.GetFamilias(true), "FamiliaId", "Descripcion");
-                ViewBag.EquityFranquicia = new SelectList(CombosHelper.GetTipoCampañasMat(true), "Nombre", "Nombre");
-
                 return PartialView(new Articulo());
             }
             else
             {
-                var tipo = db.Articulos.Where(x => x.ArticuloKFCId == id).FirstOrDefault().EquityFranquicia;
-                Session["Categoria"] = tipo;
 
-                var proveedorId = db.Articulos.Where(x => x.ArticuloKFCId == id).FirstOrDefault().ProveedorId;
-                var familiaId = db.Articulos.Where(x => x.ArticuloKFCId == id).FirstOrDefault().FamiliaId;
-
-                ViewBag.ProveedorId = new SelectList(CombosHelper.GetProveedores(true), "ProveedorId", "Nombre", proveedorId);
-                ViewBag.FamiliaId = new SelectList(CombosHelper.GetFamilias(true), "FamiliaId", "Descripcion", familiaId);
-                ViewBag.EquityFranquicia = new SelectList(CombosHelper.GetTipoCampañasMat(true), "Nombre", "Nombre", tipo);
-
-                return PartialView(db.Articulos.Where(x => x.ArticuloKFCId == id).FirstOrDefault());
+                return PartialView(db.Articulos.Where(x => x.ArticuloId == id).FirstOrDefault());
             }
         }
 
@@ -282,12 +269,12 @@ namespace CampaniasSB.Controllers
         {
             var usuario = db.Usuarios.Where(u => u.NombreUsuario == User.Identity.Name).FirstOrDefault().UsuarioId;
             var restauranteId = 0;
-            if (material.ArticuloKFCId == 0)
+            if (material.ArticuloId == 0)
             {
                 var tipo = Session["Categoria"].ToString();
 
                 material.Activo = true;
-                material.EquityFranquicia = tipo;
+                material.SencilloMultiple = tipo;
 
                 if (material.Observaciones == null)
                 {
@@ -300,7 +287,7 @@ namespace CampaniasSB.Controllers
                 {
                     CargarImagen(material);
 
-                    MovementsHelper.AgregarMaterialesTiendaCampañaExiste(material.ArticuloKFCId, restauranteId);
+                    MovementsHelper.AgregarMaterialesTiendaCampañaExiste(material.ArticuloId, restauranteId);
 
                     var campaña = db.Campañas.Where(x => x.Generada == "NO").FirstOrDefault();
 
@@ -311,7 +298,7 @@ namespace CampaniasSB.Controllers
                         MovementsHelper.AgregarArticuloCampañas(material, campañaId);
                     }
 
-                    movimiento = "Agregar Material " + material.ArticuloKFCId + " " + material.Descripcion + " / " + material.EquityFranquicia;
+                    movimiento = "Agregar Material " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                     return Json(new { success = true, message = "MATERIAL AGREGADO" }, JsonRequestBehavior.AllowGet);
@@ -340,51 +327,27 @@ namespace CampaniasSB.Controllers
 
                     var campaña = db.Campañas.Where(x => x.Generada == "NO").FirstOrDefault();
 
-                    var id = material.ArticuloKFCId;
+                    var id = material.ArticuloId;
 
-                    if (material.FamiliaId != 22)
+                    if (material.Activo == true)
                     {
-                        if (material.Activo == true)
+
+                        EliminarMaterialesMoto(id, campaña);
+
+                        if (campaña != null)
                         {
+                            var campañaId = campaña.CampañaId;
 
-                            EliminarMateriales(id, campaña);
-
-                            MovementsHelper.AgregarMaterialesTiendaCampañaExiste(material.ArticuloKFCId, restauranteId);
-                            if (campaña != null)
-                            {
-                                var campañaId = campaña.CampañaId;
-
-                                MovementsHelper.AgregarArticuloCampañas(material, campañaId);
-                            }
-
+                            MovementsHelper.AgregarArticuloCampañas(material, campañaId);
                         }
-                        else
-                        {
-                            EliminarMateriales(id, campaña);
-                        }
+
                     }
                     else
                     {
-                        if (material.Activo == true)
-                        {
-
-                            EliminarMaterialesMoto(id, campaña);
-
-                            if (campaña != null)
-                            {
-                                var campañaId = campaña.CampañaId;
-
-                                MovementsHelper.AgregarArticuloCampañas(material, campañaId);
-                            }
-
-                        }
-                        else
-                        {
-                            EliminarMaterialesMoto(id, campaña);
-                        }
+                        EliminarMaterialesMoto(id, campaña);
                     }
 
-                    movimiento = "Actualizar Material " + material.ArticuloKFCId + " " + material.Descripcion + " / " + material.EquityFranquicia;
+                    movimiento = "Actualizar Material " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                     return Json(new { success = true, message = "MATERIAL ACTUALIZADO" }, JsonRequestBehavior.AllowGet);
@@ -455,7 +418,7 @@ namespace CampaniasSB.Controllers
             }
 
             ViewBag.Campañas = db.Campañas.Where(x => x.Generada == "NO").ToList();
-            ViewBag.Material = db.Articulos.Where(x => x.ArticuloKFCId == id).FirstOrDefault().Descripcion;
+            ViewBag.Material = db.Articulos.Where(x => x.ArticuloId == id).FirstOrDefault().Descripcion;
 
             return PartialView(restaurantesList);
         }
@@ -481,7 +444,7 @@ namespace CampaniasSB.Controllers
                     TiendaArticulo tiendaArticulo = db.TiendaArticulos.Find(Convert.ToInt32(articuloKFCTMPId[i]));
 
                     var tiendaId = tiendaArticulo.TiendaId;
-                    var articuloId = tiendaArticulo.ArticuloKFCId;
+                    var articuloId = tiendaArticulo.ArticuloId;
 
                     if (seleccionado == null)
                     {
@@ -537,7 +500,7 @@ namespace CampaniasSB.Controllers
                         TiendaArticulo tiendaArticulo = db.TiendaArticulos.Find(Convert.ToInt32(articuloKFCTMPId[i]));
 
                         var tiendaId = tiendaArticulo.TiendaId;
-                        var articuloId = tiendaArticulo.ArticuloKFCId;
+                        var articuloId = tiendaArticulo.ArticuloId;
 
                         var campañas = db.Campañas.Where(ct => ct.Generada == "NO" && ct.CampañaId == campId).OrderBy(ct => ct.CampañaId).FirstOrDefault();
 
@@ -586,7 +549,7 @@ namespace CampaniasSB.Controllers
                         else
                         {
                             campId = campañas.CampañaId;
-                            CampañaArticulo campañaArticulo = db.CampañaArticulos.Where(ta => ta.TiendaId == tiendaId && ta.ArticuloKFCId == articuloId && ta.CampañaId == campId).FirstOrDefault();
+                            CampañaArticulo campañaArticulo = db.CampañaArticulos.Where(ta => ta.TiendaId == tiendaId && ta.ArticuloId == articuloId && ta.CampañaId == campId).FirstOrDefault();
 
                             selec = false;
                             cantidad = 0;
@@ -634,7 +597,7 @@ namespace CampaniasSB.Controllers
 
                                             db.Entry(tiendaArticulo).State = EntityState.Modified;
 
-                                            var articuloCantidadDefault = db.Articulos.Where(a => a.ArticuloKFCId == campañaArticulo.ArticuloKFCId).FirstOrDefault().CantidadDefault;
+                                            var articuloCantidadDefault = db.Articulos.Where(a => a.ArticuloId == campañaArticulo.ArticuloId).FirstOrDefault().CantidadDefault;
 
                                             cantidad = articuloCantidadDefault;
                                             campañaArticulo.Cantidad = cantidad;
@@ -671,7 +634,7 @@ namespace CampaniasSB.Controllers
 
             TiendaArticulo articulo = db.TiendaArticulos.Find(Convert.ToInt32(articuloKFCTMPId[0]));
 
-            movimiento = "Asignar Restaurantes / " + articulo.ArticuloKFCId + " / " + articulo.ArticuloKFC.Descripcion;
+            movimiento = "Asignar Restaurantes / " + articulo.ArticuloId;
             MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
             return Json(new { success = true, message = "RESTAURANTES ASIGNADOS" }, JsonRequestBehavior.AllowGet);
@@ -695,7 +658,7 @@ namespace CampaniasSB.Controllers
 
             var tipoTienda = tipo;
 
-            var tiendasSeleccionadas = db.TiendaArticulos.Where(t => t.ArticuloKFCId == id).ToList();
+            var tiendasSeleccionadas = db.TiendaArticulos.Where(t => t.ArticuloId == id).ToList();
 
             //var materialesCampaña = db.CampañaArticuloTMPs.Where(t => t.ArticuloKFCId == id && t.ArticuloKFC.EquityFranquicia == tipoTienda && t.Habilitado == true).OrderBy(t => t.TiendaId).ToList();
 
@@ -704,11 +667,10 @@ namespace CampaniasSB.Controllers
             var campañaId = campaña.CampañaId;
 
             var articulosTMP = db.CampañaArticulos
-                       .Where(x => x.ArticuloKFCId == id)
+                       .Where(x => x.ArticuloId == id)
                        .GroupBy(x => new
                        {
-                           x.ArticuloKFCId,
-                           x.ArticuloKFC.Descripcion,
+                           x.ArticuloId,
                            x.CampañaId,
                            x.Cantidad,
                            x.TiendaId,
@@ -716,23 +678,21 @@ namespace CampaniasSB.Controllers
                        })
                        .Select(x => new MaterialesCampaña()
                        {
-                           ArticuloKFCId = x.Key.ArticuloKFCId,
+                           ArticuloKFCId = x.Key.ArticuloId,
                            Campaña = campaña.Nombre,
                            CampañaId = x.Key.CampañaId,
-                           ArticuloKFC = x.Key.Descripcion,
                            Cantidad = x.Key.Cantidad,
                            TiendaId = x.Key.TiendaId,
                            Habilitado = x.Key.Habilitado,
                        });
 
             var tiendasCampaña = db.Tiendas
-                            .Where(x => x.EquityFranquicia == tipoTienda)
-                            .GroupBy(x => new { x.Restaurante, x.CCoFranquicia, x.TiendaId })
+                            .GroupBy(x => new { x.NombreTienda, x.NoTienda, x.TiendaId })
                             .Select(x => new TiendasCampaña()
                             {
-                                Restaurante = x.Key.Restaurante,
+                                Restaurante = x.Key.NombreTienda,
                                 TiendaId = x.Key.TiendaId,
-                                CC = x.Key.CCoFranquicia,
+                                CC = x.Key.NoTienda,
                                 TipoTienda = tipoTienda,
                             });
 
@@ -771,13 +731,7 @@ namespace CampaniasSB.Controllers
 
             var materialesTiendasCampaña = materialesCampaña.Where(m => m.Habilitado == true && m.CampañaId == campañaId).ToList();
 
-            //if (materialesTiendasCampaña.Count == 0)
-            //{
-            //    materialesTiendasCampaña = materialesCampaña.ToList();
-            //}
-
-            //ViewBag.Campañas = db.Campañas.Where(x => x.Generada == "NO").ToList();
-            ViewBag.Material = db.Articulos.Where(x => x.ArticuloKFCId == id).FirstOrDefault().Descripcion;
+            ViewBag.Material = db.Articulos.Where(x => x.ArticuloId == id).FirstOrDefault().Descripcion;
 
             return PartialView(materialesTiendasCampaña);
         }
@@ -806,11 +760,7 @@ namespace CampaniasSB.Controllers
                 cantidad = Convert.ToInt32(cantidadInput[i]);
                 campId = Convert.ToInt32(campañaId[i]);
 
-                //var campañaIdSesion = db.CampañaArticuloTMPs.Where(c => c.ArticuloKFCId == articuloId).FirstOrDefault().CampañaId;
-
-                //Session["CampañaId"] = campañaIdSesion;
-
-                CampañaArticulo campañaArticulo = db.CampañaArticulos.Where(ta => ta.TiendaId == tiendaId && ta.ArticuloKFCId == articuloId && ta.CampañaId == campId).FirstOrDefault();
+                CampañaArticulo campañaArticulo = db.CampañaArticulos.Where(ta => ta.TiendaId == tiendaId && ta.ArticuloId == articuloId && ta.CampañaId == campId).FirstOrDefault();
 
                 if (campañaArticulo.Cantidad != cantidad)
                 {
@@ -823,7 +773,7 @@ namespace CampaniasSB.Controllers
 
             }
 
-            var articulo = db.Articulos.Where(x => x.ArticuloKFCId == articuloId).FirstOrDefault().Descripcion;
+            var articulo = db.Articulos.Where(x => x.ArticuloId == articuloId).FirstOrDefault().Descripcion;
 
             movimiento = "Asignar Cantidades " + articulo;
             MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
@@ -851,22 +801,7 @@ namespace CampaniasSB.Controllers
 
                 EliminarMateriales(id, campaña);
 
-                //db.Database.ExecuteSqlCommand(
-                //"spEliminarMaterialTiendas @ArticuloKFCId",
-                //new SqlParameter("@ArticuloKFCId", id));
-
-
-                //if (campaña != null)
-                //{
-                //    db.Database.ExecuteSqlCommand(
-                //    "spEliminarMaterialCampaniasTiendas @ArticuloKFCId, @CampaniaId",
-                //    new SqlParameter("@ArticuloKFCId", id),
-                //    new SqlParameter("@CampaniaId", campaña.CampañaId));
-                //}
-
-                //MovementsHelper.AgregarArticuloCampañas(material);
-
-                movimiento = "Eliminar Material " + material.ArticuloKFCId + " " + material.Descripcion + " / " + material.EquityFranquicia;
+                movimiento = "Eliminar Material " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
                 MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                 return Json(new { success = true, message = "MATERIAL ELIMINADO" }, JsonRequestBehavior.AllowGet);

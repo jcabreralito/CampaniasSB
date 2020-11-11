@@ -38,7 +38,6 @@ namespace CampaniasSB.Controllers
         public ActionResult GetData()
         {
             var regionList = db.Database.SqlQuery<Region>("spGetRegiones").ToList();
-            //var regionList = db.Regions.ToList();
 
             return Json(new { data = regionList }, JsonRequestBehavior.AllowGet);
         }
@@ -49,14 +48,13 @@ namespace CampaniasSB.Controllers
         {
             if (id == 0)
             {
-                ViewBag.EquityFranquicia = new SelectList(CombosHelper.GetTipoCampañas(true), "Nombre", "Nombre");
                 return PartialView(new Region());
             }
             else
             {
-                var tipo = db.Regiones.Where(x => x.RegionId == id).FirstOrDefault().EquityFranquicia;
-                ViewBag.EquityFranquicia = new SelectList(CombosHelper.GetTipoCampañas(true), "Nombre", "Nombre", tipo);
-                return PartialView(db.Regiones.Where(x => x.RegionId == id).FirstOrDefault());
+                var regionList = db.Database.SqlQuery<Region>("spGetRegiones").Where(x => x.RegionId == id).FirstOrDefault();
+
+                return PartialView(regionList);
             }
         }
 
@@ -65,14 +63,16 @@ namespace CampaniasSB.Controllers
         public ActionResult AddOrEdit(Region region)
         {
             var usuario = db.Usuarios.Where(u => u.NombreUsuario == User.Identity.Name).FirstOrDefault().UsuarioId;
+            var nombreRegion = region.Nombre.ToUpper();
 
             if (region.RegionId == 0)
             {
+                region.Nombre = nombreRegion;
                 db.Regiones.Add(region);
                 var response = DBHelper.SaveChanges(db);
                 if (response.Succeeded)
                 {
-                    movimiento = "Agregar Región " + region.RegionId + " " + region.Nombre + " / " + region.EquityFranquicia;
+                    movimiento = "Agregar Región " + region.RegionId + " " + region.Nombre;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                     return Json(new { success = true, message = "REGIÓN AGREGADA" }, JsonRequestBehavior.AllowGet);
@@ -84,11 +84,12 @@ namespace CampaniasSB.Controllers
             }
             else
             {
+                region.Nombre = nombreRegion;
                 db.Entry(region).State = EntityState.Modified;
                 var response = DBHelper.SaveChanges(db);
                 if (response.Succeeded)
                 {
-                    movimiento = "Actualizar Región " + region.RegionId + " " + region.Nombre + " / " + region.EquityFranquicia;
+                    movimiento = "Actualizar Región " + region.RegionId + " " + region.Nombre.ToUpper();
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                     return Json(new { success = true, message = "REGIÓN ACTUALIZADA" }, JsonRequestBehavior.AllowGet);
@@ -111,7 +112,7 @@ namespace CampaniasSB.Controllers
             var response = DBHelper.SaveChanges(db);
             if (response.Succeeded)
             {
-                movimiento = "Eliminar Región " + region.RegionId + " " + region.Nombre + " / " + region.EquityFranquicia;
+                movimiento = "Eliminar Región " + region.RegionId + " " + region.Nombre;
                 MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                 return Json(new { success = true, message = "REGIÓN ELIMINADA" }, JsonRequestBehavior.AllowGet);

@@ -30,7 +30,7 @@
                     "url": "Compañias/GetData",
                     "type": "GET",
                     "datatype": "json"
-                },  
+                },
                 "columns": [
                     { "data": "Nombre", "title": "Compañia" },
                     {
@@ -135,25 +135,25 @@
             viewPage();
             var formDiv = $('<div/>');
             $.get(url)
-            .done(function (response) {
-                formDiv.html(response);
+                .done(function (response) {
+                    formDiv.html(response);
 
-                Popup = formDiv.dialog({
-                    autoOpen: true,
-                    resizable: false,
-                    title: 'Compañias',
-                    width: 500,
-                    modal: true,
-                    closeOnEscape: false,
-                    closeText: "Cerrar",
-                    hide: { effect: "fade", duration: 550 },
-                    show: { effect: "fade", duration: 550 },
-                    close: function () {
-                        Popup.dialog('destroy').remove();
-                        hidePages();
-                    }
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: 'Compañias',
+                        width: 500,
+                        modal: true,
+                        closeOnEscape: false,
+                        closeText: "Cerrar",
+                        hide: { effect: "fade", duration: 550 },
+                        show: { effect: "fade", duration: 550 },
+                        close: function () {
+                            Popup.dialog('destroy').remove();
+                            hidePages();
+                        }
+                    });
                 });
-            });
         }
 
         //$("#frmAddOrEditCompañias").submit(function () {
@@ -228,23 +228,22 @@
             }).then((result) => {
                 if (result.value) {
                     hidePage();
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("Delete", "Compañias")/' + id,
-                    success: function (data) {
-                        if (data.success)
-                        {
-                            dataTable.ajax.reload();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete", "Compañias")/' + id,
+                        success: function (data) {
+                            if (data.success) {
+                                dataTable.ajax.reload();
 
-                            $.notify(data.message, {
-                                globalPosition: "top center",
-                                className: "success"
-                            })
-                            viewPage();
+                                $.notify(data.message, {
+                                    globalPosition: "top center",
+                                    className: "success"
+                                })
+                                viewPage();
+                            }
                         }
-                    }
 
-                });
+                    });
                 }
             })
 

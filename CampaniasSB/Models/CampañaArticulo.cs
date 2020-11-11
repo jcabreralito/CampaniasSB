@@ -1,18 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CampaniasSB.Models
 {
+    [Table("CampañaArticulos")]
     public class CampañaArticulo
     {
         [Key]
-        public long CampañaArticuloTMPId { get; set; }
-
-        //public string Usuario { get; set; }
-
-        //public int Compañia { get; set; }
+        public long CampañaArticuloId { get; set; }
 
         [Display(Name = "Articulo Id")]
-        public int ArticuloKFCId { get; set; }
+        public int ArticuloId { get; set; }
 
         [Display(Name = "Tienda Id")]
         public int TiendaId { get; set; }
@@ -22,11 +20,6 @@ namespace CampaniasSB.Models
         public bool Habilitado { get; set; }
 
         public double Cantidad { get; set; }
-
-        [Display(Name = "Código")]
-        public int Codigo { get; set; }
-
-        public virtual Articulo ArticuloKFC { get; set; }
 
     }
 }

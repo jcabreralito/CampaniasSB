@@ -65,10 +65,6 @@ namespace CampaniasSB
             UsuariosHelper.CrearRolOperaciones(3, 2);
             UsuariosHelper.CrearRolOperaciones(3, 4);
             UsuariosHelper.CrearRolOperaciones(3, 5);
-            UsuariosHelper.CrearCategorias("EQUITY");
-            UsuariosHelper.CrearCategorias("FRANQUICIAS");
-            UsuariosHelper.CrearCategorias("EQUITY / FRANQUICIAS");
-            UsuariosHelper.CrearCategorias("STOCK");
         }
     }
 }

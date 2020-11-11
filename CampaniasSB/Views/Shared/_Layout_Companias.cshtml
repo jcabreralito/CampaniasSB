@@ -46,47 +46,64 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="/" class="brand-logo" title="SB">
-                    <img src="~/Content/images/starbucks_logo.png" width="50" height="40" />
-                </a>
-
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
+                <a href="#" class="hide-on-med-and-down brand-logo" title="SB">
+                    <img src="~/Content/images/starbucks_logo.png" width="50" style="margin-top: -9px;" />
+                </a>
+
+                <i class="brand-logo2 @Session["iconoTitulo"] fa-3x"></i>
+
+                <a id="titulo" class="brand-logo" style="color: #fff !important">
+                    @ViewBag.Title
+                </a>
+
                 <ul class="right hide-on-med-and-down">
-                    <li class="col-xs-1">
+                    <li class="iMenu">
                         <div>
-                            <a id="homeB" href="@Url.Action("IndexAdmin", "Home")" class="fas fa-home iconomenu @Session["homeB"].ToString()" title="Inicio" onclick="viewPageIndex()"></a>
+                            <a id="homeB" href="@Url.Action("IndexAdmin", "Home")" class="@Session["homeB"].ToString()" title="Inicio" onclick="viewPageIndex()">
+                                <i class="fas fa-home fa-2x"></i>
+                            </a>
                         </div>
                     </li>
-                    <li class="col-xs-1">
+                    <li class="iMenu">
                         <div>
-                            <a id="rolesB" href="@Url.Action("Index", "Roles")" class="fas fa-user-lock iconomenu @Session["rolesB"].ToString()" title="Roles" onclick="viewPageIndex()"></a>
+                            <a id="rolesB" href="@Url.Action("Index", "Roles")" class="@Session["rolesB"].ToString()" title="Roles" onclick="viewPageIndex()">
+                                <i class="fas fa-user-lock fa-2x"></i>
+                            </a>
                         </div>
                     </li>
-                    <li class="col-xs-1">
+                    <li class="iMenu">
                         <div>
-                            <a id="compañiasB" href="@Url.Action("Index", "Compañias")" class="fas fa-building iconomenu @Session["compañiasB"].ToString()" title="Compañias" onclick="viewPageIndex()"></a>
+                            <a id="compañiasB" href="@Url.Action("Index", "Compañias")" class="@Session["compañiasB"].ToString()" title="Compañias" onclick="viewPageIndex()">
+                                <i class="fas fa-building fa-2x"></i>
+                            </a>
                         </div>
                     </li>
-                    <li class="col-xs-1 ">
+                    <li class="iMenu">
                         <div>
-                            <a id=" usuariosB" href="@Url.Action("Index", "Usuarios")" class="fas fa-users iconomenu @Session["usuariosB"].ToString()" title="Usuarios" onclick="viewPageIndex()"></a>
+                            <a id="usuariosB" href="@Url.Action("Index", "Usuarios")" class="@Session["usuariosB"].ToString()" title="Usuarios" onclick="viewPageIndex()">
+                                <i class="fas fa-users fa-2x"></i>
+                            </a>
                         </div>
                     </li>
-                    <li class="col-xs-1 ">
+                    <li>
                         <div>
-                            <i class="fas fa-user iconomenu" title="@User.Identity.Name" style="background-color: #fff; color: #000; border-radius: 50%; height: 42px !important; width: 42px !important; line-height: initial !important; margin-left: 40px">
-                            </i>
+                            <a href="#" style="background-color: transparent !important">
+                                <i class="fas fa-user" title="@User.Identity.Name" style="background-color: #fff; color: #000; border-radius: 50%; height: 37px !important; width: 37px !important; line-height: initial !important; margin-left: 30px; padding: 5px 8px; margin-top: 9px !important; margin-left: 0">
+                                </i>
+                            </a>
                         </div>
                     </li>
-                    <li class="col-xs-1">
+                    <li class="iMenuSalir">
                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                         {
                             @Html.AntiForgeryToken()
                             <div>
                                 <a href="javascript:document.getElementById('logoutForm').submit()"
-                                   class="fa fa-power-off iconomenu"
-                                   title="Salir" onclick="viewPageIndex()">
+                                   class="iconomenuSalir"
+                                   title="Salir" onclick="viewPageIndex()" style="margin-top: -6px;">
+                                    <i class="large material-icons">power_settings_new</i>
                                 </a>
                             </div>
                         }
@@ -125,7 +142,7 @@
                     <i class="fas fa-boxes"></i>
                 </a>
             </li>
-            <li>
+            @*<li>
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                 {
                     @Html.AntiForgeryToken()
@@ -134,26 +151,30 @@
                         <i class="fas fa-power-off"></i>
                     </a>
                 }
-            </li>
+            </li>*@
         </ul>
 
     </div>
 
-    <div class="container body-content" style="margin-top: 10px">
+    <div class="container body-content" style="margin-top: 20px">
         <div class="jumbotron">
-            <h4 class="center-align"><i class="@Session["iconoTitulo"].ToString()"></i>&nbsp;&nbsp;&nbsp;@ViewBag.Title</h4>
         </div>
         <div id="contenedor_carga">
             <div id="carga">
             </div>
-            @*<div id="inTurnBlurringTextG">
-                <div id="inTurnBlurringTextG_1" class="inTurnBlurringTextG">K</div>
-                <div id="inTurnBlurringTextG_2" class="inTurnBlurringTextG">F</div>
-                <div id="inTurnBlurringTextG_3" class="inTurnBlurringTextG">C</div>
-                <div id="inTurnBlurringTextG_4" class="inTurnBlurringTextG">.</div>
-                <div id="inTurnBlurringTextG_5" class="inTurnBlurringTextG">.</div>
-                <div id="inTurnBlurringTextG_6" class="inTurnBlurringTextG">.</div>
-            </div>*@
+            <div id="inTurnBlurringTextG">
+                <div id="inTurnBlurringTextG_1" class="inTurnBlurringTextG">S</div>
+                <div id="inTurnBlurringTextG_2" class="inTurnBlurringTextG">T</div>
+                <div id="inTurnBlurringTextG_3" class="inTurnBlurringTextG">A</div>
+                <div id="inTurnBlurringTextG_4" class="inTurnBlurringTextG">R</div>
+                <div id="inTurnBlurringTextG_5" class="inTurnBlurringTextG">B</div>
+                <div id="inTurnBlurringTextG_6" class="inTurnBlurringTextG">U</div>
+                <div id="inTurnBlurringTextG_7" class="inTurnBlurringTextG">K</div>
+                <div id="inTurnBlurringTextG_8" class="inTurnBlurringTextG">S</div>
+                <div id="inTurnBlurringTextG_9" class="inTurnBlurringTextG">.</div>
+                <div id="inTurnBlurringTextG_10" class="inTurnBlurringTextG">.</div>
+                <div id="inTurnBlurringTextG_11" class="inTurnBlurringTextG">.</div>
+            </div>
         </div>
         @RenderBody()
     </div>

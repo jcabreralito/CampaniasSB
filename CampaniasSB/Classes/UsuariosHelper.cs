@@ -101,33 +101,6 @@ namespace CampaniasSB.Classes
             }
         }
 
-        internal static void CrearCategorias(string categoria)
-        {
-            var categoriaExist = db.TipoCampanias.Where(r => r.Nombre == categoria).FirstOrDefault();
-
-            if (categoriaExist != null)
-            {
-                if (categoriaExist.Nombre != categoria)
-                {
-                    TipoCampania tipoCampania = new TipoCampania
-                    {
-                        Nombre = categoria
-                    };
-                    db.TipoCampanias.Add(tipoCampania);
-                    db.SaveChanges();
-                }
-            }
-            else
-            {
-                TipoCampania tipoCampania = new TipoCampania
-                {
-                    Nombre = categoria
-                };
-                db.TipoCampanias.Add(tipoCampania);
-                db.SaveChanges();
-            }
-        }
-
         public static void CrearModulo(string moduloName)
         {
             var moduloExist = db.Modulos.Where(r => r.Nombre == moduloName).FirstOrDefault();

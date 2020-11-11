@@ -27,21 +27,11 @@ namespace CampaniasSB.Models
 
         public DbSet<Campaña> Campañas { get; set; }
 
-        public DbSet<NivelPrecio> NivelPrecios { get; set; }
-
-        public DbSet<TipoCaja> TipoCajas { get; set; }
-
-        public DbSet<AcomodoCaja> AcomodoCajas { get; set; }
-
-        public DbSet<TipoTienda> TipoTiendas { get; set; }
+        public DbSet<Esquema> Esquemas { get; set; }
 
         public DbSet<Articulo> Articulos { get; set; }
 
-        public DbSet<CampañaTienda> CampañaTiendas { get; set; }
-
         public DbSet<CampañaArticulo> CampañaArticulos { get; set; }
-
-        public DbSet<Proveedor> Proveedores { get; set; }
 
         public DbSet<Modulo> Modulos { get; set; }
 
@@ -53,23 +43,9 @@ namespace CampaniasSB.Models
 
         public DbSet<CodigoCampaña> CodigosCampaña { get; set; }
 
-        public DbSet<Familia> Familias { get; set; }
-
-        public DbSet<TiendaConfiguracion> TiendaConfiguraciones { get; set; }
-
-        public DbSet<TipoConfiguracion> TipoConfiguraciones { get; set; }
-
-        public DbSet<AsignarConfiguracionTienda> AsignarConfiguracionTiendas { get; set; }
-
         public DbSet<Regla> Reglas { get; set; }
 
-        public DbSet<TipoCampania> TipoCampanias { get; set; }
-
-        public DbSet<ReglaMaterial> ReglaMateriales { get; set; }
-
         public DbSet<ReglaCatalogo> ReglasCatalogo { get; set; }
-
-        public DbSet<ReglaCatalogoValor> ReglasCatalogoValor { get; set; }
 
         public DbSet<ReglaCaracteristica> ReglasCaracteristicas { get; set; }
 

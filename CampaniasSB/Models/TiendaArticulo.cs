@@ -11,17 +11,9 @@ namespace CampaniasSB.Models
 
         public int TiendaId { get; set; }
 
-        public int ArticuloKFCId { get; set; }
+        public int ArticuloId { get; set; }
 
         public bool Seleccionado { get; set; }
-
-        //public string EquityFranquicia { get; set; }
-
-        public virtual Tienda Tienda { get; set; }
-
-        public virtual Articulo ArticuloKFC { get; set; }
-
-        public virtual CampañaArticulo CampañaArticuloTMP { get; set; }
 
     }
 }

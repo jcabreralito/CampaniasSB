@@ -15,7 +15,5 @@ namespace CampaniasSB.Models
         [Index("Región_Nombre_Index", IsUnique = true)]
         public string Nombre { get; set; }
 
-        public string EquityFranquicia { get; set; }
-
     }
 }

@@ -339,351 +339,350 @@
         <script>
 
     var Popup, PopupMat, dataTable, dataTableF, dataTableS;
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-            dataTable = $("#resEquityTable").DataTable({
-            "serverSide": false,
-            "deferRender": true,
-            //"ajax": {
-            //"url": "Restaurantes/Index",
-            //"type": "GET",
-            //"datatype": "json"
-            //},
-            "order": [[1, "asc"]],
-            "pagingType": "full_numbers",
-            "language": {
-                "emptyTable": "No hay datos, dar click en el botón <b>Agregar</b>",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sInfo": "_END_ registros",
-                "sInfoEmpty": "Registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "de un total de _MAX_",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando informacíon...",
-                "oPaginate": {
-                    "sFirst": "<<",
-                    "sLast": ">>",
-                    "sNext": ">",
-                    "sPrevious": "<"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                },
-                "buttons": {
-                    "copy": "Copiar",
-                    "colvis": "Mostrar/Ocultar Columnas",
-                    "pageLength": 'Mostrar registros',
-                },
-                select: {
-                    rows: {
-                        _: "%d registros seleccionados",
-                        0: "",
-                        1: "1 registro seleccionado"
-                    }
-                },
-            },
-            dom: 'lBfrtip',
-            buttons: [
-                //'pageLength',
-                //{
-                //    extend: 'colvisGroup',
-                //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Características Generales">CG</strong>',
-                //    hide: [11, 12, 13, 14, 15]
-                //},
-                //{
-                //    extend: 'colvisGroup',
-                //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Configuración por Producto">CP</strong>',
-                //    hide: [16, 17, 18, 19, 20, 21, 22, 23]
-                //},
-                //{
-                //    extend: 'colvisGroup',
-                //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Configuración por Materiales Especiales">CME</strong>',
-                //    hide: [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
-                //},
-                //{
-                //    extend: 'colvisGroup',
-                //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Configuración por Materiales Especiales">CMD</strong>',
-                //    hide: [37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56]
-                //},
-                //{
-                //    extend: 'colvisGroup',
-                //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Configuración por Equipo">CER</strong>',
-                //    hide: [57, 58, 59, 60, 61, 62],
-                //    className: "dt-body-center text-center",
-                //},
-                {
-                    extend: 'colvisGroup',
-                    text: '<i class="fas fa-list" title="Mostrar Todo"></i>',
-                    show: ':hidden',
-                },
-                {
-                    extend: 'colvis',
-                    columns: ':gt(1)',
-                    text: '<i class="fas fa-tasks" title="Mostrar / Ocultar Columnas"></i>',
-                },
-                {
-                    extend: 'excelHtml5',
-                    title: null,
-                    text: '<i class="fas fa-file-excel" title="Exportar a Excel"></i>',
-                    exportOptions: {
-                        orthogonal: 'export',
-                        columns: "thead th:not(.noExport)",
-                        //columns: ':visible',
+                dataTable = $("#resEquityTable").DataTable({
+                    "serverSide": false,
+                    "deferRender": true,
+                    //"ajax": {
+                    //"url": "Restaurantes/Index",
+                    //"type": "GET",
+                    //"datatype": "json"
+                    //},
+                    "order": [[1, "asc"]],
+                    "pagingType": "full_numbers",
+                    "language": {
+                        "emptyTable": "No hay datos, dar click en el botón <b>Agregar</b>",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sInfo": "_END_ registros",
+                        "sInfoEmpty": "Registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "de un total de _MAX_",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando informacíon...",
+                        "oPaginate": {
+                            "sFirst": "<<",
+                            "sLast": ">>",
+                            "sNext": ">",
+                            "sPrevious": "<"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Mostrar/Ocultar Columnas",
+                            "pageLength": 'Mostrar registros',
+                        },
+                        select: {
+                            rows: {
+                                _: "%d registros seleccionados",
+                                0: "",
+                                1: "1 registro seleccionado"
+                            }
+                        },
                     },
-                    //customize: function (win) {
-                    //    $(win.document.body).find('table').addClass('display').css('font-size', '9px');
-                    //    $(win.document.body).find('tr:nth-child(odd) td').each(function () {
-                    //        $(this).css('background-color', '#D0D0D0');
+                    dom: 'lBfrtip',
+                    buttons: [
+                        //'pageLength',
+                        //{
+                        //    extend: 'colvisGroup',
+                        //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Características Generales">CG</strong>',
+                        //    hide: [11, 12, 13, 14, 15]
+                        //},
+                        //{
+                        //    extend: 'colvisGroup',
+                        //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Configuración por Producto">CP</strong>',
+                        //    hide: [16, 17, 18, 19, 20, 21, 22, 23]
+                        //},
+                        //{
+                        //    extend: 'colvisGroup',
+                        //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Configuración por Materiales Especiales">CME</strong>',
+                        //    hide: [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+                        //},
+                        //{
+                        //    extend: 'colvisGroup',
+                        //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Configuración por Materiales Especiales">CMD</strong>',
+                        //    hide: [37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56]
+                        //},
+                        //{
+                        //    extend: 'colvisGroup',
+                        //    text: '<strong style="font-size: 14px; margin-left: -5px" title="Ocultar Configuración por Equipo">CER</strong>',
+                        //    hide: [57, 58, 59, 60, 61, 62],
+                        //    className: "dt-body-center text-center",
+                        //},
+                        {
+                            extend: 'colvisGroup',
+                            text: '<i class="fas fa-list" title="Mostrar Todo"></i>',
+                            show: ':hidden',
+                        },
+                        {
+                            extend: 'colvis',
+                            columns: ':gt(1)',
+                            text: '<i class="fas fa-tasks" title="Mostrar / Ocultar Columnas"></i>',
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            title: null,
+                            text: '<i class="fas fa-file-excel" title="Exportar a Excel"></i>',
+                            exportOptions: {
+                                orthogonal: 'export',
+                                columns: "thead th:not(.noExport)",
+                                //columns: ':visible',
+                            },
+                            //customize: function (win) {
+                            //    $(win.document.body).find('table').addClass('display').css('font-size', '9px');
+                            //    $(win.document.body).find('tr:nth-child(odd) td').each(function () {
+                            //        $(this).css('background-color', '#D0D0D0');
+                            //    });
+                            //    $(win.document.body).find('h1').css('text-align', 'center');
+                            //},
+                            filename: 'Restaurantes',
+                            autoFilter: true,
+                            sheetName: 'Equity',
+                            messageTop: null,
+                            body: true,
+                            footer: false,
+                            //autoClose: true,
+                            //customize: function (xlsx) {
+                            //    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                            //    // Loop over the cells in column `C`
+                            //    $('row c[r^="D"]', sheet).each(function () {
+                            //        // Get the value
+                            //        if ($('is t', this).text() == 'CENTRO') {
+                            //            $(this).attr('s', '20');
+                            //        }
+                            //    });
+                            //},
+                        },
+                    ],
+                    autoWidth: true,
+                    fixedColumns: true,
+                    fixedColumns: {
+                        leftColumns: 2,
+                    },
+                    //initComplete: function () {
+                    //    this.api().columns([2, 3, 4]).every(function () {
+                    //        var column = this;
+                    //        var select = $('<select><option value="">TODOS</option></select>')
+                    //            .appendTo($(column.footer()))
+                    //            .on('change', function () {
+                    //                var val = $.fn.dataTable.util.escapeRegex(
+                    //                    $(this).val()
+                    //                );
+
+                    //                column
+                    //                    .search(val ? '^' + val + '$' : '', true, false)
+                    //                    .draw();
+                    //            });
+
+                    //        $(select).click(function (e) {
+                    //            e.stopPropagation();
+                    //        });
+
+                    //        column.data().unique().sort().each(function (d, j) {
+                    //            select.append('<option value="' + d + '">' + d + '</option>')
+                    //        });
                     //    });
-                    //    $(win.document.body).find('h1').css('text-align', 'center');
                     //},
-                    filename: 'Restaurantes',
-                    autoFilter: true,
-                    sheetName: 'Equity',
-                    messageTop: null,
-                    body: true,
-                    footer: false,
-                    //autoClose: true,
-                    //customize: function (xlsx) {
-                    //    var sheet = xlsx.xl.worksheets['sheet1.xml'];
-
-                    //    // Loop over the cells in column `C`
-                    //    $('row c[r^="D"]', sheet).each(function () {
-                    //        // Get the value
-                    //        if ($('is t', this).text() == 'CENTRO') {
-                    //            $(this).attr('s', '20');
-                    //        }
-                    //    });
-                    //},
-                },
-            ],
-            autoWidth: true,
-            fixedColumns: true,
-            fixedColumns: {
-                leftColumns: 2,
-            },
-            //initComplete: function () {
-            //    this.api().columns([2, 3, 4]).every(function () {
-            //        var column = this;
-            //        var select = $('<select><option value="">TODOS</option></select>')
-            //            .appendTo($(column.footer()))
-            //            .on('change', function () {
-            //                var val = $.fn.dataTable.util.escapeRegex(
-            //                    $(this).val()
-            //                );
-
-            //                column
-            //                    .search(val ? '^' + val + '$' : '', true, false)
-            //                    .draw();
-            //            });
-
-            //        $(select).click(function (e) {
-            //            e.stopPropagation();
-            //        });
-
-            //        column.data().unique().sort().each(function (d, j) {
-            //            select.append('<option value="' + d + '">' + d + '</option>')
-            //        });
-            //    });
-            //},
-            stateSave: true,
-            select: true,
-            scrollY: true,
-            scrollX: true,
-            keys: false,
-            'bLengthChange': true,
-            'bInfo': true,
-            "lengthMenu": [[-1, 15, 25, 50, 100], ["TODOS", 15, 25, 50, 100]],
-        });
-    });
-
-function PopupForm(url) {
-viewPage();
-    var formDiv = $('<div/>');
-    $.get(url)
-    .done(function (response) {
-        formDiv.html(response);
-        Popup = formDiv.dialog({
-            autoOpen: true,
-            resizable: false,
-            title: "RESTAURANTES EQ",
-            width: 850,
-            modal: true,
-            closeOnEscape: false,
-            closeText: "Cerrar",
-            hide: { effect: "fade", duration: 550 },
-            show: { effect: "fade", duration: 550 },
-            close: function () {
-                Popup.dialog('destroy').remove();
-                hidePages();
-            }
-        });
-    });
-}
-
-function PopupFormMat(url) {
-viewPage();
-    var formDiv = $('<div/>');
-    $.get(url)
-        .done(function (response) {
-            formDiv.html(response);
-            PopupMat = formDiv.dialog({
-                //position: ['middle', 20],
-                autoOpen: true,
-                resizable: false,
-                title: "MATERIALES EQ",
-                width: 800,
-                modal: true,
-                closeOnEscape: false,
-                closeText: "Cerrar",
-                hide: { effect: "fade", duration: 550 },
-                show: { effect: "fade", duration: 550 },
-                close: function () {
-                    PopupMat.dialog('destroy').remove();
-                    hidePages();
-                }
-            });
-        });
-}
-
-        function SubmitFormMat(form) {
-            var formData = new FormData(form);
-            $.validator.unobtrusive.parse(form);
-            if ($(form).valid()) {
-                $.ajax({
-                    type: "POST",
-                    url: form.action,
-                    data: formData,
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    //data : $(form).serialize(),
-                    success: function (data) {
-                        if (data.success) {
-                            PopupMat.dialog('close');
-                            dataTable.draw();
-
-                            $.notify(data.message, {
-                                globalPosition: "top center",
-                                className: "success",
-                                autoHide: true,
-                                autoHideDelay: 2000,
-                            })
-
-                        }
-                    }
+                    stateSave: true,
+                    select: true,
+                    scrollY: true,
+                    scrollX: true,
+                    keys: false,
+                    'bLengthChange': true,
+                    'bInfo': true,
+                    "lengthMenu": [[-1, 15, 25, 50, 100], ["TODOS", 15, 25, 50, 100]],
                 });
+            });
+
+            function PopupForm(url) {
+                viewPage();
+                var formDiv = $('<div/>');
+                $.get(url)
+                    .done(function (response) {
+                        formDiv.html(response);
+                        Popup = formDiv.dialog({
+                            autoOpen: true,
+                            resizable: false,
+                            title: "RESTAURANTES EQ",
+                            width: 850,
+                            modal: true,
+                            closeOnEscape: false,
+                            closeText: "Cerrar",
+                            hide: { effect: "fade", duration: 550 },
+                            show: { effect: "fade", duration: 550 },
+                            close: function () {
+                                Popup.dialog('destroy').remove();
+                                hidePages();
+                            }
+                        });
+                    });
             }
-            return false;
-        }
+
+            function PopupFormMat(url) {
+                viewPage();
+                var formDiv = $('<div/>');
+                $.get(url)
+                    .done(function (response) {
+                        formDiv.html(response);
+                        PopupMat = formDiv.dialog({
+                            //position: ['middle', 20],
+                            autoOpen: true,
+                            resizable: false,
+                            title: "MATERIALES EQ",
+                            width: 800,
+                            modal: true,
+                            closeOnEscape: false,
+                            closeText: "Cerrar",
+                            hide: { effect: "fade", duration: 550 },
+                            show: { effect: "fade", duration: 550 },
+                            close: function () {
+                                PopupMat.dialog('destroy').remove();
+                                hidePages();
+                            }
+                        });
+                    });
+            }
+
+            function SubmitFormMat(form) {
+                var formData = new FormData(form);
+                $.validator.unobtrusive.parse(form);
+                if ($(form).valid()) {
+                    $.ajax({
+                        type: "POST",
+                        url: form.action,
+                        data: formData,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        //data : $(form).serialize(),
+                        success: function (data) {
+                            if (data.success) {
+                                PopupMat.dialog('close');
+                                dataTable.draw();
+
+                                $.notify(data.message, {
+                                    globalPosition: "top center",
+                                    className: "success",
+                                    autoHide: true,
+                                    autoHideDelay: 2000,
+                                })
+
+                            }
+                        }
+                    });
+                }
+                return false;
+            }
 
 
-function SubmitForm(form) {
-    var formData = new FormData(form);
-    $.validator.unobtrusive.parse(form);
-    if ($(form).valid()) {
-        $.ajax({
-            type: "POST",
-            url: form.action,
-            data: formData,
-            contentType: false,
-            cache: false,
-            processData: false,
-            //data : $(form).serialize(),
-            success: function (data) {
-                if (data.success) {
-                    Popup.dialog('close');
-                    //ajax: {
-                    //    url: "Restaurantes/Index",
-                    //        type: "GET",
-                    //            datatype: "json"
-                    //};
-                    //dataTable.ajax.reload();
-                    dataTable.draw();
+            function SubmitForm(form) {
+                var formData = new FormData(form);
+                $.validator.unobtrusive.parse(form);
+                if ($(form).valid()) {
+                    $.ajax({
+                        type: "POST",
+                        url: form.action,
+                        data: formData,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        //data : $(form).serialize(),
+                        success: function (data) {
+                            if (data.success) {
+                                Popup.dialog('close');
+                                //ajax: {
+                                //    url: "Restaurantes/Index",
+                                //        type: "GET",
+                                //            datatype: "json"
+                                //};
+                                //dataTable.ajax.reload();
+                                dataTable.draw();
 
-                    $.notify(data.message, {
-                        globalPosition: "top center",
-                        className: "success",
-                        autoHide: true,
-                        autoHideDelay: 2000,
-                    })
+                                $.notify(data.message, {
+                                    globalPosition: "top center",
+                                    className: "success",
+                                    autoHide: true,
+                                    autoHideDelay: 2000,
+                                })
 
+                            }
+                        }
+                    });
+                }
+                return false;
+            }
+
+            function Delete(id) {
+                Swal.fire({
+                    title: '¿ Eliminar Restaurante ?',
+                    //text: "You won't be able to revert this!",
+                    //icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#067655',
+                    cancelButtonColor: '#067655',
+                    confirmButtonText: 'Si',
+                    cancelButtonText: 'No',
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("Delete","Restaurantes")/' + id,
+                            success: function (data) {
+                                if (data.success) {
+                                    dataTable.draw();
+                                    ////dataTableS.ajax.reload();
+
+                                    $.notify(data.message, {
+                                        globalPosition: "top center",
+                                        className: "success"
+                                    })
+                                }
+                            }
+
+                        });
+                    }
+                })
+
+            }
+
+            function exportTableToExcel(tableID, filename = '') {
+                var downloadLink;
+                var dataType = 'application/octec-stream';
+                //var tableSelect = dataTable;
+                var tableSelect = document.getElementById(tableID);
+                var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+                // Specify file name
+                filename = filename ? filename + '.xlsx' : 'excel_data.xlsx';
+
+                // Create download link element
+                downloadLink = document.createElement("a");
+
+                document.body.appendChild(downloadLink);
+
+                if (navigator.msSaveOrOpenBlob) {
+                    var blob = new Blob(['ufeff', tableHTML], {
+                        type: dataType
+                    });
+                    navigator.msSaveOrOpenBlob(blob, filename);
+                } else {
+                    // Create a link to the file
+                    downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+                    // Setting the file name
+                    downloadLink.download = filename;
+
+                    //triggering the function
+                    downloadLink.click();
                 }
             }
-        });
-    }
-    return false;
-        }
-
-function Delete(id) {
-    Swal.fire({
-        title: '¿ Eliminar Restaurante ?',
-        //text: "You won't be able to revert this!",
-        //icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#067655',
-        cancelButtonColor: '#067655',
-        confirmButtonText: 'Si',
-        cancelButtonText: 'No',
-    }).then((result) => {
-        if (result.value) {
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("Delete","Restaurantes")/' + id,
-            success: function (data) {
-                if (data.success)
-                {
-                    dataTable.draw();
-                    ////dataTableS.ajax.reload();
-
-                    $.notify(data.message, {
-                        globalPosition: "top center",
-                        className: "success"
-                    })
-                }
-            }
-
-        });
-        }
-    })
-
-}
-
-function exportTableToExcel(tableID, filename = '') {
-    var downloadLink;
-    var dataType = 'application/octec-stream';
-    //var tableSelect = dataTable;
-    var tableSelect = document.getElementById(tableID);
-    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-
-    // Specify file name
-    filename = filename ? filename + '.xlsx' : 'excel_data.xlsx';
-
-    // Create download link element
-    downloadLink = document.createElement("a");
-
-    document.body.appendChild(downloadLink);
-
-    if (navigator.msSaveOrOpenBlob) {
-        var blob = new Blob(['ufeff', tableHTML], {
-            type: dataType
-        });
-        navigator.msSaveOrOpenBlob(blob, filename);
-    } else {
-        // Create a link to the file
-        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-
-        // Setting the file name
-        downloadLink.download = filename;
-
-        //triggering the function
-        downloadLink.click();
-    }
-}
 
         </script>
     }

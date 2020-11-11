@@ -18,9 +18,5 @@ namespace CampaniasSB.Models
         [Display(Name = "Región", Prompt = "[Seleccionar una Región...]")]
         public int RegionId { get; set; }
 
-        public string EquityFranquicia { get; set; }
-
-        public virtual Region Region { get; set; }
-
     }
 }

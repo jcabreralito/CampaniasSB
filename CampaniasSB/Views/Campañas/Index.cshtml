@@ -59,7 +59,7 @@
                             //    return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
                             //}
                             //else {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "?cat=" + 'EQUITY' +"' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
+                            return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "?cat=" + 'EQUITY' + "' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
                             //}
                         },
                         "title": "Equity",
@@ -73,7 +73,7 @@
                             //    return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
                             //}
                             //else {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "?cat=" + 'FRANQUICIAS' +"' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
+                            return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "?cat=" + 'FRANQUICIAS' + "' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
                             //}
                         },
                         "title": "Franquicias",
@@ -87,7 +87,7 @@
                             //    return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
                             //}
                             //else {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "?cat=" + 'STOCK' +"' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
+                            return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "?cat=" + 'STOCK' + "' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
                             //}
                         },
                         "title": "Stock",
@@ -98,7 +98,7 @@
                     {
                         "data": "CampañaId", "render": function (data, type, row) {
                             if (row.Generada === "SI") { // TODO: CAMBIAR A "NO"
-                                 return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
+                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
                             }
                             else {
                                 return "<a class='btn-danger btn-lg' style='background-color: transparent; cursor: pointer' onclick=CodesCampArt(" + data + ") ><i class='fas fa-barcode' style='color: #000'></i></a>";
@@ -157,11 +157,11 @@
                     {
                         "data": "CampañaId", "render": function (data, type, row) {
                             if (row.Generada === "SI") { // TODO: CAMBIAR A "NO"
-                                 return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
+                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
                                 @*return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("ResumenProveedor", "Campañas")/" + data +"' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-shipping-fast'></i></a>";*@
                             }
                             else {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("ResumenProveedor", "Campañas")/" + data +"' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-shipping-fast'></i></a>";
+                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("ResumenProveedor", "Campañas")/" + data + "' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-shipping-fast'></i></a>";
                             }
                         },
                         "title": "Resumen",
@@ -254,25 +254,25 @@
             viewPage();
             var formDiv = $('<div/>');
             $.get(url)
-            .done(function (response) {
-                formDiv.html(response);
+                .done(function (response) {
+                    formDiv.html(response);
 
-                Popup = formDiv.dialog({
-                    autoOpen: true,
-                    resizable: false,
-                    title: 'CAMPAÑAS',
-                    width: 500,
-                    modal: true,
-                    closeOnEscape: false,
-                    closeText: "Cerrar",
-                    hide: { effect: "fade", duration: 550 },
-                    show: { effect: "fade", duration: 550 },
-                    close: function () {
-                        Popup.dialog('destroy').remove();
-                        hidePages();
-                    }
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: 'CAMPAÑAS',
+                        width: 500,
+                        modal: true,
+                        closeOnEscape: false,
+                        closeText: "Cerrar",
+                        hide: { effect: "fade", duration: 550 },
+                        show: { effect: "fade", duration: 550 },
+                        close: function () {
+                            Popup.dialog('destroy').remove();
+                            hidePages();
+                        }
+                    });
                 });
-            });
         }
 
         function PopupFormCamp(url) {
@@ -302,19 +302,18 @@
 
         function SubmitForm(form) {
             $.validator.unobtrusive.parse(form);
-            if($(form).valid()){
+            if ($(form).valid()) {
                 $.ajax({
-                    type : "POST",
-                    url : form.action,
-                    data : $(form).serialize(),
-                    success : function (data) {
-                        if(data.success)
-                        {
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
                             Popup.dialog('close');
                             dataTable.ajax.reload();
 
-                            $.notify(data.message,{
-                                globalPosition :"top center",
+                            $.notify(data.message, {
+                                globalPosition: "top center",
                                 className: "success",
                                 autoHide: true,
                                 autoHideDelay: 2000,
@@ -326,6 +325,7 @@
             }
             return false;
         }
+
 
         function CloseCampArt(id) {
             Swal.fire({
@@ -340,23 +340,22 @@
             }).then((result) => {
                 if (result.value) {
                     hidePage();
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("CloseCampArt", "Campañas")/' + id,
-                    success: function (data) {
-                        if (data.success)
-                        {
-                            dataTable.ajax.reload();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("CloseCampArt", "Campañas")/' + id,
+                        success: function (data) {
+                            if (data.success) {
+                                dataTable.ajax.reload();
 
-                            $.notify(data.message, {
-                                globalPosition: "top center",
-                                className: "success"
-                            })
-                            viewPage();
+                                $.notify(data.message, {
+                                    globalPosition: "top center",
+                                    className: "success"
+                                })
+                                viewPage();
+                            }
                         }
-                    }
 
-                });
+                    });
                 }
             })
 
@@ -375,23 +374,22 @@
             }).then((result) => {
                 if (result.value) {
                     hidePage();
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("CodesCampArt", "Campañas")/' + id,
-                    success: function (data) {
-                        if (data.success)
-                        {
-                            dataTable.ajax.reload();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("CodesCampArt", "Campañas")/' + id,
+                        success: function (data) {
+                            if (data.success) {
+                                dataTable.ajax.reload();
 
-                            $.notify(data.message, {
-                                globalPosition: "top center",
-                                className: "success"
-                            })
-                            viewPage();
+                                $.notify(data.message, {
+                                    globalPosition: "top center",
+                                    className: "success"
+                                })
+                                viewPage();
+                            }
                         }
-                    }
 
-                });
+                    });
                 }
             })
 
@@ -410,23 +408,22 @@
             }).then((result) => {
                 if (result.value) {
                     hidePage();
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("Delete","Campañas")/' + id,
-                    success: function (data) {
-                        if (data.success)
-                        {
-                            dataTable.ajax.reload();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete","Campañas")/' + id,
+                        success: function (data) {
+                            if (data.success) {
+                                dataTable.ajax.reload();
 
-                            $.notify(data.message, {
-                                globalPosition: "top center",
-                                className: "success"
-                            })
-                            viewPage();
+                                $.notify(data.message, {
+                                    globalPosition: "top center",
+                                    className: "success"
+                                })
+                                viewPage();
+                            }
                         }
-                    }
 
-                });
+                    });
                 }
             })
 

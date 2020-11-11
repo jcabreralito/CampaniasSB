@@ -14,9 +14,5 @@ namespace CampaniasSB.Models
 
         public string Valor { get; set; }
 
-        public virtual Tienda Tienda { get; set; }
-
-        public virtual ReglaCatalogo ReglaCatalogo { get; set; }
-
     }
 }

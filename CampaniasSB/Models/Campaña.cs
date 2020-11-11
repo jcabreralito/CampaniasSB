@@ -23,16 +23,5 @@ namespace CampaniasSB.Models
         [Display(Name = "Generada")]
         public string Generada { get; set; }
 
-        //public virtual ICollection<CampañaArticulo> CampañaArticulos { get; set; }
-
-        //public virtual ICollection<CodigoCampaña> CodigoCampañas { get; set; }
-
-        //public List<CampañaArticuloTMP> CampañaDetalles { get; set; }
-
-        //[DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = false)]
-        //public double TotalCantidad { get { return CampañaDetalles == null ? 0 : CampañaDetalles.Sum(d => d.Cantidad); } }
-
-
-
     }
 }

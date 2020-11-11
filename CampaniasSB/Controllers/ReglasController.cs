@@ -94,7 +94,7 @@ namespace CampaniasSB.Controllers
             }
             else
             {
-                var articuloId = db.Reglas.Where(x => x.ReglaId == id).FirstOrDefault().ArticuloKFCId;
+                var articuloId = db.Reglas.Where(x => x.ReglaId == id).FirstOrDefault().ArticuloId;
 
                 ViewBag.ArticuloKFCId = new SelectList(CombosHelper.GetMateriales("", true), "ArticuloKFCId", "Descripcion", articuloId);
                 return PartialView(db.Reglas.Where(x => x.ReglaId == id).FirstOrDefault());
@@ -114,11 +114,11 @@ namespace CampaniasSB.Controllers
                 if (response.Succeeded)
                 {
                     var reglaId = regla.ReglaId;
-                    var cat = db.Articulos.Where(x => x.ArticuloKFCId == regla.ArticuloKFCId).FirstOrDefault().EquityFranquicia;
+                    var cat = db.Articulos.Where(x => x.ArticuloId == regla.ArticuloId).FirstOrDefault().SencilloMultiple;
 
                     MovementsHelper.AgregarReglasCaracteristicas(cat);
 
-                    movimiento = "Agregar Regla " + regla.ReglaId + " " + regla.NombreRegla + " / " + regla.ArticuloKFC.Descripcion;
+                    movimiento = "Agregar Regla " + regla.ReglaId + " " + regla.NombreRegla;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                     return Json(new { success = true, message = "REGLA AGREGADA" }, JsonRequestBehavior.AllowGet);
@@ -135,11 +135,11 @@ namespace CampaniasSB.Controllers
                 if (response.Succeeded)
                 {
                     var reglaId = regla.ReglaId;
-                    var cat = db.Articulos.Where(x => x.ArticuloKFCId == regla.ArticuloKFCId).FirstOrDefault().EquityFranquicia;
+                    var cat = db.Articulos.Where(x => x.ArticuloId == regla.ArticuloId).FirstOrDefault().SencilloMultiple;
 
                     MovementsHelper.AgregarReglasCaracteristicas(cat);
 
-                    movimiento = "Actualizar Regla " + regla.ReglaId + " " + regla.NombreRegla + " / " + regla.ArticuloKFC.Descripcion;
+                    movimiento = "Actualizar Regla " + regla.ReglaId + " " + regla.NombreRegla;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
                     return Json(new { success = true, message = "REGLA ACTUALIZADA" }, JsonRequestBehavior.AllowGet);
@@ -157,19 +157,11 @@ namespace CampaniasSB.Controllers
         {
             if (id == 0)
             {
-                ViewBag.Categoria = new SelectList(CombosHelper.GetTipoCampañas(true), "Nombre", "Nombre");
-                ViewBag.TipoConfiguracionId = new SelectList(CombosHelper.GetTipoConfiguracion(true), "TipoConfiguracionId", "Nombre");
 
                 return PartialView(new ReglaCatalogo());
             }
             else
             {
-                var tipo = db.ReglasCatalogo.Where(x => x.ReglaCatalogoId == id).FirstOrDefault().Categoria;
-                var tipoCon = db.ReglasCatalogo.Where(x => x.ReglaCatalogoId == id).FirstOrDefault().TipoConfiguracionId;
-
-                ViewBag.Categoria = new SelectList(CombosHelper.GetTipoCampañas(true), "Nombre", "Nombre", tipo);
-                ViewBag.TipoConfiguracionId = new SelectList(CombosHelper.GetTipoConfiguracion(true), "TipoConfiguracionId", "Nombre", tipoCon);
-
                 return PartialView(db.ReglasCatalogo.Where(x => x.ReglaCatalogoId == id).FirstOrDefault());
             }
         }
@@ -280,8 +272,8 @@ namespace CampaniasSB.Controllers
 
             if (reglasList.Count == 0)
             {
-                var artId = db.Reglas.Where(x => x.ReglaId == id).FirstOrDefault().ArticuloKFCId;
-                var cat = db.Articulos.Where(x => x.ArticuloKFCId == artId).FirstOrDefault().EquityFranquicia;
+                var artId = db.Reglas.Where(x => x.ReglaId == id).FirstOrDefault().ArticuloId;
+                var cat = db.Articulos.Where(x => x.ArticuloId == artId).FirstOrDefault().SencilloMultiple;
                 int reglaId = (int)id;
 
                 MovementsHelper.AgregarReglasCaracteristicas(cat);

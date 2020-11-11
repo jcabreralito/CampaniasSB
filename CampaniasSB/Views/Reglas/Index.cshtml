@@ -36,34 +36,6 @@
 
 </div>
 
-@*<div id="franquicias" style="visibility: hidden; display: none">
-
-    <style>
-        #resFranquiciasTable th, #resFranquiciasTable td {
-            white-space: nowrap;
-        }
-    </style>
-
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-sm green" title="AgregarF" onclick="PopupForm('@Url.Action("AddOrEdit","Reglas", new { cat = 2})')">
-            <i class="large material-icons">add_circle</i>
-        </a>
-    </div>
-
-    <table id="resFranquiciasTable" class="table table-striped table-bordered compact nowrap" style="width:100%; text-transform: uppercase">
-        <tfoot>
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </tfoot>
-    </table>
-
-</div>*@
-
 <div id="catalogo" style="visibility: hidden; display: none">
 
     <style>
@@ -98,7 +70,7 @@
     <script>
         var PopupRegla, PopupCar, PopupCat, dataTableReglaEQ, dataTableReglaFQ, dataTableReglaCat;
         $(document).ready(function () {
-            dataTableReglaEQ =  $("#reglasEquityTable").DataTable({
+            dataTableReglaEQ = $("#reglasEquityTable").DataTable({
                 "ajax": {
                     "url": "Reglas/GetDataEquity",
                     "type": "GET",
@@ -479,42 +451,41 @@
             viewPage();
             var formDiv = $('<div/>');
             $.get(url)
-            .done(function (response) {
-                formDiv.html(response);
-                PopupRegla = formDiv.dialog({
-                    autoOpen: true,
-                    resizable: false,
-                    title: 'REGLAS',
-                    width: 650,
-                    modal: true,
-                    closeOnEscape: false,
-                    closeText: "Cerrar",
-                    hide: { effect: "fade", duration: 550 },
-                    show: { effect: "fade", duration: 550 },
-                    close: function () {
-                        PopupRegla.dialog('destroy').remove();
-                        hidePages();
-                    }
+                .done(function (response) {
+                    formDiv.html(response);
+                    PopupRegla = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: 'REGLAS',
+                        width: 650,
+                        modal: true,
+                        closeOnEscape: false,
+                        closeText: "Cerrar",
+                        hide: { effect: "fade", duration: 550 },
+                        show: { effect: "fade", duration: 550 },
+                        close: function () {
+                            PopupRegla.dialog('destroy').remove();
+                            hidePages();
+                        }
+                    });
                 });
-            });
         }
 
         function SubmitForm(form) {
             $.validator.unobtrusive.parse(form);
-            if($(form).valid()){
+            if ($(form).valid()) {
                 $.ajax({
-                    type : "POST",
-                    url : form.action,
-                    data : $(form).serialize(),
-                    success : function (data) {
-                        if(data.success)
-                        {
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
                             PopupRegla.dialog('close');
                             dataTableReglaEQ.ajax.reload();
                             //dataTableReglaFQ.ajax.reload();
 
-                            $.notify(data.message,{
-                                globalPosition :"top center",
+                            $.notify(data.message, {
+                                globalPosition: "top center",
                                 className: "success",
                                 autoHide: true,
                                 autoHideDelay: 2000,
@@ -650,28 +621,28 @@
             }).then((result) => {
                 if (result.value) {
                     hidePage();
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("Delete","Reglas")/' + id,
-                    success: function (data) {
-                        if (data.success)
-                        {
-                            dataTableReglaEQ.ajax.reload();
-                            //dataTableReglaFQ.ajax.reload();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete","Reglas")/' + id,
+                        success: function (data) {
+                            if (data.success) {
+                                dataTableReglaEQ.ajax.reload();
+                                //dataTableReglaFQ.ajax.reload();
 
-                            $.notify(data.message, {
-                                globalPosition: "top center",
-                                className: "success"
-                            })
-                            viewPage();
+                                $.notify(data.message, {
+                                    globalPosition: "top center",
+                                    className: "success"
+                                })
+                                viewPage();
+                            }
                         }
-                    }
 
-                });
+                    });
                 }
             })
 
         }
+
         function DeleteCat(id) {
             Swal.fire({
                 title: '¿ Eliminar Característica ?',
@@ -685,28 +656,28 @@
             }).then((result) => {
                 if (result.value) {
                     hidePage();
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("DeleteCat","Reglas")/' + id,
-                    success: function (data) {
-                        if (data.success)
-                        {
-                            dataTableReglaEQ.ajax.reload();
-                            //dataTableReglaFQ.ajax.reload();
-                            dataTableReglaCat.ajax.reload();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeleteCat","Reglas")/' + id,
+                        success: function (data) {
+                            if (data.success) {
+                                dataTableReglaEQ.ajax.reload();
+                                //dataTableReglaFQ.ajax.reload();
+                                dataTableReglaCat.ajax.reload();
 
-                            $.notify(data.message, {
-                                globalPosition: "top center",
-                                className: "success"
-                            })
-                            viewPage();
+                                $.notify(data.message, {
+                                    globalPosition: "top center",
+                                    className: "success"
+                                })
+                                viewPage();
+                            }
                         }
-                    }
 
-                });
+                    });
                 }
             })
 
         }
+
     </script>
 }

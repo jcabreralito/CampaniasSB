@@ -130,7 +130,7 @@
             "language": {
                 "sSearch": "Buscar:",
             },
-            'initComplete': function(settings) {
+            'initComplete': function (settings) {
                 var api = new $.fn.dataTable.Api(settings);
                 api.columns().header().each(function (column) {
                     if ($(column).text() == 'Material') {
