@@ -10,8 +10,7 @@
 
     <div class="row">
         <div class="input-field col s12" style="text-transform: uppercase !important">
-            @*<input type="text" id="Nombre" value="@ViewBag.Consecutivo" readonly />*@
-            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @type = "text", @class = "validate", @readonly = "readonly", style = "text-transform: uppercase !important" } })
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @type = "text", @readonly = "readonly", style = "text-transform: uppercase !important" } })
             <label for="Nombre" class="active">Campaña</label>
         </div>
     </div>
@@ -24,12 +23,25 @@
     </div>
 
     <div class="center-align">
-        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+        <button id="aceptar" disabled type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
             <i class="large material-icons">check</i>
         </button>
-
-        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
-                <i class="large material-icons">arrow_back</i>
-            </button>*@
     </div>
 }
+
+<script>
+
+    var nom = document.getElementById('Descripcion');
+    var acep = document.getElementById('aceptar');
+
+    nom.addEventListener('change', function () {
+
+        if (nom.value == "") {
+            acep.disabled = true;
+        }
+        else {
+            acep.disabled = false;
+        }
+    });
+
+</script>

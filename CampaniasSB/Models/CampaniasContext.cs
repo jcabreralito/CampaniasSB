@@ -53,5 +53,6 @@ namespace CampaniasSB.Models
 
         public DbSet<Bitacora> Bitacora { get; set; }
 
+        public DbSet<TipoArticulo> TipoArticulos { get; set; }
     }
 }

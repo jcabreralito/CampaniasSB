@@ -15,5 +15,6 @@ namespace CampaniasSB.Models
         [Display(Name = "Esquema")]
         public string NombreEsquema { get; set; }
 
+        public int Valor { get; set; }
     }
 }

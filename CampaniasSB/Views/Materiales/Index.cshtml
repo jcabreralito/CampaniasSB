@@ -1,26 +1,25 @@
 ﻿@{
-    ViewBag.Title = "Materiales";
+    ViewBag.Title = "Artículos";
     //Layout = "~/Views/Shared/_Layout_Materiales.cshtml";
 }
 
-<div id="equity" style="visibility: visible; display: block">
+<div id="articulo" style="visibility: visible; display: block">
 
     <style>
-        #matEquityTable th, #matEquityTable td {
+        #matTable th, #matTable td {
             white-space: nowrap;
         }
     </style>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-sm green" title="Agregar" onclick="PopupForm('@Url.Action("AddOrEdit","Materiales", new { cat = 1})')">
+        <a class="btn-floating btn-sm green" title="Agregar" onclick="PopupForm('@Url.Action("AddOrEdit","Materiales")')">
             <i class="large material-icons">add_circle</i>
         </a>
     </div>
 
-    <table id="matEquityTable" class="table table-striped table-bordered compact" style="width:100%; text-transform: uppercase">
+    <table id="matTable" class="table table-striped table-bordered compact" style="width:100%; text-transform: uppercase">
         <tfoot>
             <tr>
-                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -43,17 +42,17 @@
 
     <script>
 
-        var Popup, dataTable, dataTableF, PopupTiendas, PopupReglas;
+        var Popup, dataTable, PopupTiendas, PopupReglas;
         $(document).ready(function () {
-            dataTable = $("#matEquityTable").DataTable({
+            dataTable = $("#matTable").DataTable({
                 "ajax": {
-                    "url": "Materiales/GetDataEquity",
+                    "url": "Materiales/GetData",
                     "type": "GET",
                     "datatype": "json"
                 },
                 "columns": [
                     {
-                        "data": "ArticuloKFCId", "render": function (data) {
+                        "data": "ArticuloId", "render": function (data) {
                             return "<span>" + data + "</span>";
                         },
                         "title": "ID",
@@ -63,22 +62,8 @@
                         "data": "Descripcion", "render": function (data) {
                             return "<span>" + data + "</span>";
                         },
-                        "title": "Material",
+                        "title": "Artículo",
                         "className": "dt-body-center text-left",
-                    },
-                    {
-                        "data": "Proveedor", "render": function (data) {
-                            return "<span>" + data + "</span>";
-                        },
-                        "title": "Proveedor",
-                        "className": "dt-body-center text-left",
-                    },
-                    {
-                        "data": "Familia", "render": function (data) {
-                            return "<span>" + data + "</span>";
-                        },
-                        "title": "Familia",
-                        "className": "dt-body-center text-center",
                     },
                     {
                         "data": "CantidadDefault", "render": function (data) {
@@ -95,10 +80,17 @@
                         "className": "dt-body-center text-left",
                     },
                     {
-                        "data": "EquityFranquicia", "render": function (data) {
+                        "data": "SencilloMultiple", "render": function (data) {
                             return "<span>" + data + "</span>";
                         },
-                        "title": "Categoría",
+                        "title": "Sencillo / Múltiple",
+                        "className": "dt-body-center text-center",
+                    },
+                    {
+                        "data": "Medida", "render": function (data) {
+                            return "<span>" + data + "</span>";
+                        },
+                        "title": "Medida",
                         "className": "dt-body-center text-center",
                     },
                     {
@@ -121,12 +113,42 @@
                             return data;
                         },
                         "className": "dt-body-center text-center noExport",
-                        "title": "Activo",
+                        "title": "Aplica Material",
                         "orderable": false,
                         "searchable": false,
                     },
                     {
-                        "data": "ArticuloKFCId", "render": function (data) {
+                        data: "Precio",
+                        render: function (data, type, row) {
+                            if (data == 1) {
+                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' checked='checked' disabled='disabled'><span class='badge'>&check;</span></label>";
+                            } else {
+                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' disabled='disabled'><span class='badge'>&check;</span></label>";
+                            }
+                            return data;
+                        },
+                        "className": "dt-body-center text-center noExport",
+                        "title": "Precio",
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        data: "Bilingue",
+                        render: function (data, type, row) {
+                            if (data == 1) {
+                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' checked='checked' disabled='disabled'><span class='badge'>&check;</span></label>";
+                            } else {
+                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' disabled='disabled'><span class='badge'>&check;</span></label>";
+                            }
+                            return data;
+                        },
+                        "className": "dt-body-center text-center noExport",
+                        "title": "Bilingüe",
+                        "orderable": false,
+                        "searchable": false,
+                    },
+                    {
+                        "data": "ArticuloId", "render": function (data) {
                             return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' onclick=PopupForm('@Url.Action("AddOrEdit","Materiales")/" + data + "')><i class='fas fa-pencil-alt'></i></a>";
                         },
                         "title": "Editar",
@@ -135,7 +157,7 @@
                         "className": "dt-body-center text-center noExport",
                     },
                     {
-                        "data": "ArticuloKFCId", "render": function (data) {
+                        "data": "ArticuloId", "render": function (data) {
                             return "<a class='btn-danger btn-lg' style='background-color: transparent; cursor: pointer' onclick=Delete(" + data + ")><i class='fas fa-trash' style='color: #067655'></i></a>";
                         },
                         "title": "Eliminar",
@@ -144,52 +166,15 @@
                         "className": "dt-body-center text-center noExport",
                     },
                     {
-                        "data": "ArticuloKFCId", "render": function (data, type, row) {
+                        "data": "ArticuloId", "render": function (data, type, row) {
                             if (row.Activo == 0) {
                                 return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
                             }
-                            else if (row.EquityFranquicia == "FRANQUICIAS") {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
-                            }
                             else {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' onclick=PopupFormTiendas('@Url.Action("Restaurantes", "Materiales")/" + data + "?cat=" + 'EQUITY' + "')><i class='fas fa-plus-circle'></i></a>";
+                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' onclick=PopupFormTiendas('@Url.Action("Restaurantes", "Materiales")/" + data + "')><i class='fas fa-plus-circle'></i></a>";
                             }
                         },
-                        "title": "Equity",
-                        "orderable": false,
-                        "searchable": false,
-                        "className": "dt-body-center text-center noExport",
-                    },
-                    {
-                        "data": "ArticuloKFCId", "render": function (data, type, row) {
-                            if (row.Activo == 0) {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
-                            }
-                            else if (row.EquityFranquicia == "EQUITY") {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
-                            }
-                            else {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' onclick=PopupFormTiendas('@Url.Action("Restaurantes", "Materiales")/" + data + "?cat=" + 'FRANQUICIAS' + "')><i class='fas fa-plus-circle'></i></a>";
-                            }
-                        },
-                        "title": "Franquicias",
-                        "orderable": false,
-                        "searchable": false,
-                        "className": "dt-body-center text-center noExport",
-                    },
-                    {
-                        "data": "ArticuloKFCId", "render": function (data, type, row) {
-                            if (row.Activo == 0) {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
-                            }
-                            else if (row.EquityFranquicia == "FRANQUICIAS") {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
-                            }
-                            else {
-                                return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' onclick=PopupFormTiendas('@Url.Action("Restaurantes", "Materiales")/" + data + "?cat=" + 'STOCK' + "')><i class='fas fa-plus-circle'></i></a>";
-                            }
-                        },
-                        "title": "Stock",
+                        "title": "Tiendas",
                         "orderable": false,
                         "searchable": false,
                         "className": "dt-body-center text-center noExport",
@@ -246,9 +231,9 @@
                             orthogonal: 'export',
                             columns: "thead th:not(.noExport)",
                         },
-                        filename: 'Materiales KFC',
+                        filename: 'Artículos',
                         autoFilter: true,
-                        sheetName: 'Materiales',
+                        sheetName: 'Artículos',
                         messageTop: null,
                         body: true,
                         footer: false,
@@ -260,7 +245,7 @@
                     leftColumns: 2,
                 },
                 initComplete: function () {
-                    this.api().columns([2, 3, 6]).every(function () {
+                    this.api().columns([4, 5]).every(function () {
                         var column = this;
                         var select = $('<select><option value="">=TODOS=</option></select>')
                             .appendTo($(column.footer()).empty())
@@ -302,7 +287,7 @@
                     Popup = formDiv.dialog({
                         autoOpen: true,
                         resizable: false,
-                        title: 'AGREGAR MATERIALES',
+                        title: 'AGREGAR ARTÍCULOS',
                         width: 750,
                         modal: true,
                         closeOnEscape: false,
@@ -332,7 +317,6 @@
                         if (data.success) {
                             Popup.dialog('close');
                             dataTable.ajax.reload();
-                            //dataTableF.ajax.reload();
 
                             $.notify(data.message, {
                                 globalPosition: "top center",
@@ -357,7 +341,7 @@
                     PopupTiendas = formDiv.dialog({
                         autoOpen: true,
                         resizable: false,
-                        title: "RESTAURANTES",
+                        title: "TIENDAS",
                         width: 800,
                         modal: true,
                         closeOnEscape: false,
@@ -387,7 +371,6 @@
                         if (data.success) {
                             PopupTiendas.dialog('close');
                             dataTable.ajax.reload();
-                            //dataTableF.ajax.reload();
 
                             $.notify(data.message, {
                                 globalPosition: "top center",
@@ -405,7 +388,8 @@
 
         function Delete(id) {
             Swal.fire({
-                title: '¿ Eliminar Material ?',
+                title: '¿ ELIMINAR ARTÍCULO ?',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#067655',
                 cancelButtonColor: '#067655',
@@ -420,7 +404,6 @@
                         success: function (data) {
                             if (data.success) {
                                 dataTable.ajax.reload();
-                                //dataTableF.ajax.reload();
 
                                 $.notify(data.message, {
                                     globalPosition: "top center",

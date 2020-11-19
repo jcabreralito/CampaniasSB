@@ -14,12 +14,25 @@
     </div>
 
     <div class="center-align">
-        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+        <button id="aceptar" type="submit" title="Aceptar" disabled class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
             <i class="large material-icons">check</i>
         </button>
-
-        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
-                <i class="large material-icons">arrow_back</i>
-            </button>*@
     </div>
 }
+
+<script>
+
+    var nom = document.getElementById('Nombre');
+    var acep = document.getElementById('aceptar');
+
+    nom.addEventListener('change', function () {
+
+        if (nom.value == "") {
+            acep.disabled = true;
+        }
+        else {
+            acep.disabled = false;
+        }
+    });
+
+</script>

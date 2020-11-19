@@ -35,33 +35,6 @@ namespace CampaniasSB.Controllers
             }
         }
 
-
-        public void Logo(LoginViewModel model)
-        {
-            var user = db.Usuarios.Where(u => u.NombreUsuario == model.Email).FirstOrDefault();
-            if (user != null)
-            {
-                var compañia = db.Compañias.Find(user.CompañiaId);
-                if (compañia != null)
-                {
-                    Session["Logo"] = compañia.Logo;
-                }
-            }
-        }
-
-        public void Company(LoginViewModel model)
-        {
-            var user = db.Usuarios.Where(u => u.NombreUsuario == model.Email).FirstOrDefault();
-            if (user != null)
-            {
-                var compañia = db.Compañias.Find(user.CompañiaId);
-                if (compañia != null)
-                {
-                    Session["Compañia"] = compañia.Nombre;
-                }
-            }
-        }
-
         public AccountController()
         {
         }
@@ -111,8 +84,6 @@ namespace CampaniasSB.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    Logo(model);
-                    Company(model);
                     NombreCompleto(model);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
@@ -455,8 +426,6 @@ namespace CampaniasSB.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            Session["Logo"] = string.Empty;
-            Session["Compañia"] = string.Empty;
             Session["NombreCompleto"] = string.Empty;
 
             return RedirectToAction("Login", "Account");

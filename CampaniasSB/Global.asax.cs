@@ -17,7 +17,6 @@ namespace CampaniasSB
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            //BundleConfig.RegisterBundles(BundleTable.Bundles);
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
@@ -65,6 +64,8 @@ namespace CampaniasSB
             UsuariosHelper.CrearRolOperaciones(3, 2);
             UsuariosHelper.CrearRolOperaciones(3, 4);
             UsuariosHelper.CrearRolOperaciones(3, 5);
+            UsuariosHelper.CrearTipoArticulos("SENCILLO");
+            UsuariosHelper.CrearTipoArticulos("MÚLTIPLE");
         }
     }
 }

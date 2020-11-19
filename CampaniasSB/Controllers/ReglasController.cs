@@ -20,7 +20,7 @@ namespace CampaniasSB.Controllers
         public class spReglas
         {
             public int ReglaId { get; set; }
-            public int ArticuloKFCId { get; set; }
+            public int ArticuloId { get; set; }
             public string Material { get; set; }
             public string Regla { get; set; }
         }

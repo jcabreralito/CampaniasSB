@@ -10,12 +10,10 @@ namespace CampaniasSB.Models
         [Key]
         public int ArticuloId { get; set; }
 
-        [Required(ErrorMessage = "El Campo {0} es obligatorio")]
         [MaxLength(250, ErrorMessage = "El Campo {0} debe tener máximo {1} carácteres de largo")]
         [Display(Name = "Artículo")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "El Campo {0} es obligatorio")]
         [Display(Name = "Cantidad Default")]
         public int CantidadDefault { get; set; }
 
@@ -27,8 +25,12 @@ namespace CampaniasSB.Models
 
         public bool Activo { get; set; }
 
-        [Display(Name = "Liga Imagen")]
-        public string LigaImagen { get; set; }
+        public bool Precio { get; set; }
+
+        [Display(Name = "Bilingüe")]
+        public bool Bilingue { get; set; }
+
+        public string Medida { get; set; }
 
         [DataType(DataType.ImageUrl)]
         [Display(Name = "Imagen")]

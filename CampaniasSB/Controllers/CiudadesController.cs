@@ -21,6 +21,7 @@ namespace CampaniasSB.Controllers
             public string Nombre { get; set; }
             public string Region { get; set; }
         }
+
         // GET: Regiones
         [AuthorizeUser(idOperacion: 5)]
         public ActionResult Index()

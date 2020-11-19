@@ -114,10 +114,10 @@ namespace CampaniasSB.Controllers
 
         // GET: Restaurantes
         [AuthorizeUser(idOperacion: 5)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             Session["iconoTitulo"] = "fas fa-store";
-            Session["titulo"] = "EQUITY";
+            Session["titulo"] = "TIENDAS";
             Session["homeB"] = string.Empty;
             Session["equityB"] = "active";
             Session["franquiciasB"] = string.Empty;
@@ -131,9 +131,9 @@ namespace CampaniasSB.Controllers
 
         }
 
-        public ActionResult GetData()
+        public async Task<ActionResult> GetData()
         {
-            var equityList = db.Database.SqlQuery<spTiendas>("spGetTiendas").ToList();
+            var equityList = await db.Database.SqlQuery<spTiendas>("spGetTiendas").ToListAsync();
 
             return Json(new { data = equityList }, JsonRequestBehavior.AllowGet);
         }

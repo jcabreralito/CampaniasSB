@@ -101,6 +101,33 @@ namespace CampaniasSB.Classes
             }
         }
 
+        public static void CrearTipoArticulos(string nombre)
+        {
+            var nombreExist = db.TipoArticulos.Where(r => r.Nombre == nombre).FirstOrDefault();
+
+            if (nombreExist != null)
+            {
+                if (nombreExist.Nombre != nombre)
+                {
+                    TipoArticulo tipo = new TipoArticulo
+                    {
+                        Nombre = nombre
+                    };
+                    db.TipoArticulos.Add(tipo);
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                TipoArticulo tipo = new TipoArticulo
+                {
+                    Nombre = nombre
+                };
+                db.TipoArticulos.Add(tipo);
+                db.SaveChanges();
+            }
+        }
+
         public static void CrearModulo(string moduloName)
         {
             var moduloExist = db.Modulos.Where(r => r.Nombre == moduloName).FirstOrDefault();

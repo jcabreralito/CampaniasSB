@@ -4,83 +4,79 @@
 
 @using (Html.BeginForm("AddOrEdit", "Materiales", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
 {
-    @Html.HiddenFor(model => model.ArticuloKFCId)
+    @Html.HiddenFor(model => model.ArticuloId)
     @Html.HiddenFor(model => model.Eliminado)
     @Html.HiddenFor(model => model.Imagen)
 
     <div class="row">
         <div class="input-field col s12" style="text-transform: uppercase !important">
             @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @type = "text", @class = "validate", @required = "true", style = "text-transform: uppercase !important" } })
-            <label class="active" for="Descripcion">Material</label>
+            <label class="active" for="Descripcion">Artículo</label>
         </div>
     </div>
 
     <div class="row">
-        <div class="form-group focus col-sm-6" style="text-transform: uppercase !important; padding-left: 0; padding-right: 0;">
-            <label for="FamiliaId" style="padding: 0 0 0 10px;">Familia</label>
+
+        <div class="form-group focus col m6" style="text-transform: uppercase !important; padding-left: 0; padding-right: 0;">
+            <label for="SencilloMultiple" style="padding: 0 0 0 10px;">Sencillo/Múltiple</label>
             <div class="customselect">
-                @Html.DropDownList("FamiliaId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[3].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
-            </div>
-            <span class="focus-border"></span>
-        </div>
-        <div class="form-group focus col-sm-4" style="text-transform: uppercase !important; padding-left: 0; padding-right: 0;">
-            <label for="ProveedorId" style="padding: 0 0 0 10px;">Proveedor</label>
-            <div class="customselect">
-                @Html.DropDownList("ProveedorId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[2].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+                @Html.DropDownList("SencilloMultiple", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[3].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
             </div>
             <span class="focus-border"></span>
         </div>
 
-        <div class="input-field col-sm-2" style="margin-top: 11px">
+        <div class="input-field col m6" style="margin-top: 10px">
             @Html.EditorFor(model => model.CantidadDefault, new { htmlAttributes = new { @type = "text", @class = "validate center-align", @required = "true", style = "text-transform: uppercase !important" } })
             <label class="active" for="CantidadDefault">Cantidad</label>
         </div>
     </div>
 
-    if (Model.ArticuloKFCId == 0)
+    if (Model.ArticuloId == 0)
     {
-        <div class="row" style="margin-top: -20px !important; margin-bottom: 0; margin-left: 10px">
+        <div class="row" style="margin-top: -20px !important; margin-bottom: 0">
 
-            <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+            <div class="input-field col m12" style="text-transform: uppercase !important">
                 @Html.TextAreaFor(model => model.Observaciones, new { @class = "materialize-textarea validate", style = "text-transform: uppercase !important" })
-                <label class="active" for="Observaciones" style="margin-left: 5px">Observaciones</label>
+                <label class="active" for="Observaciones">Observaciones</label>
             </div>
 
         </div>
     }
     else
     {
-<div class="row" style="margin-top: -20px !important; margin-bottom: 0; margin-left: 10px">
-    <div class="input-field center-align col-sm-4">
-        @Html.CheckBoxFor(model => model.Activo, new { @class = "switch_1" })
-        <label class="active" for="Activo">Activo</label>
-    </div>
+        <div class="row" style="margin-top: -20px !important; margin-bottom: 0">
+            <div class="input-field center-align col m4">
+                @Html.CheckBoxFor(model => model.Activo, new { @class = "switch_1" })
+                <label class="active" for="Activo">Aplica Material</label>
+            </div>
 
-    <div class="input-field col-sm-8" style="text-transform: uppercase !important">
-        @Html.TextAreaFor(model => model.Observaciones, new { @class = "materialize-textarea validate", style = "text-transform: uppercase !important" })
-        <label class="active" for="Observaciones" style="margin-left: 5px">Observaciones</label>
-    </div>
+            <div class="input-field col m8" style="text-transform: uppercase !important">
+                @Html.TextAreaFor(model => model.Observaciones, new { @class = "materialize-textarea validate", style = "text-transform: uppercase !important" })
+                <label class="active" for="Observaciones" style="margin-left: 5px">Observaciones</label>
+            </div>
 
-</div>
+        </div>
     }
 
-<div class="row" style="margin-bottom: -5px">
-
-    <div class="form-group focus col-sm-4" style="text-transform: uppercase !important; padding-left: 0; padding-right: 0;">
-        <label for="EquityFranquicia" style="padding: 0 0 0 10px;">Categoría</label>
-        <div class="customselect">
-            @Html.DropDownList("EquityFranquicia", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[5].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+    <div class="row" style="margin-top: 0 !important; margin-bottom: 0">
+        <div class="input-field center-align col m4">
+            @Html.CheckBoxFor(model => model.Precio, new { @class = "switch_1" })
+            <label class="active" for="Precio">Precio</label>
         </div>
-        <span class="focus-border"></span>
+
+        <div class="input-field center-align col m4">
+            @Html.CheckBoxFor(model => model.Bilingue, new { @class = "switch_1" })
+            <label class="active" for="Bilingue">Bilingüe</label>
+        </div>
+
+        <div class="input-field col m4" style="margin-top: 11px">
+            @Html.EditorFor(model => model.Medida, new { htmlAttributes = new { @type = "text", @class = "validate center-align", style = "text-transform: uppercase !important" } })
+            <label class="active" for="Medida">Medida</label>
+        </div>
+
     </div>
 
-    <div class="input-field col-sm-8" style="text-transform: uppercase !important">
-        @Html.EditorFor(model => model.LigaImagen, new { htmlAttributes = new { @type = "text", @class = "validate", style = "text-transform: lowercase !important" } })
-        <label class="active" for="LigaImagen">Link de la Imagen</label>
-    </div>
-</div>
-
-    <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+    <div class="input-field col m12" style="text-transform: uppercase !important">
         <div style="margin-top: -10px">
             <label for="ImagenFile" class="subir">
                 <i class="fas fa-cloud-upload-alt"></i> Elegir Imagen...
@@ -89,17 +85,82 @@
         </div>
         <div class="center-align" style="margin-bottom: 5px">
             <div id="info"></div>
-            <img id="blah" src="~/Content/images/Productos/@Model.Imagen" style="margin-top: 4px" height="220" alt="Imagen KFC" />
+            <img id="blah" src="~/Content/images/Productos/@Model.Imagen" style="margin-top: 4px" height="220" alt="Imagen SB" />
         </div>
     </div>
 
-    <div class="center-align col-sm-12">
-        <button type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+    <div class="center-align col m12">
+        <button id="aceptar" type="submit" title="Aceptar" disabled class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
             <i class="large material-icons">check</i>
         </button>
-
-        @*<button type="reset" title="Reset" class="btn-floating btn-sm green" style="border-radius: 50%">
-                <i class="large material-icons">arrow_back</i>
-            </button>*@
     </div>
 }
+
+<script>
+
+    var art = document.getElementById('Descripcion');
+    var senMul = document.getElementById('SencilloMultiple');
+    var med = document.getElementById('Medida');
+    var acep = document.getElementById('aceptar');
+
+    art.addEventListener('change', function () {
+
+        if (art.value == "") {
+            acep.disabled = true;
+
+            if (senMul.value == "Múltiple" || senMul.value == "MÚLTIPLE") {
+                acep.disabled = true;
+            }
+            else if (senMul.value == "Sencillo" || senMul.value == "SENCILLO") {
+                acep.disabled = true;
+            }
+            else {
+                acep.disabled = true;
+            }
+        }
+        else {
+
+            if (senMul.value == "Múltiple" || senMul.value == "MÚLTIPLE") {
+                acep.disabled = false;
+            }
+            else if (senMul.value == "Sencillo" || senMul.value == "SENCILLO") {
+                acep.disabled = false;
+            }
+            else {
+                acep.disabled = true;
+            }
+        }
+    });
+
+    senMul.addEventListener('change', function () {
+
+        if (senMul.value == "Múltiple" || senMul.value == "MÚLTIPLE") {
+            med.disabled = true;
+            med.value = "";
+
+            if (art.value == "") {
+                acep.disabled = true;
+            }
+            else {
+                acep.disabled = false;
+            }
+
+        }
+        else if (senMul.value == "Sencillo" || senMul.value == "SENCILLO") {
+            med.disabled = false;
+            med.value = "";
+
+            if (art.value == "") {
+                acep.disabled = true;
+            }
+            else {
+                acep.disabled = false;
+            }
+
+        }
+        else {
+            med.disabled = false;
+            acep.disabled = true;
+        }
+    });
+</script>

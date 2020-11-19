@@ -12,20 +12,18 @@ namespace CampaniasSB.Controllers
     [Authorize]
     public class MaterialesController : Controller
     {
-        public string modulo = "Materiales";
+        public string modulo = "Artículos";
         public string movimiento = string.Empty;
 
         public class MaterialesCampaña
         {
-            public int ArticuloKFCId { get; set; }
-            public string ArticuloKFC { get; set; }
+            public int ArticuloId { get; set; }
+            public string Articulo { get; set; }
             public string Campaña { get; set; }
             public int CampañaId { get; set; }
             public double Cantidad { get; set; }
             public int TiendaId { get; set; }
             public bool Habilitado { get; set; }
-            public int ProveedorId { get; set; }
-            public int FamiliaId { get; set; }
         }
 
         public class TiendasCampaña
@@ -38,72 +36,13 @@ namespace CampaniasSB.Controllers
             public string Region { get; set; }
             public string Ciudad { get; set; }
             public string Direccion { get; set; }
-            //00000000000000000000000000 GENERALES 0000000000000000000000000000000000
-            public string Tipo { get; set; }
-            public string NuevoNivelDePrecio { get; set; }
-            public bool MenuDigital { get; set; }
-            public string CantidadDePantallas { get; set; }
-            ////00000000000000000000000000 POR PRODUCTO 0000000000000000000000000000000000
-            public bool TerceraReceta { get; set; }
-            public bool Arroz { get; set; }
-            public bool Hamburgesas { get; set; }
-            public bool Ensalada { get; set; }
-            public bool PET2Litros { get; set; }
-            public bool Postres { get; set; }
-            public bool BisquetMiel { get; set; }
-            public bool KeCono { get; set; }
-            public bool KREAMBALL { get; set; }
-
-            ////00000000000000000000000000 MATERIALES ESPECIFICOS 0000000000000000000000000000000000
-
-            public bool MenuBackLigth { get; set; }
-            public bool Autoexpress { get; set; }
-            public bool CopeteAERemodelado { get; set; }
-            public bool CopeteAETradicional { get; set; }
-            public bool PanelDeInnovacion { get; set; }
-            public bool DisplayDeBurbuja { get; set; }
-            public bool Delivery { get; set; }
-            public bool MERCADO_DE_PRUEBA { get; set; }
-            public bool AreaDeJuegos { get; set; }
-            public bool COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS { get; set; }
-            public bool COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L { get; set; }
-            public bool DisplayDePiso { get; set; }
-            public bool WCNACIONAL67X100cm { get; set; }
-
-            ////00000000000000000000000000 MEDIDAS ESPECIALES 0000000000000000000000000000000000
-
-            public bool WCMedidaEspecial60_8x85cm { get; set; }
-            public bool WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm { get; set; }
-            public bool WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm { get; set; }
-            public bool WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm { get; set; }
-            public bool WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm { get; set; }
-            public bool MedidaEspecialPanelDeComplementos { get; set; }
-            public bool MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm { get; set; }
-
-
-            //00000000000000000000000000 POR EQUIPO EN EL RESTAURANTE 0000000000000000000000000000000000
-
-            public string TipoDeCaja { get; set; }
-            public string AcomodoDeCajas { get; set; }
-            public string NoMesaDeAreaComedor { get; set; }
-            public string NoMesaDeAreaDeJuegos { get; set; }
-            public string NumeroDeVentanas { get; set; }
-            public string UbicacionPantallas { get; set; }
 
         }
 
         public class MaterialesTiendasCampaña
         {
-            public int ArticuloKFCId { get; set; }
-            public string ArticuloKFC { get; set; }
+            public int ArticuloId { get; set; }
+            public string Articulo { get; set; }
             public string Campaña { get; set; }
             public int CampañaId { get; set; }
             public double Cantidad { get; set; }
@@ -115,84 +54,31 @@ namespace CampaniasSB.Controllers
             public string Ciudad { get; set; }
             public string Direccion { get; set; }
             public bool Habilitado { get; set; }
-            public string TipoTienda { get; set; }
-            public string Tipo { get; set; }
-            public string NuevoNivelDePrecio { get; set; }
-            public bool MenuDigital { get; set; }
-            public string CantidadDePantallas { get; set; }
-            public bool TerceraReceta { get; set; }
-            public bool Arroz { get; set; }
-            public bool Hamburgesas { get; set; }
-            public bool Ensalada { get; set; }
-            public bool PET2Litros { get; set; }
-            public bool Postres { get; set; }
-            public bool BisquetMiel { get; set; }
-            public bool KeCono { get; set; }
-            public bool KREAMBALL { get; set; }
-            public bool MenuBackLigth { get; set; }
-            public bool Autoexpress { get; set; }
-            public bool CopeteAERemodelado { get; set; }
-            public bool CopeteAETradicional { get; set; }
-            public bool PanelDeInnovacion { get; set; }
-            public bool DisplayDeBurbuja { get; set; }
-            public bool Delivery { get; set; }
-            public bool MERCADO_DE_PRUEBA { get; set; }
-            public bool AreaDeJuegos { get; set; }
-            public bool COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS { get; set; }
-            public bool COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L { get; set; }
-            public bool DisplayDePiso { get; set; }
-            public bool WCNACIONAL67X100cm { get; set; }
-            public bool WCMedidaEspecial60_8x85cm { get; set; }
-            public bool WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm { get; set; }
-            public bool WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm { get; set; }
-            public bool WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm { get; set; }
-            public bool WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm { get; set; }
-            public bool MedidaEspecialPanelDeComplementos { get; set; }
-            public bool MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm { get; set; }
-            public bool MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm { get; set; }
-            public string TipoDeCaja { get; set; }
-            public string AcomodoDeCajas { get; set; }
-            public string NoMesaDeAreaComedor { get; set; }
-            public string NoMesaDeAreaDeJuegos { get; set; }
-            public string NumeroDeVentanas { get; set; }
-            public string UbicacionPantallas { get; set; }
-            public int ProveedorId { get; set; }
-            public int FamiliaId { get; set; }
         }
 
         public class spArticulosTiendas
         {
             public long TiendaArticuloId { get; set; }
-            public int ArticuloKFCId { get; set; }
+            public int ArticuloId { get; set; }
             public int TiendaId { get; set; }
             public bool Seleccionado { get; set; }
             public int CantidadDefault { get; set; }
-            public string Restaurante { get; set; }
+            public string NombreTienda { get; set; }
             public string Material { get; set; }
-            public string EquityFranquicia { get; set; }
-            public string CCoFranquicia { get; set; }
+            public string SencilloMultiple { get; set; }
+            public string NoTienda { get; set; }
 
         }
 
-        public class spArticuloKFC
+        public class spArticulo
         {
-            public int ArticuloKFCId { get; set; }
+            public int ArticuloId { get; set; }
             public string Descripcion { get; set; }
-            public string Proveedor { get; set; }
-            public string Familia { get; set; }
             public int CantidadDefault { get; set; }
-            public string EquityFranquicia { get; set; }
+            public string SencilloMultiple { get; set; }
             public string Observaciones { get; set; }
             public bool Eliminado { get; set; }
             public bool Activo { get; set; }
-            public bool Todo { get; set; }
             public string Imagen { get; set; }
 
         }
@@ -211,7 +97,6 @@ namespace CampaniasSB.Controllers
             Session["regionesB"] = string.Empty;
             Session["ciudadesB"] = string.Empty;
             Session["restaurantesB"] = string.Empty;
-            Session["familiasB"] = string.Empty;
             Session["materialesB"] = "active";
             Session["campañasB"] = string.Empty;
             Session["reglasB"] = string.Empty;
@@ -220,40 +105,20 @@ namespace CampaniasSB.Controllers
             return View();
         }
 
-        public ActionResult GetDataEquity()
+        public ActionResult GetData()
         {
-            var equityList = db.Database.SqlQuery<spArticuloKFC>("spGetMaterialesAll").ToList();
-            //var ciudadList = db.Ciudads.ToList();
+            var articulosList = db.Database.SqlQuery<Articulo>("spGetMaterialesAll").ToList();
 
-            return Json(new { data = equityList }, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult GetDataFranquicias()
-        {
-            var equityList = db.Database.SqlQuery<spArticuloKFC>("spGetMaterialesFranquicias").ToList();
-            //var ciudadList = db.Ciudads.ToList();
-
-            return Json(new { data = equityList }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = articulosList }, JsonRequestBehavior.AllowGet);
         }
 
         [AuthorizeUser(idOperacion: 1)]
         [HttpGet]
-        public ActionResult AddOrEdit(int? cat, int id = 0)
+        public ActionResult AddOrEdit(int id = 0)
         {
-            var categoria = string.Empty;
             if (id == 0)
             {
-                if (cat == 1)
-                {
-                    categoria = "EQUITY";
-                }
-                else if (cat == 2)
-                {
-                    categoria = "FRANQUICIAS";
-                }
-
-                Session["Categoria"] = categoria;
-
+                ViewBag.SencilloMultiple = new SelectList(CombosHelper.GetSencilloMultiple(true), "Nombre", "Nombre");
                 return PartialView(new Articulo());
             }
             else
@@ -268,13 +133,10 @@ namespace CampaniasSB.Controllers
         public ActionResult AddOrEdit(Articulo material)
         {
             var usuario = db.Usuarios.Where(u => u.NombreUsuario == User.Identity.Name).FirstOrDefault().UsuarioId;
-            var restauranteId = 0;
+            //var restauranteId = 0;
             if (material.ArticuloId == 0)
             {
-                var tipo = Session["Categoria"].ToString();
-
                 material.Activo = true;
-                material.SencilloMultiple = tipo;
 
                 if (material.Observaciones == null)
                 {
@@ -287,7 +149,7 @@ namespace CampaniasSB.Controllers
                 {
                     CargarImagen(material);
 
-                    MovementsHelper.AgregarMaterialesTiendaCampañaExiste(material.ArticuloId, restauranteId);
+                    //MovementsHelper.AgregarMaterialesTiendaCampañaExiste(material.ArticuloId, restauranteId);
 
                     var campaña = db.Campañas.Where(x => x.Generada == "NO").FirstOrDefault();
 
@@ -295,13 +157,13 @@ namespace CampaniasSB.Controllers
                     {
                         var campañaId = campaña.CampañaId;
 
-                        MovementsHelper.AgregarArticuloCampañas(material, campañaId);
+                        //MovementsHelper.AgregarArticuloCampañas(material, campañaId);
                     }
 
-                    movimiento = "Agregar Material " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
+                    movimiento = "Agregar Artículo " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
-                    return Json(new { success = true, message = "MATERIAL AGREGADO" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, message = "ARTÍCULO AGREGADO" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -310,9 +172,6 @@ namespace CampaniasSB.Controllers
             }
             else
             {
-                var tipo = Session["Categoria"].ToString();
-
-                //material.EquityFranquicia = tipo;
 
                 if (material.Observaciones == null)
                 {
@@ -332,41 +191,28 @@ namespace CampaniasSB.Controllers
                     if (material.Activo == true)
                     {
 
-                        EliminarMaterialesMoto(id, campaña);
-
                         if (campaña != null)
                         {
                             var campañaId = campaña.CampañaId;
 
-                            MovementsHelper.AgregarArticuloCampañas(material, campañaId);
+                            //MovementsHelper.AgregarArticuloCampañas(material, campañaId);
                         }
 
                     }
                     else
                     {
-                        EliminarMaterialesMoto(id, campaña);
+                        EliminarMateriales(id, campaña);
                     }
 
-                    movimiento = "Actualizar Material " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
+                    movimiento = "Actualizar Artículo " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
-                    return Json(new { success = true, message = "MATERIAL ACTUALIZADO" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, message = "ARTÍCULO ACTUALIZADO" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
                     return Json(new { success = true, message = response.Message }, JsonRequestBehavior.AllowGet);
                 }
-            }
-        }
-
-        private void EliminarMaterialesMoto(int id, Campaña campaña)
-        {
-            if (campaña != null)
-            {
-                db.Database.ExecuteSqlCommand(
-                "spEliminarMaterialCampaniasTiendas @ArticuloKFCId, @CampaniaId",
-                new SqlParameter("@ArticuloKFCId", id),
-                new SqlParameter("@CampaniaId", campaña.CampañaId));
             }
         }
 
@@ -678,7 +524,7 @@ namespace CampaniasSB.Controllers
                        })
                        .Select(x => new MaterialesCampaña()
                        {
-                           ArticuloKFCId = x.Key.ArticuloId,
+                           ArticuloId = x.Key.ArticuloId,
                            Campaña = campaña.Nombre,
                            CampañaId = x.Key.CampañaId,
                            Cantidad = x.Key.Cantidad,
@@ -707,8 +553,8 @@ namespace CampaniasSB.Controllers
                                 x.tiendas.Restaurante,
                                 x.tiendas.CC,
                                 x.tiendas.TiendaId,
-                                x.materiales.ArticuloKFCId,
-                                x.materiales.ArticuloKFC,
+                                x.materiales.ArticuloId,
+                                x.materiales.Articulo,
                                 x.materiales.Cantidad,
                                 x.materiales.Campaña,
                                 x.materiales.CampañaId,
@@ -717,8 +563,8 @@ namespace CampaniasSB.Controllers
                             })
                                     .Select(x => new MaterialesTiendasCampaña()
                                     {
-                                        ArticuloKFCId = x.Key.ArticuloKFCId,
-                                        ArticuloKFC = x.Key.ArticuloKFC,
+                                        ArticuloId = x.Key.ArticuloId,
+                                        Articulo = x.Key.Articulo,
                                         Campaña = x.Key.Campaña,
                                         CampañaId = x.Key.CampañaId,
                                         Cantidad = x.Key.Cantidad,
@@ -726,7 +572,6 @@ namespace CampaniasSB.Controllers
                                         Restaurante = x.Key.Restaurante,
                                         TiendaId = x.Key.TiendaId,
                                         Habilitado = x.Key.Habilitado,
-                                        TipoTienda = x.Key.TipoTienda,
                                     });
 
             var materialesTiendasCampaña = materialesCampaña.Where(m => m.Habilitado == true && m.CampañaId == campañaId).ToList();
@@ -801,10 +646,10 @@ namespace CampaniasSB.Controllers
 
                 EliminarMateriales(id, campaña);
 
-                movimiento = "Eliminar Material " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
+                movimiento = "Eliminar Artículo " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
                 MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
 
-                return Json(new { success = true, message = "MATERIAL ELIMINADO" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = "ARTÍCULO ELIMINADO" }, JsonRequestBehavior.AllowGet);
             }
             else
             {

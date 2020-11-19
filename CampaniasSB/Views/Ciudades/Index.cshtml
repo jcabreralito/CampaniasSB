@@ -104,7 +104,7 @@
                     leftColumns: 1,
                 },
                 initComplete: function () {
-                    this.api().columns([1, 2]).every(function () {
+                    this.api().columns([1]).every(function () {
                         var column = this;
                         var select = $('<select><option value="">=TODOS=</option></select>')
                             .appendTo($(column.footer()).empty())
@@ -188,8 +188,7 @@
         function Delete(id) {
             Swal.fire({
                 title: '¿ Eliminar Ciudad ?',
-                //text: "You won't be able to revert this!",
-                //icon: 'question',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#067655',
                 cancelButtonColor: '#067655',
