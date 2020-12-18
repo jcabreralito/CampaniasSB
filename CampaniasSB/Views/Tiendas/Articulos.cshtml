@@ -1,4 +1,4 @@
-﻿@model IList<CampaniasSB.Controllers.RestaurantesController.spTiendasArticulos>
+﻿@model IList<CampaniasSB.Controllers.TiendasController.spTiendasArticulos>
 
 @{
     var display = "block";
@@ -30,10 +30,10 @@
     }
 </style>
 
-@using (Html.BeginForm("Materiales", "Restaurantes", FormMethod.Post, new { onsubmit = "return SubmitFormMat(this)" }))
+@using (Html.BeginForm("Articulos", "Tiendas", FormMethod.Post, new { onsubmit = "return SubmitFormMat(this)" }))
 {
     @*@Html.AntiForgeryToken()*@
-    <div style="max-height: 90vh !important; min-height: 70vh; height: 88.5vh; margin-top: -14px !important; text-align: center;">
+    <div style="max-height: 90vh !important; min-height: 70vh; height: 86.5vh; margin-top: -14px !important; text-align: center;">
 
         <h5>@ViewBag.Restaurante</h5>
 
@@ -67,16 +67,16 @@
         <table id="matEquityTable" class="table table-striped row-border compact nowrap" style="width:100%; text-transform: uppercase; margin-top: 0 !important">
             <thead>
                 <tr>
-                    <th class="dt-body-center text-center">Material</th>
+                    <th class="dt-body-center text-center">Artículo</th>
                     <th class="dt-body-center text-center">Seleccionado</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    @Html.HiddenFor(m => item.ArticuloKFCId)
+                    @Html.HiddenFor(m => item.ArticuloId)
                     @Html.HiddenFor(m => item.TiendaId)
-                    @Html.HiddenFor(m => item.Restaurante)
+                    @Html.HiddenFor(m => item.NombreTienda)
                     @Html.HiddenFor(m => item.Material)
                     @Html.HiddenFor(m => item.CantidadDefault)
 
@@ -133,8 +133,8 @@
             'initComplete': function (settings) {
                 var api = new $.fn.dataTable.Api(settings);
                 api.columns().header().each(function (column) {
-                    if ($(column).text() == 'Material') {
-                        $(column).attr('style', 'min-width: 578px');
+                    if ($(column).text() == 'Artículo') {
+                        $(column).attr('style', 'min-width: 500px');
                     }
                     else if ($(column).text() == 'Seleccionado') {
                         $(column).attr('style', 'min-width: 119px');
@@ -142,7 +142,7 @@
                 });
             },
             columnDefs: [
-                { width: '578px', targets: 0 },
+                { width: '500px', targets: 0 },
                 { width: '119px', targets: 1 },
             ],
             autoWidth: true,

@@ -32,13 +32,31 @@ namespace CampaniasSB.Models
 
         public string Medida { get; set; }
 
-        [DataType(DataType.ImageUrl)]
-        [Display(Name = "Imagen")]
-        public string Imagen { get; set; }
+        public string SistemaImpresion { get; set; }
 
-        [NotMapped]
-        [Display(Name = "Imagen")]
-        public HttpPostedFileBase ImagenFile { get; set; }
+        public string Sustrato { get; set; }
+
+        public string Tintas { get; set; }
+
+        public string Laminado_FV { get; set; }
+
+        public string Corte { get; set; }
+
+        public string MatPegue { get; set; }
+
+        public string InformacionAdicional { get; set; }
+
+        public string Paquete { get; set; }
+
+        public string Parte { get; set; }
+
+        //[DataType(DataType.ImageUrl)]
+        //[Display(Name = "Imagen")]
+        //public string Imagen { get; set; }
+
+        //[NotMapped]
+        //[Display(Name = "Imagen")]
+        //public HttpPostedFileBase ImagenFile { get; set; }
 
     }
 }

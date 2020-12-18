@@ -6,7 +6,7 @@
 {
     @Html.HiddenFor(model => model.ArticuloId)
     @Html.HiddenFor(model => model.Eliminado)
-    @Html.HiddenFor(model => model.Imagen)
+    @*@Html.HiddenFor(model => model.Imagen)*@
 
     <div class="row">
         <div class="input-field col s12" style="text-transform: uppercase !important">
@@ -15,57 +15,62 @@
         </div>
     </div>
 
-    <div class="row">
-
-        <div class="form-group focus col m6" style="text-transform: uppercase !important; padding-left: 0; padding-right: 0;">
-            <label for="SencilloMultiple" style="padding: 0 0 0 10px;">Sencillo/Múltiple</label>
-            <div class="customselect">
-                @Html.DropDownList("SencilloMultiple", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[3].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
-            </div>
-            <span class="focus-border"></span>
-        </div>
-
-        <div class="input-field col m6" style="margin-top: 10px">
-            @Html.EditorFor(model => model.CantidadDefault, new { htmlAttributes = new { @type = "text", @class = "validate center-align", @required = "true", style = "text-transform: uppercase !important" } })
-            <label class="active" for="CantidadDefault">Cantidad</label>
-        </div>
-    </div>
-
     if (Model.ArticuloId == 0)
     {
-        <div class="row" style="margin-top: -20px !important; margin-bottom: 0">
-
-            <div class="input-field col m12" style="text-transform: uppercase !important">
-                @Html.TextAreaFor(model => model.Observaciones, new { @class = "materialize-textarea validate", style = "text-transform: uppercase !important" })
-                <label class="active" for="Observaciones">Observaciones</label>
+        <div class="row">
+            <div class="form-group focus col s6" style="text-transform: uppercase !important">
+                <label for="SencilloMultiple">Sencillo/Múltiple</label>
+                <div class="customselect">
+                    @Html.DropDownList("SencilloMultiple", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[3].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+                </div>
+                <span class="focus-border"></span>
             </div>
 
+            <div class="input-field col s6" style="margin-top: 10px">
+                @Html.EditorFor(model => model.CantidadDefault, new { htmlAttributes = new { @type = "text", @class = "validate center-align", @required = "true", style = "text-transform: uppercase !important" } })
+                <label class="active" for="CantidadDefault">Cantidad</label>
+            </div>
         </div>
     }
+
     else
     {
-        <div class="row" style="margin-top: -20px !important; margin-bottom: 0">
-            <div class="input-field center-align col m4">
+        <div class="row">
+            <div class="form-group focus col s4" style="text-transform: uppercase !important">
+                <label for="SencilloMultiple">Sencillo/Múltiple</label>
+                <div class="customselect">
+                    @Html.DropDownList("SencilloMultiple", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[3].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+                </div>
+                <span class="focus-border"></span>
+            </div>
+
+            <div class="input-field col s4" style="margin-top: 10px">
+                @Html.EditorFor(model => model.CantidadDefault, new { htmlAttributes = new { @type = "text", @class = "validate center-align", @required = "true", style = "text-transform: uppercase !important" } })
+                <label class="active" for="CantidadDefault">Cantidad</label>
+            </div>
+
+            <div class="input-field center-align col s4">
+                NO
                 @Html.CheckBoxFor(model => model.Activo, new { @class = "switch_1" })
+                SI
                 <label class="active" for="Activo">Aplica Material</label>
             </div>
 
-            <div class="input-field col m8" style="text-transform: uppercase !important">
-                @Html.TextAreaFor(model => model.Observaciones, new { @class = "materialize-textarea validate", style = "text-transform: uppercase !important" })
-                <label class="active" for="Observaciones" style="margin-left: 5px">Observaciones</label>
-            </div>
-
         </div>
     }
 
-    <div class="row" style="margin-top: 0 !important; margin-bottom: 0">
+    <div class="row">
         <div class="input-field center-align col m4">
+            NO
             @Html.CheckBoxFor(model => model.Precio, new { @class = "switch_1" })
+            SI
             <label class="active" for="Precio">Precio</label>
         </div>
 
         <div class="input-field center-align col m4">
+            NO
             @Html.CheckBoxFor(model => model.Bilingue, new { @class = "switch_1" })
+            SI
             <label class="active" for="Bilingue">Bilingüe</label>
         </div>
 
@@ -76,18 +81,25 @@
 
     </div>
 
-    <div class="input-field col m12" style="text-transform: uppercase !important">
-        <div style="margin-top: -10px">
-            <label for="ImagenFile" class="subir">
-                <i class="fas fa-cloud-upload-alt"></i> Elegir Imagen...
-            </label>
-            &nbsp;&nbsp; @Html.TextBoxFor(modelo => modelo.ImagenFile, new { type = "file", accept = "image/*", style = "display: none;", onchange = "readURL(this);" })
-        </div>
-        <div class="center-align" style="margin-bottom: 5px">
-            <div id="info"></div>
-            <img id="blah" src="~/Content/images/Productos/@Model.Imagen" style="margin-top: 4px" height="220" alt="Imagen SB" />
+    <div class="row">
+        <div class="input-field col s12" style="text-transform: uppercase !important">
+            @Html.TextAreaFor(model => model.Observaciones, new { @class = "materialize-textarea validate", style = "text-transform: uppercase !important" })
+            <label class="active" for="Observaciones">Observaciones</label>
         </div>
     </div>
+
+    @*<div class="input-field col m12" style="text-transform: uppercase !important">
+            <div style="margin-top: -10px">
+                <label for="ImagenFile" class="subir">
+                    <i class="fas fa-cloud-upload-alt"></i> Elegir Imagen...
+                </label>
+                &nbsp;&nbsp; @Html.TextBoxFor(modelo => modelo.ImagenFile, new { type = "file", accept = "image/*", style = "display: none;", onchange = "readURL(this);" })
+            </div>
+            <div class="center-align" style="margin-bottom: 5px">
+                <div id="info"></div>
+                <img id="blah" src="~/Content/images/Productos/@Model.Imagen" style="margin-top: 4px" height="220" alt="Imagen SB" />
+            </div>
+        </div>*@
 
     <div class="center-align col m12">
         <button id="aceptar" type="submit" title="Aceptar" disabled class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
@@ -101,39 +113,59 @@
     var art = document.getElementById('Descripcion');
     var senMul = document.getElementById('SencilloMultiple');
     var med = document.getElementById('Medida');
+
+    var aplicaMat = document.getElementById('Activo');
+    var pre = document.getElementById('Precio');
+    var bi = document.getElementById('Bilingue');
+    var obs = document.getElementById('Observaciones');
+
     var acep = document.getElementById('aceptar');
 
     art.addEventListener('change', function () {
-
-        if (art.value == "") {
-            acep.disabled = true;
-
-            if (senMul.value == "Múltiple" || senMul.value == "MÚLTIPLE") {
-                acep.disabled = true;
-            }
-            else if (senMul.value == "Sencillo" || senMul.value == "SENCILLO") {
-                acep.disabled = true;
-            }
-            else {
-                acep.disabled = true;
-            }
-        }
-        else {
-
-            if (senMul.value == "Múltiple" || senMul.value == "MÚLTIPLE") {
-                acep.disabled = false;
-            }
-            else if (senMul.value == "Sencillo" || senMul.value == "SENCILLO") {
-                acep.disabled = false;
-            }
-            else {
-                acep.disabled = true;
-            }
-        }
+        alcambiar();
     });
 
     senMul.addEventListener('change', function () {
+        alcambiar2();
+    });
 
+
+    aplicaMat.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    pre.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    bi.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    obs.addEventListener('change', function () {
+        alcambiar();
+    });
+
+
+    function alcambiar() {
+
+        if (art.value == "") {
+            acep.disabled = true;
+        }
+        else {
+            if (senMul.value == "Múltiple" || senMul.value == "MÚLTIPLE") {
+                acep.disabled = false;
+            }
+            else if (senMul.value == "Sencillo" || senMul.value == "SENCILLO") {
+                acep.disabled = false;
+            }
+            else {
+                acep.disabled = true;
+            }
+        }
+    }
+
+    function alcambiar2() {
         if (senMul.value == "Múltiple" || senMul.value == "MÚLTIPLE") {
             med.disabled = true;
             med.value = "";
@@ -162,5 +194,5 @@
             med.disabled = false;
             acep.disabled = true;
         }
-    });
+    }
 </script>

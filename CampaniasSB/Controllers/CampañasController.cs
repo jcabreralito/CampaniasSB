@@ -205,91 +205,19 @@ namespace CampaniasSB.Controllers
 
         public class MaterialesTiendasCampaña
         {
-            public int ArticuloKFCId { get; set; }
-            public string ArticuloKFC { get; set; }
+            public int ArticuloId { get; set; }
+            public string Articulo { get; set; }
             public string Campaña { get; set; }
             public int CampañaId { get; set; }
             public double Cantidad { get; set; }
             public int TiendaId { get; set; }
-            public string Restaurante { get; set; }
-            public string Clasificacion { get; set; }
-            public string CC { get; set; }
+            public string NombreTienda { get; set; }
+            public string Esquema { get; set; }
+            public string EsquemaCGG { get; set; }
+            public string No { get; set; }
             public string Region { get; set; }
             public string Ciudad { get; set; }
-            public string Direccion { get; set; }
             public bool Habilitado { get; set; }
-            public string TipoTienda { get; set; }
-            //public string Tipo { get; set; }
-            //public string NuevoNivelDePrecio { get; set; }
-            //public bool MenuDigital { get; set; }
-            //public string CantidadDePantallas { get; set; }
-            //public bool TerceraReceta { get; set; }
-            //public bool Arroz { get; set; }
-            //public bool Hamburgesas { get; set; }
-            //public bool Ensalada { get; set; }
-            //public bool PET2Litros { get; set; }
-            //public bool Postres { get; set; }
-            //public bool BisquetMiel { get; set; }
-            //public bool KeCono { get; set; }
-            //public bool KREAMBALL { get; set; }
-            //public bool MenuBackLigth { get; set; }
-            //public bool Autoexpress { get; set; }
-            //public bool CopeteAERemodelado { get; set; }
-            //public bool CopeteAETradicional { get; set; }
-            //public bool PanelDeInnovacion { get; set; }
-            //public bool DisplayDeBurbuja { get; set; }
-            //public bool Delivery { get; set; }
-            //public bool MERCADO_DE_PRUEBA { get; set; }
-            //public bool AreaDeJuegos { get; set; }
-            //public bool COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS { get; set; }
-            //public bool COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L { get; set; }
-            //public bool DisplayDePiso { get; set; }
-            //public bool WCNACIONAL67X100cm { get; set; }
-            //public bool AEMedidaEspecial { get; set; }
-            //public bool AEHolding { get; set; }
-            //public bool AECaribe { get; set; }
-            //public bool PanelComplementosHolding { get; set; }
-            //public bool PanelDeComplementosSinArrozSin3raReceta { get; set; }
-            //public bool PanelALaCartaCaribe { get; set; }
-            //public bool PanelALaCartaCaribeSin3raReceta { get; set; }
-            //public bool PanelALaCartaHolding { get; set; }
-            //public bool PanelALaCartaHoldingSin3raReceta { get; set; }
-            //public bool PanelDeComplementosDigital { get; set; }
-            //public bool PanelComplementosHoldingMR { get; set; }
-            //public bool Telefono { get; set; }
-            ////00000000000000000000000000 MEDIDAS ESPECIALES 0000000000000000000000000000000000
-            //public bool WCMedidaEspecial60_8x85cm { get; set; }
-            //public bool WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm { get; set; }
-            //public bool WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm { get; set; }
-            //public bool WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm { get; set; }
-            //public bool WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm { get; set; }
-            //public bool MedidaEspecialPanelDeComplementos { get; set; }
-            //public bool MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_60_8x85cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_CORREO_MAYOR { get; set; }
-            //public bool MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_ZARAGOZA_90x100cm_60x90cm { get; set; }
-            //public bool MEDIDA_ESPECIAL_ZUAZUA_87x120cm { get; set; }
-            //public bool MEDIDA_BACKLIGHT_55_5X75_5CM { get; set; }
-            //public bool MEDIDA_BACKLIGHT_59_5X79CM { get; set; }
-            //public bool MEDIDAS_ESPECIALES_MENU { get; set; }
-
-            //public string TipoDeCaja { get; set; }
-            //public string AcomodoDeCajas { get; set; }
-            //public string NoMesaDeAreaComedor { get; set; }
-            //public string NoMesaDeAreaDeJuegos { get; set; }
-            //public string NumeroDeVentanas { get; set; }
-            //public string UbicacionPantallas { get; set; }
-            public int ProveedorId { get; set; }
-            public int FamiliaId { get; set; }
         }
 
         public class CodigosMaterialesTienda
@@ -329,12 +257,11 @@ namespace CampaniasSB.Controllers
 
         public class MaterialTotal
         {
-            public int ArticuloKFCId { get; set; }
-            public string ArticuloKFC { get; set; }
+            public int ArticuloId { get; set; }
+            public string Articulo { get; set; }
 
             [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = false)]
             public double TotalCantidad { get; set; }
-            public int ProveedorId { get; set; }
 
         }
 
@@ -581,7 +508,7 @@ namespace CampaniasSB.Controllers
 
         // GET: Campañas/Details/5
         [AuthorizeUser(idOperacion: 4)]
-        public ActionResult CreateCampArt(int? id, string cat)
+        public ActionResult CreateCampArt(int? id)
         {
             Session["iconoTitulo"] = "fas fa-calendar-alt";
             Session["homeB"] = string.Empty;
@@ -590,432 +517,29 @@ namespace CampaniasSB.Controllers
             Session["stockB"] = string.Empty;
             Session["campañasB"] = string.Empty;
 
-            //var usuario = db.Usuarios.Where(u => u.NombreUsuario == User.Identity.Name).FirstOrDefault();
-
-            //if (usuario == null)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-
-            var tipoTienda = string.Empty;
-
-            tipoTienda = cat;
-
-            Session["TipoRestaurante"] = tipoTienda;
-
             var campaña = db.Campañas.Where(x => x.CampañaId == id).FirstOrDefault();
 
             ViewBag.Campañas = campaña.Generada;
 
             var campañaId = id;
 
-            var materialesCampaña = db.Database.SqlQuery<MaterialesTiendasCampaña>("spGetMaterialesCampaña @Categoria, @CampañaId",
-                    new SqlParameter("@Categoria", tipoTienda),
+            var materialesCampaña = db.Database.SqlQuery<MaterialesTiendasCampaña>("spGetMaterialesCampaña @CampañaId",
                     new SqlParameter("@CampañaId", campañaId)).ToList();
 
-            //var articulosTMP = db.Database.SqlQuery<MaterialesCampaña>("spGetCampañaArticuloTMPs @CampañaId",
-            //        new SqlParameter("@CampañaId", campañaId)).ToList();
-
-            //var articulosTMP = db.CampañaArticuloTMPs
-            //                       .Where(x => x.CampañaId == campañaId)
-            //                       .GroupBy(x => new
-            //                       {
-            //                           x.ArticuloKFCId,
-            //                           x.ArticuloKFC.Descripcion,
-            //                           x.CampañaId,
-            //                           x.Cantidad,
-            //                           x.TiendaId,
-            //                           x.Habilitado,
-            //                           x.ArticuloKFC.ProveedorId,
-            //                           x.ArticuloKFC.FamiliaId,
-            //                       })
-            //                       .Select(x => new MaterialesCampaña()
-            //                       {
-            //                           ArticuloKFCId = x.Key.ArticuloKFCId,
-            //                           Campaña = campaña.Nombre + " / " + campaña.Descripcion,
-            //                           CampañaId = x.Key.CampañaId,
-            //                           ArticuloKFC = x.Key.Descripcion,
-            //                           Cantidad = x.Key.Cantidad,
-            //                           TiendaId = x.Key.TiendaId,
-            //                           Habilitado = x.Key.Habilitado,
-            //                           ProveedorId = x.Key.ProveedorId,
-            //                           FamiliaId = x.Key.FamiliaId,
-            //                       }).ToList();
-
-            //var misMateriales = articulosTMP.Where(x => x.Habilitado == true).ToList();
-
-            //var tiendasCampaña = db.Database.SqlQuery<TiendasCampaña>("spGetTiendasCampañas @Categoria",
-            //        new SqlParameter("@Categoria", tipoTienda)).ToList();
-
-            //var tiendasCampaña = db.Tiendas
-            //                .Where(x => x.EquityFranquicia == tipoTienda)
-            //                .GroupBy(x => new
-            //                {
-            //                    x.Restaurante,
-            //                    x.CCoFranquicia,
-            //                    x.TiendaId,
-            //                    x.TipoTienda.Tipo,
-            //                    x.NivelPrecio.Descripcion,
-            //                    x.MenuDigital,
-            //                    x.CantidadDePantallas,
-            //                    x.Clasificacion,
-            //                    x.Region.Nombre,
-            //                    NombreCiudad = x.Ciudad.Nombre,
-            //                    x.Direccion,
-            //                    x.TerceraReceta,
-            //                    x.Arroz,
-            //                    x.Hamburgesas,
-            //                    x.Ensalada,
-            //                    x.PET2Litros,
-            //                    x.Postres,
-            //                    x.BisquetMiel,
-            //                    x.KeCono,
-            //                    x.KREAMBALL,
-            //                    x.MenuBackLigth,
-            //                    x.Autoexpress,
-            //                    x.CopeteAERemodelado,
-            //                    x.CopeteAETradicional,
-            //                    x.PanelDeInnovacion,
-            //                    x.DisplayDeBurbuja,
-            //                    x.Delivery,
-            //                    x.MERCADO_DE_PRUEBA,
-            //                    x.AreaDeJuegos,
-            //                    x.COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS,
-            //                    x.COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L,
-            //                    x.DisplayDePiso,
-            //                    x.WCNACIONAL67X100cm,
-            //                    x.AECaribe,
-            //                    x.AEHolding,
-            //                    x.AEMedidaEspecial,
-            //                    x.PanelALaCartaCaribe,
-            //                    x.PanelALaCartaCaribeSin3raReceta,
-            //                    x.PanelALaCartaHolding,
-            //                    x.PanelALaCartaHoldingSin3raReceta,
-            //                    x.PanelComplementosHolding,
-            //                    x.PanelDeComplementosSinArrozSin3raReceta,
-            //                    x.PanelDeComplementosDigital,
-            //                    x.PanelComplementosHoldingMR,
-            //                    x.Telefono,
-            //                    x.UbicacionPantallas,
-            //                    TipoDeCajaNombre = x.TipoDeCaja.Descripcion,
-            //                    x.AcomodoDeCajas,
-            //                    x.NoMesaDeAreaComedor,
-            //                    x.NoMesaDeAreaDeJuegos,
-            //                    x.NumeroDeVentanas,
-            //                    x.Observaciones,
-            //                    x.WCMedidaEspecial60_8x85cm,
-            //                    x.WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm,
-            //                    x.WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm,
-            //                    x.WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm,
-            //                    x.WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm,
-            //                    x.MedidaEspecialPanelDeComplementos,
-            //                    x.MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm,
-            //                    x.MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm,
-            //                    x.MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm,
-            //                    x.MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm,
-            //                    x.MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm,
-            //                    x.MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm,
-            //                    x.MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm,
-            //                    x.MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm,
-            //                    x.MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm,
-            //                    x.MEDIDA_BACKLIGHT_55_5X75_5CM,
-            //                    x.MEDIDA_BACKLIGHT_59_5X79CM,
-            //                    x.MEDIDAS_ESPECIALES_MENU,
-            //                })
-            //                .Select(x => new TiendasCampaña()
-            //                {
-            //                    Restaurante = x.Key.Restaurante,
-            //                    TiendaId = x.Key.TiendaId,
-            //                    Clasificacion = x.Key.Clasificacion,
-            //                    Region = x.Key.Nombre,
-            //                    Ciudad = x.Key.NombreCiudad,
-            //                    Direccion = x.Key.Direccion,
-            //                    CC = x.Key.CCoFranquicia,
-            //                    TipoTienda = tipoTienda,
-            //                    CantidadDePantallas = x.Key.CantidadDePantallas,
-            //                    MenuDigital = x.Key.MenuDigital,
-            //                    Tipo = x.Key.Tipo,
-            //                    NuevoNivelDePrecio = x.Key.Descripcion,
-            //                    TerceraReceta = x.Key.TerceraReceta,
-            //                    Arroz = x.Key.Arroz,
-            //                    Hamburgesas = x.Key.Hamburgesas,
-            //                    Ensalada = x.Key.Ensalada,
-            //                    PET2Litros = x.Key.PET2Litros,
-            //                    Postres = x.Key.Postres,
-            //                    BisquetMiel = x.Key.BisquetMiel,
-            //                    KeCono = x.Key.KeCono,
-            //                    KREAMBALL = x.Key.KREAMBALL,
-            //                    AcomodoDeCajas = x.Key.AcomodoDeCajas,
-            //                    AreaDeJuegos = x.Key.AreaDeJuegos,
-            //                    Autoexpress = x.Key.Autoexpress,
-            //                    CopeteAERemodelado = x.Key.CopeteAERemodelado,
-            //                    CopeteAETradicional = x.Key.CopeteAETradicional,
-            //                    NumeroDeVentanas = x.Key.NumeroDeVentanas,
-            //                    NoMesaDeAreaDeJuegos = x.Key.NoMesaDeAreaDeJuegos,
-            //                    COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS = x.Key.COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS,
-            //                    COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L = x.Key.COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L,
-            //                    Delivery = x.Key.Delivery,
-            //                    DisplayDeBurbuja = x.Key.DisplayDeBurbuja,
-            //                    DisplayDePiso = x.Key.DisplayDePiso,
-            //                    MenuBackLigth = x.Key.MenuBackLigth,
-            //                    MERCADO_DE_PRUEBA = x.Key.MERCADO_DE_PRUEBA,
-            //                    NoMesaDeAreaComedor = x.Key.NoMesaDeAreaComedor,
-            //                    PanelDeInnovacion = x.Key.PanelDeInnovacion,
-            //                    TipoDeCaja = x.Key.TipoDeCajaNombre,
-            //                    WCNACIONAL67X100cm = x.Key.WCNACIONAL67X100cm,
-            //                    AECaribe = x.Key.AECaribe,
-            //                    AEHolding = x.Key.AEHolding,
-            //                    AEMedidaEspecial = x.Key.AEMedidaEspecial,
-            //                    PanelALaCartaCaribe = x.Key.PanelALaCartaCaribe,
-            //                    PanelALaCartaCaribeSin3raReceta = x.Key.PanelALaCartaCaribeSin3raReceta,
-            //                    PanelALaCartaHolding = x.Key.PanelALaCartaHolding,
-            //                    PanelALaCartaHoldingSin3raReceta = x.Key.PanelALaCartaHoldingSin3raReceta,
-            //                    PanelComplementosHolding = x.Key.PanelComplementosHolding,
-            //                    PanelDeComplementosSinArrozSin3raReceta = x.Key.PanelDeComplementosSinArrozSin3raReceta,
-            //                    PanelComplementosHoldingMR = x.Key.PanelComplementosHoldingMR,
-            //                    PanelDeComplementosDigital = x.Key.PanelDeComplementosDigital,
-            //                    Telefono = x.Key.Telefono,
-            //                    UbicacionPantallas = x.Key.UbicacionPantallas,
-            //                    WCMedidaEspecial60_8x85cm = x.Key.WCMedidaEspecial60_8x85cm,
-            //                    WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm = x.Key.WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm,
-            //                    WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm = x.Key.WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm,
-            //                    WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm = x.Key.WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm,
-            //                    WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm = x.Key.WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm,
-            //                    MedidaEspecialPanelDeComplementos = x.Key.MedidaEspecialPanelDeComplementos,
-            //                    MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm = x.Key.MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm,
-            //                    MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm = x.Key.MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm,
-            //                    MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm = x.Key.MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm,
-            //                    MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm = x.Key.MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm,
-            //                    MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm = x.Key.MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm,
-            //                    MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm = x.Key.MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm,
-            //                    MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm = x.Key.MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm,
-            //                    MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm = x.Key.MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm,
-            //                    MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm = x.Key.MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm,
-            //                    //MEDIDA_ESPECIAL_60_8x85cm = x.Key.MEDIDA_ESPECIAL_60_8x85cm,
-            //                    //MEDIDA_ESPECIAL_CORREO_MAYOR = x.Key.MEDIDA_ESPECIAL_CORREO_MAYOR,
-            //                    //MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm = x.Key.MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm,
-            //                    //MEDIDA_ESPECIAL_ZARAGOZA_90x100cm_60x90cm = x.Key.MEDIDA_ESPECIAL_ZARAGOZA_90x100cm_60x90cm,
-            //                    //MEDIDA_ESPECIAL_ZUAZUA_87x120cm = x.Key.MEDIDA_ESPECIAL_ZUAZUA_87x120cm,
-            //                    MEDIDA_BACKLIGHT_55_5X75_5CM = x.Key.MEDIDA_BACKLIGHT_55_5X75_5CM,
-            //                    MEDIDA_BACKLIGHT_59_5X79CM = x.Key.MEDIDA_BACKLIGHT_59_5X79CM,
-            //                    MEDIDAS_ESPECIALES_MENU = x.Key.MEDIDAS_ESPECIALES_MENU,
-            //                }).ToList();
-
-            //var misTiendas = tiendasCampaña.ToList();
-
-            //var materialesCampaña = articulosTMP.Join(tiendasCampaña,
-            //                     artCamp => artCamp.TiendaId,
-            //                     tienCamp => tienCamp.TiendaId,
-            //                     (artCamp, tienCamp) => new { tiendas = tienCamp, materiales = artCamp })
-            //                .Where(x => x.tiendas.TiendaId == x.materiales.TiendaId)
-            //                .Where(x => x.tiendas.TipoTienda == tipoTienda)
-            //                .GroupBy(x => new
-            //                {
-            //                    x.tiendas.Restaurante,
-            //                    x.tiendas.Clasificacion,
-            //                    x.tiendas.CC,
-            //                    x.tiendas.Region,
-            //                    x.tiendas.Ciudad,
-            //                    x.tiendas.Direccion,
-            //                    x.tiendas.TiendaId,
-            //                    x.tiendas.TipoTienda,
-            //                    //x.tiendas.NuevoNivelDePrecio,
-            //                    //x.tiendas.MenuDigital,
-            //                    //x.tiendas.Tipo,
-            //                    //x.tiendas.CantidadDePantallas,
-            //                    //x.tiendas.TerceraReceta,
-            //                    //x.tiendas.Arroz,
-            //                    //x.tiendas.Hamburgesas,
-            //                    //x.tiendas.Ensalada,
-            //                    //x.tiendas.PET2Litros,
-            //                    //x.tiendas.Postres,
-            //                    //x.tiendas.BisquetMiel,
-            //                    //x.tiendas.KeCono,
-            //                    //x.tiendas.KREAMBALL,
-            //                    //x.tiendas.AcomodoDeCajas,
-            //                    //x.tiendas.AreaDeJuegos,
-            //                    //x.tiendas.Autoexpress,
-            //                    //x.tiendas.CopeteAERemodelado,
-            //                    //x.tiendas.CopeteAETradicional,
-            //                    //x.tiendas.COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS,
-            //                    //x.tiendas.COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L,
-            //                    //x.tiendas.Delivery,
-            //                    //x.tiendas.DisplayDeBurbuja,
-            //                    //x.tiendas.DisplayDePiso,
-            //                    //x.tiendas.MenuBackLigth,
-            //                    //x.tiendas.MERCADO_DE_PRUEBA,
-            //                    //x.tiendas.NoMesaDeAreaComedor,
-            //                    //x.tiendas.NoMesaDeAreaDeJuegos,
-            //                    //x.tiendas.NumeroDeVentanas,
-            //                    //x.tiendas.PanelDeInnovacion,
-            //                    //x.tiendas.TipoDeCaja,
-            //                    //x.tiendas.WCNACIONAL67X100cm,
-            //                    //x.tiendas.AECaribe,
-            //                    //x.tiendas.AEHolding,
-            //                    //x.tiendas.AEMedidaEspecial,
-            //                    //x.tiendas.PanelALaCartaCaribe,
-            //                    //x.tiendas.PanelALaCartaCaribeSin3raReceta,
-            //                    //x.tiendas.PanelALaCartaHolding,
-            //                    //x.tiendas.PanelALaCartaHoldingSin3raReceta,
-            //                    //x.tiendas.PanelComplementosHolding,
-            //                    //x.tiendas.PanelDeComplementosSinArrozSin3raReceta,
-            //                    //x.tiendas.PanelComplementosHoldingMR,
-            //                    //x.tiendas.PanelDeComplementosDigital,
-            //                    //x.tiendas.Telefono,
-            //                    //x.tiendas.UbicacionPantallas,
-            //                    //x.tiendas.WCMedidaEspecial60_8x85cm,
-            //                    //x.tiendas.WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm,
-            //                    //x.tiendas.WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm,
-            //                    //x.tiendas.WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm,
-            //                    //x.tiendas.WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm,
-            //                    //x.tiendas.MedidaEspecialPanelDeComplementos,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_60_8x85cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_CORREO_MAYOR,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_ZARAGOZA_90x100cm_60x90cm,
-            //                    //x.tiendas.MEDIDA_ESPECIAL_ZUAZUA_87x120cm,
-            //                    //x.tiendas.MEDIDA_BACKLIGHT_55_5X75_5CM,
-            //                    //x.tiendas.MEDIDA_BACKLIGHT_59_5X79CM,
-            //                    //x.tiendas.MEDIDAS_ESPECIALES_MENU,
-            //                    x.materiales.ArticuloKFCId,
-            //                    x.materiales.ArticuloKFC,
-            //                    x.materiales.Cantidad,
-            //                    x.materiales.Campaña,
-            //                    x.materiales.CampañaId,
-            //                    x.materiales.Habilitado,
-            //                    x.materiales.ProveedorId,
-            //                    x.materiales.FamiliaId,
-            //                })
-            //                .Select(x => new MaterialesTiendasCampaña()
-            //                {
-            //                    ArticuloKFCId = x.Key.ArticuloKFCId,
-            //                    ArticuloKFC = x.Key.ArticuloKFC,
-            //                    Campaña = x.Key.Campaña,
-            //                    CampañaId = x.Key.CampañaId,
-            //                    Cantidad = x.Key.Cantidad,
-            //                    CC = x.Key.CC,
-            //                    Clasificacion = x.Key.Clasificacion,
-            //                    Restaurante = x.Key.Restaurante,
-            //                    Ciudad = x.Key.Ciudad,
-            //                    Direccion = x.Key.Direccion,
-            //                    Region = x.Key.Region,
-            //                    TiendaId = x.Key.TiendaId,
-            //                    TipoTienda = x.Key.TipoTienda,
-            //                    Habilitado = x.Key.Habilitado,
-            //                    //CantidadDePantallas = x.Key.CantidadDePantallas,
-            //                    //MenuDigital = x.Key.MenuDigital,
-            //                    //NuevoNivelDePrecio = x.Key.NuevoNivelDePrecio,
-            //                    //Tipo = x.Key.Tipo,
-            //                    //TerceraReceta = x.Key.TerceraReceta,
-            //                    //Arroz = x.Key.Arroz,
-            //                    //Hamburgesas = x.Key.Hamburgesas,
-            //                    //Ensalada = x.Key.Ensalada,
-            //                    //PET2Litros = x.Key.PET2Litros,
-            //                    //Postres = x.Key.Postres,
-            //                    //BisquetMiel = x.Key.BisquetMiel,
-            //                    //KeCono = x.Key.KeCono,
-            //                    //KREAMBALL = x.Key.KREAMBALL,
-            //                    //AcomodoDeCajas = x.Key.AcomodoDeCajas,
-            //                    //AreaDeJuegos = x.Key.AreaDeJuegos,
-            //                    //Autoexpress = x.Key.Autoexpress,
-            //                    //CopeteAERemodelado = x.Key.CopeteAERemodelado,
-            //                    //CopeteAETradicional = x.Key.CopeteAETradicional,
-            //                    //NumeroDeVentanas = x.Key.NumeroDeVentanas,
-            //                    //NoMesaDeAreaDeJuegos = x.Key.NoMesaDeAreaDeJuegos,
-            //                    //COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS = x.Key.COPETE_ESPECIAL_SOPORTE_LATERAL_4_VASOS,
-            //                    //COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L = x.Key.COPETE_ESPECIAL_SOPORTE_LATERAL_PET_2L,
-            //                    //Delivery = x.Key.Delivery,
-            //                    //DisplayDeBurbuja = x.Key.DisplayDeBurbuja,
-            //                    //DisplayDePiso = x.Key.DisplayDePiso,
-            //                    //MenuBackLigth = x.Key.MenuBackLigth,
-            //                    //MERCADO_DE_PRUEBA = x.Key.MERCADO_DE_PRUEBA,
-            //                    //NoMesaDeAreaComedor = x.Key.NoMesaDeAreaComedor,
-            //                    //PanelDeInnovacion = x.Key.PanelDeInnovacion,
-            //                    //TipoDeCaja = x.Key.TipoDeCaja,
-            //                    //WCNACIONAL67X100cm = x.Key.WCNACIONAL67X100cm,
-            //                    ProveedorId = x.Key.ProveedorId,
-            //                    FamiliaId = x.Key.FamiliaId,
-            //                    //AECaribe = x.Key.AECaribe,
-            //                    //AEHolding = x.Key.AEHolding,
-            //                    //AEMedidaEspecial = x.Key.AEMedidaEspecial,
-            //                    //PanelALaCartaCaribe = x.Key.PanelALaCartaCaribe,
-            //                    //PanelALaCartaCaribeSin3raReceta = x.Key.PanelALaCartaCaribeSin3raReceta,
-            //                    //PanelALaCartaHolding = x.Key.PanelALaCartaHolding,
-            //                    //PanelALaCartaHoldingSin3raReceta = x.Key.PanelALaCartaHoldingSin3raReceta,
-            //                    //PanelComplementosHolding = x.Key.PanelComplementosHolding,
-            //                    //PanelDeComplementosSinArrozSin3raReceta = x.Key.PanelDeComplementosSinArrozSin3raReceta,
-            //                    //PanelComplementosHoldingMR = x.Key.PanelComplementosHoldingMR,
-            //                    //PanelDeComplementosDigital = x.Key.PanelDeComplementosDigital,
-            //                    //Telefono = x.Key.Telefono,
-            //                    //UbicacionPantallas = x.Key.UbicacionPantallas,
-            //                    //WCMedidaEspecial60_8x85cm = x.Key.WCMedidaEspecial60_8x85cm,
-            //                    //WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm = x.Key.WC_MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm,
-            //                    //WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm = x.Key.WC_MEDIDA_ESPECIAL_ZUAZUA_87x120cm,
-            //                    //WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm = x.Key.WC_MEDIDA_ESPECIAL_CORREO_MAYOR_60x90cm,
-            //                    //WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm = x.Key.WC_MEDIDA_ESPECIAL_ZARAGOZA_90x100cm,
-            //                    //MedidaEspecialPanelDeComplementos = x.Key.MedidaEspecialPanelDeComplementos,
-            //                    //MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm = x.Key.MEDIDA_ESPECIAL_PRE_MENU_AE_SAN_ANTONIO_49x67_5cm,
-            //                    //MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm = x.Key.MEDIDA_ESPECIAL_AE_TECAMAC_48x67_5cm,
-            //                    //MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm = x.Key.MEDIDA_ESPECIAL_AE_VILLA_GARCIA_45x65cm,
-            //                    //MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm = x.Key.MEDIDA_ESPECIAL_AE_XOLA_49_9x66_9cm,
-            //                    //MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm = x.Key.MEDIDA_ESPECIAL_AE_ZUAZUA_51x71cm,
-            //                    //MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm = x.Key.MEDIDA_ESPECIAL_AE_VALLE_SOLEADO_51x71cm,
-            //                    //MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm = x.Key.MEDIDA_ESPECIAL_AE_MIRASIERRA_46x68cm,
-            //                    //MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm = x.Key.MEDIDA_ESPECIAL_AE_CELAYA_50x68_5cm,
-            //                    //MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm = x.Key.MEDIDA_ESPECIAL_AE_CANDILES_49_5x73_5cm,
-            //                    //MEDIDA_ESPECIAL_60_8x85cm = x.Key.MEDIDA_ESPECIAL_60_8x85cm,
-            //                    //MEDIDA_ESPECIAL_CORREO_MAYOR = x.Key.MEDIDA_ESPECIAL_CORREO_MAYOR,
-            //                    //MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm = x.Key.MEDIDA_ESPECIAL_MALL_ORIENTE_100x120cm,
-            //                    //MEDIDA_ESPECIAL_ZARAGOZA_90x100cm_60x90cm = x.Key.MEDIDA_ESPECIAL_ZARAGOZA_90x100cm_60x90cm,
-            //                    //MEDIDA_ESPECIAL_ZUAZUA_87x120cm = x.Key.MEDIDA_ESPECIAL_ZUAZUA_87x120cm,
-            //                    //MEDIDA_BACKLIGHT_55_5X75_5CM = x.Key.MEDIDA_BACKLIGHT_55_5X75_5CM,
-            //                    //MEDIDA_BACKLIGHT_59_5X79CM = x.Key.MEDIDA_BACKLIGHT_59_5X79CM,
-            //                    //MEDIDAS_ESPECIALES_MENU = x.Key.MEDIDAS_ESPECIALES_MENU,
-            //                });
-
-            //var misMaterialesCampaña = materialesCampaña.ToList();
-
             var totalMaterial = materialesCampaña
-                               .Where(x => x.TipoTienda == tipoTienda)
-                               .GroupBy(x => new { x.ArticuloKFC, x.ArticuloKFCId, x.ProveedorId })
+                               .GroupBy(x => new { x.Articulo, x.ArticuloId })
                                .Select(x => new MaterialTotal()
                                {
-                                   ArticuloKFCId = x.Key.ArticuloKFCId,
-                                   ArticuloKFC = x.Key.ArticuloKFC,
-                                   ProveedorId = x.Key.ProveedorId,
+                                   ArticuloId = x.Key.ArticuloId,
+                                   Articulo = x.Key.Articulo,
                                    TotalCantidad = x.Sum(t => t.Cantidad),
                                });
 
-            ViewBag.TotalMaterial = totalMaterial.Where(x => x.ProveedorId != 5).OrderBy(x => x.ArticuloKFC).ToList();
+            ViewBag.TotalMaterial = totalMaterial.OrderBy(x => x.Articulo).ToList();
 
             ViewBag.Total = totalMaterial.Sum(x => x.TotalCantidad);
 
-            //var totalRestaurante = materialesCampaña
-            //                   .GroupBy(x => new { x.Restaurante })
-            //                   .Select(x => new TiendaTotal()
-            //                   {
-            //                       Restaurante = x.Key.Restaurante,
-            //                       TotalCantidad = x.Sum(t => t.Cantidad),
-            //                   });
-
-            //ViewBag.TotalRestaurante = totalRestaurante.ToList();
-
-            //var totalMateriales = materialesCampaña.ToList();
-            var totalMateriales = materialesCampaña.ToList().OrderBy(p => p.TiendaId).ThenBy(p => p.ArticuloKFC).ToList();
+            var totalMateriales = materialesCampaña.ToList().OrderBy(p => p.TiendaId).ThenBy(p => p.Articulo).ToList();
 
             if (totalMateriales.Count == 0)
             {
@@ -1114,7 +638,7 @@ namespace CampaniasSB.Controllers
                     }
                 }
 
-                var tiendas = db.Database.SqlQuery<spTiendasActivas>("spGetRestaurantesActivos").ToList();
+                var tiendas = db.Database.SqlQuery<spTiendasActivas>("spGetTiendasActivos").ToList();
                 var i = 1;
 
                 using (StreamWriter streamWriter = new StreamWriter(folder + "Tiendas" + campaña.Nombre + ".txt", false, Encoding.GetEncoding(1252)))

@@ -69,10 +69,10 @@ namespace CampaniasSB.Classes
             return regiones.OrderBy(r => r.Nombre).ToList();
         }
 
-        public static List<Ciudad> GetCiudades(int equiFran)
+        public static List<spCiudades> GetCiudades(int equiFran)
         {
             var ciudades = db.Database.SqlQuery<spCiudades>("spGetCiudades").ToList();
-            ciudades.Add(new Ciudad
+            ciudades.Add(new spCiudades
             {
                 CiudadId = 0,
                 Nombre = "[Seleccionar...]",
@@ -108,7 +108,7 @@ namespace CampaniasSB.Classes
             return materiales.OrderBy(r => r.Descripcion).ToList();
         }
 
-        public static List<Ciudad> GetCiudades(bool sw)
+        public static List<spCiudades> GetCiudades(bool sw)
         {
             var ciudades = db.Database.SqlQuery<spCiudades>("spGetCiudades").ToList();
             return ciudades.OrderBy(r => r.Nombre).ToList();
@@ -132,19 +132,19 @@ namespace CampaniasSB.Classes
 
         public static List<Esquema> GetEsquemas()
         {
-            var niveles = db.Database.SqlQuery<Esquema>("spGetEsquemas").ToList();
-            niveles.Add(new Esquema
+            var esquemas = db.Database.SqlQuery<Esquema>("spGetEsquemas").Where(x => x.TipoEsquema == "ESQUEMA GENERAL").ToList();
+            esquemas.Add(new Esquema
             {
                 EsquemaId = 0,
-                TipoEsquema = "[Seleccionar...]",
+                NombreEsquema = "[Seleccionar...]",
             });
-            return niveles.OrderBy(c => c.TipoEsquema).ToList();
+            return esquemas.OrderBy(c => c.NombreEsquema).ToList();
         }
 
         public static List<Esquema> GetEsquemas(bool sw)
         {
-            var niveles = db.Database.SqlQuery<Esquema>("spGetEsquemas").ToList();
-            return niveles.OrderBy(c => c.TipoEsquema).ToList();
+            var esquemas = db.Database.SqlQuery<Esquema>("spGetEsquemas").Where(x => x.TipoEsquema == "ESQUEMA GENERAL").ToList();
+            return esquemas.OrderBy(c => c.NombreEsquema).ToList();
         }
 
         public static List<TipoArticulo> GetSencilloMultiple(bool v)
@@ -156,6 +156,22 @@ namespace CampaniasSB.Classes
                 Nombre = "[Seleccionar...]",
             });
             return tipo.OrderBy(c => c.Nombre).ToList();
+        }
+
+        public static List<Esquema> GetEsquemasCGG()
+        {
+            var esquemas = db.Database.SqlQuery<Esquema>("spGetEsquemas").Where(x => x.TipoEsquema == "ESQUEMA CENEFA GRAB AND GO").ToList();
+            esquemas.Add(new Esquema
+            {
+                EsquemaId = 0,
+                NombreEsquema = "[Seleccionar...]",
+            });
+            return esquemas.OrderBy(c => c.NombreEsquema).ToList();
+        }
+        public static List<Esquema> GetEsquemasCGG(bool v)
+        {
+            var esquemas = db.Database.SqlQuery<Esquema>("spGetEsquemas").Where(x => x.TipoEsquema == "ESQUEMA CENEFA GRAB AND GO").ToList();
+            return esquemas.OrderBy(c => c.NombreEsquema).ToList();
         }
     }
 }

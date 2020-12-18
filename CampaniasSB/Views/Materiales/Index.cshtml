@@ -32,7 +32,6 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th></th>
             </tr>
         </tfoot>
     </table>
@@ -86,29 +85,24 @@
                         "title": "Sencillo / Múltiple",
                         "className": "dt-body-center text-center",
                     },
-                    {
-                        "data": "Medida", "render": function (data) {
-                            return "<span>" + data + "</span>";
-                        },
-                        "title": "Medida",
-                        "className": "dt-body-center text-center",
-                    },
-                    {
-                        "data": "Imagen", "render": function (data) {
-                            return "<img src=\"Content/images/Productos" + data + "\" height=\"50\" width=\"50\"/>";
-                        },
-                        "title": "Imagen",
-                        "orderable": false,
-                        "searchable": false,
-                        "className": "dt-body-center text-center noExport",
-                    },
+                    //{
+                    //    "data": "Imagen", "render": function (data) {
+                    //        return "<img src=\"Content/images/Productos" + data + "\" height=\"50\" width=\"50\"/>";
+                    //    },
+                    //    "title": "Imagen",
+                    //    "orderable": false,
+                    //    "searchable": false,
+                    //    "className": "dt-body-center text-center noExport",
+                    //},
                     {
                         data: "Activo",
                         render: function (data, type, row) {
                             if (data == 1) {
-                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' checked='checked' disabled='disabled'><span class='badge'>&check;</span></label>";
+                                return "<label class='black-text' style='font-weight: bold; margin-top: 5px'>SI</label>"
+                                //return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' checked='checked' disabled='disabled'><span class='badge'>&check;</span></label>";
                             } else {
-                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' disabled='disabled'><span class='badge'>&check;</span></label>";
+                                return "<label class='red-text' style='font-weight: bold; margin-top: 5px'>NO</label>"
+                                //return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' disabled='disabled'><span class='badge'>&check;</span></label>";
                             }
                             return data;
                         },
@@ -121,9 +115,11 @@
                         data: "Precio",
                         render: function (data, type, row) {
                             if (data == 1) {
-                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' checked='checked' disabled='disabled'><span class='badge'>&check;</span></label>";
+                                return "<label class='black-text' style='font-weight: bold; margin-top: 5px'>SI</label>"
+                                //return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' checked='checked' disabled='disabled'><span class='badge'>&check;</span></label>";
                             } else {
-                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' disabled='disabled'><span class='badge'>&check;</span></label>";
+                                return "<label class='red-text' style='font-weight: bold; margin-top: 5px'>NO</label>"
+                                //return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' disabled='disabled'><span class='badge'>&check;</span></label>";
                             }
                             return data;
                         },
@@ -136,9 +132,11 @@
                         data: "Bilingue",
                         render: function (data, type, row) {
                             if (data == 1) {
-                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' checked='checked' disabled='disabled'><span class='badge'>&check;</span></label>";
+                                return "<label class='black-text' style='font-weight: bold; margin-top: 5px'>SI</label>"
+                                //return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' checked='checked' disabled='disabled'><span class='badge'>&check;</span></label>";
                             } else {
-                                return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' disabled='disabled'><span class='badge'>&check;</span></label>";
+                                return "<label class='red-text' style='font-weight: bold; margin-top: 5px'>NO</label>"
+                                //return "<label for='danger' class='btndangerCheck'><input type='checkbox' id='danger' class='badgebox' disabled='disabled'><span class='badge'>&check;</span></label>";
                             }
                             return data;
                         },
@@ -146,6 +144,13 @@
                         "title": "Bilingüe",
                         "orderable": false,
                         "searchable": false,
+                    },
+                    {
+                        "data": "Medida", "render": function (data) {
+                            return "<span>" + data + "</span>";
+                        },
+                        "title": "Medida",
+                        "className": "dt-body-center text-center",
                     },
                     {
                         "data": "ArticuloId", "render": function (data) {
@@ -245,7 +250,7 @@
                     leftColumns: 2,
                 },
                 initComplete: function () {
-                    this.api().columns([4, 5]).every(function () {
+                    this.api().columns([4, 8]).every(function () {
                         var column = this;
                         var select = $('<select><option value="">=TODOS=</option></select>')
                             .appendTo($(column.footer()).empty())
@@ -342,7 +347,7 @@
                         autoOpen: true,
                         resizable: false,
                         title: "TIENDAS",
-                        width: 800,
+                        width: 750,
                         modal: true,
                         closeOnEscape: false,
                         closeText: "Cerrar",

@@ -92,17 +92,17 @@
                             </div>
                         </li>
                         <li class="iMenu">
-                            <a id="restaurantesB" href="@Url.Action("Index", "Restaurantes")" class="@Session["restaurantesB"].ToString()" title="Tiendas" onclick="viewPageIndex()">
+                            <a id="restaurantesB" href="@Url.Action("Index", "Tiendas")" class="@Session["restaurantesB"].ToString()" title="Tiendas" onclick="viewPageIndex()">
                                 <i class="fas fa-store fa-2x"></i>
                             </a>
                         </li>
-                        <li class="iMenu">
+                        @*<li class="iMenu">
                             <div>
                                 <a id="reglasB" href="@Url.Action("Index", "Reglas")" class="@Session["reglasB"].ToString()" title="Reglas" onclick="viewPageIndex()">
                                     <i class="fas fa-clipboard-check fa-2x"></i>
                                 </a>
                             </div>
-                        </li>
+                        </li>*@
                         <li class="iMenu">
                             <div>
                                 <a id="materialesB" href="@Url.Action("Index", "Materiales")" class="@Session["materialesB"].ToString()" title="Materiales" onclick="viewPageIndex()">
@@ -141,7 +141,7 @@
                             </div>
                         </li>
                         <li class="iMenu">
-                            <a id="restaurantesB" href="@Url.Action("Index", "Restaurantes")" class="@Session["restaurantesB"].ToString()" title="Tiendas" onclick="viewPageIndex()">
+                            <a id="restaurantesB" href="@Url.Action("Index", "Tiendas")" class="@Session["restaurantesB"].ToString()" title="Tiendas" onclick="viewPageIndex()">
                                 <i class="fas fa-store fa-2x"></i>
                             </a>
                         </li>
@@ -208,17 +208,17 @@
                 </a>
             </li>
             <li>
-                <a id="restaurantesB" href="@Url.Action("Index", "Restaurantes")" class="iconomenu @Session["restaurantesB"].ToString()" onclick="viewPageIndex()">
+                <a id="restaurantesB" href="@Url.Action("Index", "Tiendas")" class="iconomenu @Session["restaurantesB"].ToString()" onclick="viewPageIndex()">
                     Tiendas
                     <i class="fas fa-store-alt"></i>
                 </a>
             </li>
-            <li>
+            @*<li>
                 <a id="reglasB" href="@Url.Action("Index", "Reglas")" class="iconomenu @Session["reglasB"].ToString()" onclick="viewPageIndex()">
                     Reglas
                     <i class="fas fa-file-contract"></i>
                 </a>
-            </li>
+            </li>*@
             <li>
                 <a id="materialesB" href="@Url.Action("Index", "Materiales")" class="iconomenu @Session["materialesB"].ToString()" onclick="viewPageIndex()">
                     Materiales

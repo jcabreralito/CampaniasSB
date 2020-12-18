@@ -28,21 +28,9 @@ namespace CampaniasSB
             );
 
             routes.MapRoute(
-                name: "IndexEQ",
-                url: "Restaurantes",
-                defaults: new { controller = "Restaurantes", action = "Index" }
-            );
-
-            routes.MapRoute(
-                name: "IndexFQ",
-                url: "RestaurantesFQ",
-                defaults: new { controller = "Restaurantes", action = "IndexFQ" }
-            );
-
-            routes.MapRoute(
-                name: "IndexSK",
-                url: "RestaurantesSK",
-                defaults: new { controller = "Restaurantes", action = "IndexSK" }
+                name: "IndexSB",
+                url: "Tiendas",
+                defaults: new { controller = "Tiendas", action = "Index" }
             );
 
             routes.MapRoute(

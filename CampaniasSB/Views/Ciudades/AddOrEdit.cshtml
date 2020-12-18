@@ -13,14 +13,6 @@
         </div>
     </div>
 
-    <div class="form-group focus col-sm-12" style="padding: 0">
-        <label for="RegionId" style="padding: 0 0 0 10px;">Región</label>
-        <div class="customselect">
-            @Html.DropDownList("RegionId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[2].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
-        </div>
-        <span class="focus-border"></span>
-    </div>
-
     <div class="center-align">
         <button id="aceptar" disabled type="submit" title="Aceptar" class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
             <i class="large material-icons">check</i>
@@ -31,48 +23,21 @@
 <script>
 
     var nom = document.getElementById('Nombre');
-    var reg = document.getElementById('RegionId');
     var acep = document.getElementById('aceptar');
 
     nom.addEventListener('change', function () {
-
-        if (nom.value == "") {
-            acep.disabled = true;
-
-            if (reg.value == 0) {
-                acep.disabled = true;
-            }
-            else {
-                acep.disabled = false;
-            }
-        }
-        else {
-
-            if (reg.value == 0) {
-                acep.disabled = true;
-            }
-            else {
-                acep.disabled = false;
-            }
-        }
+        alcambiar();
     });
 
-    reg.addEventListener('change', function () {
+    function alcambiar() {
 
-        if (reg.value == 0) {
-
-            acep.disabled = true;
-
+        if (nom.value != "") {
+            acep.disabled = false;
         }
         else {
-
-            if (nom.value == "") {
-                acep.disabled = true;
-            }
-            else {
-                acep.disabled = false;
-            }
-
+            acep.disabled = true;
         }
-    });
+
+    }
+
 </script>

@@ -66,6 +66,28 @@ namespace CampaniasSB
             UsuariosHelper.CrearRolOperaciones(3, 5);
             UsuariosHelper.CrearTipoArticulos("SENCILLO");
             UsuariosHelper.CrearTipoArticulos("MÚLTIPLE");
+            UsuariosHelper.CrearEsquemas("ESQUEMA GENERAL", "A1", 1);
+            UsuariosHelper.CrearEsquemas("ESQUEMA GENERAL", "A2", 2);
+            UsuariosHelper.CrearEsquemas("ESQUEMA GENERAL", "A3", 3);
+            UsuariosHelper.CrearEsquemas("ESQUEMA GENERAL", "A4", 4);
+            UsuariosHelper.CrearEsquemas("ESQUEMA GENERAL", "A5", 5);
+            UsuariosHelper.CrearEsquemas("ESQUEMA GENERAL", "A6", 6);
+            UsuariosHelper.CrearEsquemas("ESQUEMA GENERAL", "A1.5", 7);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A1", 1);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A2", 2);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A3", 3);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A4", 4);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A5", 5);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A6", 6);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A1.5", 7);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A1 ESPECIAL", 1);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A2 ESPECIAL", 2);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A3 ESPECIAL", 3);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A4 ESPECIAL", 4);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A5 ESPECIAL", 5);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A6 ESPECIAL", 6);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "A1.5 ESPECIAL", 7);
+            UsuariosHelper.CrearEsquemas("ESQUEMA CENEFA GRAB AND GO", "N/A", 0);
         }
     }
 }

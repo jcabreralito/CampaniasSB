@@ -101,6 +101,37 @@ namespace CampaniasSB.Classes
             }
         }
 
+        public static void CrearEsquemas(string tipoEsquema, string esquema, int valor)
+        {
+            var esquemaExist = db.Esquemas.Where(r => r.TipoEsquema == tipoEsquema && r.NombreEsquema == esquema && r.Valor == valor).FirstOrDefault();
+
+            if (esquemaExist != null)
+            {
+                if (esquemaExist.TipoEsquema != tipoEsquema && esquemaExist.NombreEsquema != esquema && esquemaExist.Valor != valor)
+                {
+                    Esquema esquemaTipoEsquema = new Esquema
+                    {
+                        TipoEsquema = tipoEsquema,
+                        NombreEsquema = esquema,
+                        Valor = valor
+                    };
+                    db.Esquemas.Add(esquemaTipoEsquema);
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                Esquema esquemaTipoEsquema = new Esquema
+                {
+                    TipoEsquema = tipoEsquema,
+                    NombreEsquema = esquema,
+                    Valor = valor
+                };
+                db.Esquemas.Add(esquemaTipoEsquema);
+                db.SaveChanges();
+            }
+        }
+
         public static void CrearTipoArticulos(string nombre)
         {
             var nombreExist = db.TipoArticulos.Where(r => r.Nombre == nombre).FirstOrDefault();

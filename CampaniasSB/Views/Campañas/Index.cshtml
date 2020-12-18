@@ -59,38 +59,10 @@
                             //    return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
                             //}
                             //else {
-                            return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "?cat=" + 'EQUITY' + "' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
+                            return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
                             //}
                         },
-                        "title": "Equity",
-                        "className": "dt-body-center text-center",
-                        "orderable": false,
-                        "searchable": false,
-                    },
-                    {
-                        "data": "CampañaId", "render": function (data, type, row) {
-                            //if (row.Generada === "SI") {
-                            //    return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
-                            //}
-                            //else {
-                            return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "?cat=" + 'FRANQUICIAS' + "' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
-                            //}
-                        },
-                        "title": "Franquicias",
-                        "className": "dt-body-center text-center",
-                        "orderable": false,
-                        "searchable": false,
-                    },
-                    {
-                        "data": "CampañaId", "render": function (data, type, row) {
-                            //if (row.Generada === "SI") {
-                            //    return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: not-allowed' ><i class='fas fa-ban' style='color: #067655'></i></a>";
-                            //}
-                            //else {
-                            return "<a class='btn-default btn-lg' style='background-color: transparent; cursor: pointer' href='@Url.Action("CreateCampArt", "Campañas")/" + data + "?cat=" + 'STOCK' + "' onclick=(viewPageIndex())><i style='color: #000' class='fas fa-calendar-check'></i></a>";
-                            //}
-                        },
-                        "title": "Stock",
+                        "title": "Detalles",
                         "className": "dt-body-center text-center",
                         "orderable": false,
                         "searchable": false,

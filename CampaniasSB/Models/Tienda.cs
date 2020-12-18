@@ -9,7 +9,9 @@ namespace CampaniasSB.Models
         [Key]
         public int TiendaId { get; set; }
 
-        public string Esquema { get; set; }
+        public int EsquemaId { get; set; }
+
+        public int EsquemaCGGId { get; set; }
 
         [Display(Name = "No. Tienda")]
         public string NoTienda { get; set; }
@@ -23,8 +25,8 @@ namespace CampaniasSB.Models
         [Display(Name = "CIUDAD", Prompt = "[Seleccionar...]")]
         public int CiudadId { get; set; }
 
-        [Display(Name = "DIRECCIÓN")]
-        public string Direccion { get; set; }
+        //[Display(Name = "DIRECCIÓN")]
+        //public string Direccion { get; set; }
 
         public bool BIS { get; set; }
 
@@ -35,6 +37,12 @@ namespace CampaniasSB.Models
         public bool Activo { get; set; }
 
         public bool Eliminado { get; set; }
+
+        public string Base { get; set; }
+
+        public string Altura { get; set; }
+
+        public string Especial { get; set; }
 
     }
 }

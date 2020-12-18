@@ -13,10 +13,5 @@ namespace CampaniasSB.Models
         [Display(Name = "Ciudad")]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "El Campo {0} es obligatorio")]
-        [Range(1, double.MaxValue, ErrorMessage = "Seleccionar una {0}")]
-        [Display(Name = "Región", Prompt = "[Seleccionar una Región...]")]
-        public int RegionId { get; set; }
-
     }
 }

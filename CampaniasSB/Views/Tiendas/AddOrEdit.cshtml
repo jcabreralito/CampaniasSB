@@ -1,0 +1,234 @@
+﻿@model CampaniasSB.Models.Tienda
+@{
+}
+
+<style>
+    .row {
+        margin-top: -13px;
+    }
+</style>
+
+@using (Html.BeginForm("AddOrEdit", "Tiendas", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.TiendaId)
+    @Html.HiddenFor(model => model.Eliminado)
+
+    <div class="input-field col s12" style="text-transform: uppercase !important">
+        @if (Model.TiendaId == 0)
+        {
+            <h6 class="green-text center-align"><strong id="titulo">AGREGAR TIENDA</strong></h6>
+        }
+        else if (Model.TiendaId != 0)
+        {
+            <h6 class="green-text center-align"><strong id="titulo">MODIFICAR TIENDA</strong></h6>
+        }
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12" style="text-transform: uppercase !important">
+            @Html.EditorFor(model => model.NombreTienda, new { htmlAttributes = new { @type = "text", @class = "validate", @required = "true", style = "text-transform: uppercase !important" } })
+            <label class="active" for="NombreTienda">Tienda</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s4" style="margin-top: 9px">
+            @Html.EditorFor(model => model.NoTienda, new { htmlAttributes = new { @type = "text", @class = "validate center-align", @required = "true", style = "text-transform: uppercase !important" } })
+            <label class="active" for="NoTienda">No. Tienda</label>
+        </div>
+        <div class="col s4" style="text-transform: uppercase !important;">
+            <label for="RegionId">Región</label>
+            <div class="customselect">
+                @Html.DropDownList("RegionId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[5].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+            </div>
+            <span class="focus-border"></span>
+        </div>
+        <div class="form-group focus col s4" style="text-transform: uppercase !important">
+            <label for="CiudadId">Ciudad</label>
+            <div class="customselect">
+                @Html.DropDownList("CiudadId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[6].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+            </div>
+            <span class="focus-border"></span>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="form-group focus col s3" style="text-transform: uppercase !important">
+            <label for="Esquema">Esquema General</label>
+            <div class="customselect">
+                @Html.DropDownList("EsquemaId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[1].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+            </div>
+            <span class="focus-border"></span>
+        </div>
+
+        <div class="form-group focus col s3" style="text-transform: uppercase !important">
+            <label for="Esquema">Esquema Cenefa</label>
+            <div class="customselect">
+                @Html.DropDownList("EsquemaCGGId", null, ((IList<ModelMetadata>)ViewData.ModelMetadata.Properties)[2].Watermark, htmlAttributes: new { @class = "form-control form-control-select clgfocus", @type = "text", @required = "true", style = "text-transform: uppercase", @oninvalid = "setCustomValidity('Seleccionar un elemento de la lista')", @oninput = "setCustomValidity('')" })
+            </div>
+            <span class="focus-border"></span>
+        </div>
+
+        <div class="input-field center-align col s3">
+            NO
+            @Html.CheckBoxFor(model => model.BIS, new { @class = "switch_1" })
+            SI
+            <label class="active" for="BIS">BIS</label>
+        </div>
+
+        <div class="input-field center-align col s3">
+            ES
+            @Html.CheckBoxFor(model => model.Idioma, new { @class = "switch_1" })
+            BI
+            <label class="active" for="Idioma">Idioma</label>
+        </div>
+    </div>
+
+    if (Model.TiendaId == 0)
+    {
+        <div class="row">
+            <div class="input-field col s4">
+                @Html.EditorFor(model => model.Base, new { htmlAttributes = new { @type = "text", @class = "center-align", style = "text-transform: uppercase !important" } })
+                <label class="active" for="Base">Base</label>
+            </div>
+
+            <div class="input-field col s4">
+                @Html.EditorFor(model => model.Altura, new { htmlAttributes = new { @type = "text", @class = "center-align", style = "text-transform: uppercase !important" } })
+                <label class="active" for="Altura">Altura</label>
+            </div>
+
+            <div class="input-field col s4">
+                @Html.EditorFor(model => model.Especial, new { htmlAttributes = new { @type = "text", @class = "center-align", style = "text-transform: uppercase !important" } })
+                <label class="active" for="Especial">Espe.</label>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="input-field col s3">
+                @Html.EditorFor(model => model.Base, new { htmlAttributes = new { @type = "text", @class = "center-align", style = "text-transform: uppercase !important" } })
+                <label class="active" for="Base">Base</label>
+            </div>
+
+            <div class="input-field col s3">
+                @Html.EditorFor(model => model.Altura, new { htmlAttributes = new { @type = "text", @class = "center-align", style = "text-transform: uppercase !important" } })
+                <label class="active" for="Altura">Altura</label>
+            </div>
+
+            <div class="input-field col s3">
+                @Html.EditorFor(model => model.Especial, new { htmlAttributes = new { @type = "text", @class = "center-align", style = "text-transform: uppercase !important" } })
+                <label class="active" for="Especial">Espe.</label>
+            </div>
+            <div class="input-field center-align col s3">
+                NO
+                @Html.CheckBoxFor(model => model.Activo, new { @class = "switch_1" })
+                SI
+                <label class="active" for="Activo">Activo</label>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="input-field col s12" style="text-transform: uppercase !important">
+            @Html.TextAreaFor(model => model.Observaciones, new { @class = "materialize-textarea validate", style = "text-transform: uppercase !important" })
+            <label class="active" for="Observaciones">Observaciones</label>
+        </div>
+    </div>
+
+    <div class="center-align col s12">
+        <button type="submit" title="Aceptar" id="aceptar" disabled class="btn-floating btn-sm green" style="border-radius: 50%" onclick="hidePage()">
+            <i class="large material-icons">check</i>
+        </button>
+    </div>
+}
+
+<script>
+
+    var tienda = document.getElementById('NombreTienda');
+    var num = document.getElementById('NoTienda');
+    var esq = document.getElementById('EsquemaId');
+    var esqcgg = document.getElementById('EsquemaCGGId');
+    var reg = document.getElementById('RegionId');
+    var cd = document.getElementById('CiudadId');
+
+    var bi = document.getElementById('BIS');
+    var idi = document.getElementById('Idioma');
+    var bas = document.getElementById('Base');
+    var alt = document.getElementById('Altura');
+    var espe = document.getElementById('Especial');
+    var act = document.getElementById('Activo');
+    var obs = document.getElementById('Observaciones');
+
+    var acep = document.getElementById('aceptar');
+
+    tienda.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    num.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    esq.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    esqcgg.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    reg.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    cd.addEventListener('change', function () {
+        alcambiar();
+    });
+
+
+
+
+    obs.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    act.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    espe.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    alt.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    bas.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    idi.addEventListener('change', function () {
+        alcambiar();
+    });
+
+    bi.addEventListener('change', function () {
+        alcambiar();
+    });
+
+
+
+
+    function alcambiar() {
+
+        if (tienda.value != "" && num.value != "" && esq.value > 0 && esqcgg.value > 0 && reg.value > 0 && cd.value > 0) {
+            acep.disabled = false;
+        }
+        else {
+            acep.disabled = true;
+        }
+    }
+
+</script>

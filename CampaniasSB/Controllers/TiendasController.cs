@@ -37,43 +37,6 @@ namespace CampaniasSB.Controllers
             public string Restaurante { get; set; }
             public string Region { get; set; }
             public string Ciudad { get; set; }
-            public string Direccion { get; set; }
-            public string Observaciones { get; set; }
-            public bool Activo { get; set; }
-            public string Nombre { get; set; }
-            public string Categoria { get; set; }
-            public string Valor { get; set; }
-            public int TipoConfiguracionId { get; set; }
-            public int ReglaCatalogoId { get; set; }
-        }
-
-        public class spTiendasCaracteristicasFQ
-        {
-            public int TiendaId { get; set; }
-            public string Clasificacion { get; set; }
-            public string CCoFranquicia { get; set; }
-            public string Restaurante { get; set; }
-            public string Region { get; set; }
-            public string Ciudad { get; set; }
-            public string Direccion { get; set; }
-            public string Observaciones { get; set; }
-            public bool Activo { get; set; }
-            public string Nombre { get; set; }
-            public string Categoria { get; set; }
-            public string Valor { get; set; }
-            public int TipoConfiguracionId { get; set; }
-            public int ReglaCatalogoId { get; set; }
-        }
-
-        public class spTiendasCaracteristicasSK
-        {
-            public int TiendaId { get; set; }
-            public string Clasificacion { get; set; }
-            public string CCoFranquicia { get; set; }
-            public string Restaurante { get; set; }
-            public string Region { get; set; }
-            public string Ciudad { get; set; }
-            public string Direccion { get; set; }
             public string Observaciones { get; set; }
             public bool Activo { get; set; }
             public string Nombre { get; set; }
@@ -99,17 +62,19 @@ namespace CampaniasSB.Controllers
         {
             public int TiendaId { get; set; }
             public string Esquema { get; set; }
+            public string EsquemaCGG { get; set; }
             public string NoTienda { get; set; }
             public string NombreTienda { get; set; }
-            public string Direccion { get; set; }
-            public string BIS { get; set; }
-            public string Idioma { get; set; }
+            public bool BIS { get; set; }
+            public bool Idioma { get; set; }
             public string Observaciones { get; set; }
             public bool Activo { get; set; }
             public bool Eliminado { get; set; }
             public string Region { get; set; }
             public string Ciudad { get; set; }
-
+            public string Base { get; set; }
+            public string Altura { get; set; }
+            public string Especial { get; set; }
         }
 
         // GET: Restaurantes
@@ -119,13 +84,16 @@ namespace CampaniasSB.Controllers
             Session["iconoTitulo"] = "fas fa-store";
             Session["titulo"] = "TIENDAS";
             Session["homeB"] = string.Empty;
-            Session["equityB"] = "active";
-            Session["franquiciasB"] = string.Empty;
-            Session["stockB"] = string.Empty;
-            Session["restaurantesB"] = string.Empty;
+            Session["rolesB"] = string.Empty;
+            Session["compañiasB"] = string.Empty;
+            Session["usuariosB"] = string.Empty;
+            Session["regionesB"] = string.Empty;
+            Session["ciudadesB"] = string.Empty;
+            Session["restaurantesB"] = "active";
             Session["materialesB"] = string.Empty;
             Session["campañasB"] = string.Empty;
-            Session["caracteristicasB"] = string.Empty;
+            Session["reglasB"] = string.Empty;
+            Session["bitacoraB"] = string.Empty;
 
             return View();
 
@@ -133,9 +101,9 @@ namespace CampaniasSB.Controllers
 
         public async Task<ActionResult> GetData()
         {
-            var equityList = await db.Database.SqlQuery<spTiendas>("spGetTiendas").ToListAsync();
+            var tiendasList = await db.Database.SqlQuery<spTiendas>("spGetTiendas").ToListAsync();
 
-            return Json(new { data = equityList }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = tiendasList }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetMateriales()
@@ -154,6 +122,8 @@ namespace CampaniasSB.Controllers
         {
             if (id == 0)
             {
+                ViewBag.EsquemaId = new SelectList(CombosHelper.GetEsquemas(), "EsquemaId", "NombreEsquema");
+                ViewBag.EsquemaCGGId = new SelectList(CombosHelper.GetEsquemasCGG(), "EsquemaId", "NombreEsquema");
                 ViewBag.RegionId = new SelectList(CombosHelper.GetRegiones(true), "RegionId", "Nombre");
                 ViewBag.CiudadId = new SelectList(CombosHelper.GetCiudades(true), "CiudadId", "Nombre");
 
@@ -162,9 +132,13 @@ namespace CampaniasSB.Controllers
             else
             {
 
+                var esquemaId = db.Tiendas.Where(x => x.TiendaId == id).FirstOrDefault().EsquemaId;
+                var esquemaCGGId = db.Tiendas.Where(x => x.TiendaId == id).FirstOrDefault().EsquemaCGGId;
                 var regionId = db.Tiendas.Where(x => x.TiendaId == id).FirstOrDefault().RegionId;
                 var ciudadId = db.Tiendas.Where(x => x.TiendaId == id).FirstOrDefault().CiudadId;
 
+                ViewBag.EsquemaId = new SelectList(CombosHelper.GetEsquemas(true), "EsquemaId", "NombreEsquema", esquemaId);
+                ViewBag.EsquemaCGGId = new SelectList(CombosHelper.GetEsquemasCGG(), "EsquemaId", "NombreEsquema", esquemaCGGId);
                 ViewBag.RegionId = new SelectList(CombosHelper.GetRegiones(true), "RegionId", "Nombre", regionId);
                 ViewBag.CiudadId = new SelectList(CombosHelper.GetCiudades(true), "CiudadId", "Nombre", ciudadId);
 
@@ -180,45 +154,18 @@ namespace CampaniasSB.Controllers
 
             if (tienda.TiendaId == 0)
             {
+                if (tienda.Observaciones == null)
+                {
+                    tienda.Observaciones = string.Empty;
+                }
+
                 tienda.Activo = true;
 
                 db.Tiendas.Add(tienda);
                 var response = DBHelper.SaveChanges(db);
                 if (response.Succeeded)
                 {
-
-                    var reglasList = db.Database.SqlQuery<ReglaCatalogo>("spGetReglasCatalogoCategoria").ToList();
-
-                    foreach (var regla in reglasList)
-                    {
-                        var val = string.Empty;
-
-                        if (regla.Valor == "SI / NO")
-                        {
-                            val = "NO";
-                        }
-                        else if (regla.Valor == "TIPOS")
-                        {
-                            val = "FC";
-                        }
-                        else if (regla.Valor == "NUEVO NIVEL DE PRECIO")
-                        {
-                            val = "ALTO";
-                        }
-                        else
-                        {
-                            val = regla.Valor;
-                        }
-
-                        db.Database.ExecuteSqlCommand(
-                        "spAgregarTiendaCaracteristicas @TiendaId, @ReglaCatalogoId, @Valor",
-                        new SqlParameter("@TiendaId", tienda.TiendaId),
-                        new SqlParameter("@ReglaCatalogoId", regla.ReglaCatalogoId),
-                        new SqlParameter("@Valor", val));
-                    }
-
-
-                    MovimientosRestaurantes(tienda);
+                    MovementsHelper.AgregarMaterialesTiendaCampañaExiste(0, tienda.TiendaId);
 
                     movimiento = "Agregar Restaurante " + tienda.TiendaId + " " + tienda.NombreTienda;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
@@ -232,14 +179,19 @@ namespace CampaniasSB.Controllers
             }
             else
             {
+                if (tienda.Observaciones == null)
+                {
+                    tienda.Observaciones = string.Empty;
+                }
+
                 db.Entry(tienda).State = EntityState.Modified;
                 var response = DBHelper.SaveChanges(db);
                 if (response.Succeeded)
                 {
-
-                    EliminarTodo(tienda);
-
-                    MovimientosRestaurantes(tienda);
+                    if (tienda.Activo == true)
+                    {
+                        MovementsHelper.AgregarMaterialesTiendaCampañaExiste(0, tienda.TiendaId);
+                    }
 
                     movimiento = "Actualizar Restaurante " + tienda.TiendaId + " " + tienda.NombreTienda;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
@@ -253,57 +205,9 @@ namespace CampaniasSB.Controllers
             }
         }
 
-        private void MovimientosRestaurantes(Tienda tienda)
-        {
-            if (tienda.Activo == true)
-            {
-                var response = MovementsHelper.AgregarTiendaArticulos(tienda.TiendaId);
-
-                if (response.Succeeded)
-                {
-                    var campaña = db.Campañas.Where(x => x.Generada == "NO").ToList();
-                    if (campaña.Count >= 1)
-                    {
-                        var campañaid = campaña.FirstOrDefault().CampañaId;
-                        var tiendaId = tienda.TiendaId;
-
-                        MovementsHelper.AgregarArticuloPorTiendas(tiendaId, campañaid);
-                    }
-                }
-            }
-            else
-            {
-                EliminarTodo(tienda);
-            }
-        }
-
-        private void EliminarTodo(Tienda tienda)
-        {
-            var id = tienda.TiendaId;
-
-            db.Database.ExecuteSqlCommand(
-            "spEliminarArticulosTiendas @TiendaId",
-            new SqlParameter("@TiendaId", id));
-
-            var campañas = db.Campañas.Where(x => x.Generada == "NO").ToList();
-
-            if (campañas != null)
-            {
-                foreach (var campaña in campañas)
-                {
-                    var campId = campaña.CampañaId;
-
-                    db.Database.ExecuteSqlCommand(
-                    "spEliminarTiendaCampanias @TiendaId, @CampañaId",
-                    new SqlParameter("@TiendaId", id),
-                    new SqlParameter("@CampañaId", campId));
-                }
-            }
-        }
-
         [AuthorizeUser(idOperacion: 2)]
         [HttpGet]
-        public ActionResult Materiales(long? id, string cat)
+        public ActionResult Articulos(long? id)
         {
 
             var materialesList = db.Database.SqlQuery<spTiendasArticulos>("spGetTiendaArticulos @TiendaId",
@@ -323,7 +227,7 @@ namespace CampaniasSB.Controllers
 
         [AuthorizeUser(idOperacion: 2)]
         [HttpPost]
-        public ActionResult Materiales(FormCollection fc)
+        public ActionResult Articulos(FormCollection fc)
         {
             var usuario = db.Usuarios.Where(u => u.NombreUsuario == User.Identity.Name).FirstOrDefault().UsuarioId;
 
@@ -633,16 +537,15 @@ namespace CampaniasSB.Controllers
         {
             var usuario = db.Usuarios.Where(u => u.NombreUsuario == User.Identity.Name).FirstOrDefault().UsuarioId;
 
-
             Tienda tienda = db.Tiendas.Where(x => x.TiendaId == id).FirstOrDefault();
             tienda.Eliminado = true;
             db.Entry(tienda).State = EntityState.Modified;
             var response = DBHelper.SaveChanges(db);
             if (response.Succeeded)
             {
-                db.Database.ExecuteSqlCommand(
-                "spEliminarCaracteristicasTiendas @TiendaId",
-                new SqlParameter("@TiendaId", id));
+                //db.Database.ExecuteSqlCommand(
+                //"spEliminarCaracteristicasTiendas @TiendaId",
+                //new SqlParameter("@TiendaId", id));
 
                 db.Database.ExecuteSqlCommand(
                 "spEliminarArticulosTiendas @TiendaId",

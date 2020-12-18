@@ -15,13 +15,6 @@ namespace CampaniasSB.Controllers
         public string modulo = "Ciudades";
         public string movimiento = string.Empty;
 
-        public class spCiudades
-        {
-            public int CiudadId { get; set; }
-            public string Nombre { get; set; }
-            public string Region { get; set; }
-        }
-
         // GET: Regiones
         [AuthorizeUser(idOperacion: 5)]
         public ActionResult Index()
@@ -44,7 +37,7 @@ namespace CampaniasSB.Controllers
         }
         public ActionResult GetData()
         {
-            var ciudadList = db.Database.SqlQuery<spCiudades>("spGetCiudades").ToList();
+            var ciudadList = db.Database.SqlQuery<Ciudad>("spGetCiudades").ToList();
 
             return Json(new { data = ciudadList }, JsonRequestBehavior.AllowGet);
         }
@@ -56,13 +49,10 @@ namespace CampaniasSB.Controllers
         {
             if (id == 0)
             {
-                ViewBag.RegionId = new SelectList(CombosHelper.GetRegiones(true), "RegionId", "Nombre");
                 return PartialView(new Ciudad());
             }
             else
             {
-                var regionId = db.Ciudades.Where(x => x.CiudadId == id).FirstOrDefault().RegionId;
-                ViewBag.RegionId = new SelectList(CombosHelper.GetRegiones(true), "RegionId", "Nombre", regionId);
                 return PartialView(db.Ciudades.Where(x => x.CiudadId == id).FirstOrDefault());
             }
         }

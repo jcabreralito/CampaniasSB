@@ -7,18 +7,21 @@
     @Html.HiddenFor(model => model.ReglaCatalogoId)
 
     <div class="row">
-        <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+        <div class="input-field col s12" style="text-transform: uppercase !important">
             @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @type = "text", @class = "validate", @required = "true", style = "text-transform: uppercase !important" } })
             <label class="active" for="Nombre">Nombre</label>
         </div>
-        <div class="input-field col-sm-12" style="text-transform: uppercase !important">
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12" style="text-transform: uppercase !important">
             @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @type = "text", @class = "validate", style = "text-transform: uppercase !important" } })
             <label class="active" for="Valor">Valor</label>
         </div>
     </div>
 
     <div class="row">
-        <div class="input-field center-align col-sm-12">
+        <div class="input-field center-align col s12">
             @Html.CheckBoxFor(model => model.Activo, new { @class = "switch_1" })
             <label class="active" for="Activo">Aplica Regla</label>
         </div>

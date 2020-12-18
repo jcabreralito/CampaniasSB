@@ -67,6 +67,8 @@ namespace CampaniasSB.Controllers
             public string Material { get; set; }
             public string SencilloMultiple { get; set; }
             public string NoTienda { get; set; }
+            public string Esquema { get; set; }
+            public string EsquemaCGG { get; set; }
 
         }
 
@@ -79,7 +81,7 @@ namespace CampaniasSB.Controllers
             public string Observaciones { get; set; }
             public bool Eliminado { get; set; }
             public bool Activo { get; set; }
-            public string Imagen { get; set; }
+            //public string Imagen { get; set; }
 
         }
 
@@ -123,7 +125,9 @@ namespace CampaniasSB.Controllers
             }
             else
             {
+                var senmul = db.Articulos.Where(x => x.ArticuloId == id).FirstOrDefault().SencilloMultiple;
 
+                ViewBag.SencilloMultiple = new SelectList(CombosHelper.GetSencilloMultiple(true), "Nombre", "Nombre", senmul);
                 return PartialView(db.Articulos.Where(x => x.ArticuloId == id).FirstOrDefault());
             }
         }
@@ -147,18 +151,20 @@ namespace CampaniasSB.Controllers
                 var response = DBHelper.SaveChanges(db);
                 if (response.Succeeded)
                 {
-                    CargarImagen(material);
+                    //CargarImagen(material);
 
                     //MovementsHelper.AgregarMaterialesTiendaCampañaExiste(material.ArticuloId, restauranteId);
 
-                    var campaña = db.Campañas.Where(x => x.Generada == "NO").FirstOrDefault();
+                    //var campaña = db.Campañas.Where(x => x.Generada == "NO").FirstOrDefault();
 
-                    if (campaña != null)
-                    {
-                        var campañaId = campaña.CampañaId;
+                    //if (campaña != null)
+                    //{
+                    //    var campañaId = campaña.CampañaId;
 
-                        //MovementsHelper.AgregarArticuloCampañas(material, campañaId);
-                    }
+                    //    //MovementsHelper.AgregarArticuloCampañas(material, campañaId);
+                    //}
+
+                    MovementsHelper.AgregarMaterialesTiendaCampañaExiste(material.ArticuloId, 0);
 
                     movimiento = "Agregar Artículo " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
                     MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);
@@ -182,26 +188,31 @@ namespace CampaniasSB.Controllers
                 var response = DBHelper.SaveChanges(db);
                 if (response.Succeeded)
                 {
-                    CargarImagen(material);
+                    //CargarImagen(material);
 
-                    var campaña = db.Campañas.Where(x => x.Generada == "NO").FirstOrDefault();
+                    //var campaña = db.Campañas.Where(x => x.Generada == "NO").FirstOrDefault();
 
-                    var id = material.ArticuloId;
+                    //var id = material.ArticuloId;
+
+                    //if (material.Activo == true)
+                    //{
+
+                    //    if (campaña != null)
+                    //    {
+                    //        var campañaId = campaña.CampañaId;
+
+                    //        //MovementsHelper.AgregarArticuloCampañas(material, campañaId);
+                    //    }
+
+                    //}
+                    //else
+                    //{
+                    //    EliminarMateriales(id, campaña);
+                    //}
 
                     if (material.Activo == true)
                     {
-
-                        if (campaña != null)
-                        {
-                            var campañaId = campaña.CampañaId;
-
-                            //MovementsHelper.AgregarArticuloCampañas(material, campañaId);
-                        }
-
-                    }
-                    else
-                    {
-                        EliminarMateriales(id, campaña);
+                        MovementsHelper.AgregarMaterialesTiendaCampañaExiste(material.ArticuloId, 0);
                     }
 
                     movimiento = "Actualizar Artículo " + material.ArticuloId + " " + material.Descripcion + " / " + material.SencilloMultiple;
@@ -231,32 +242,31 @@ namespace CampaniasSB.Controllers
             }
         }
 
-        private void CargarImagen(Articulo articuloKFC)
-        {
-            if (articuloKFC.ImagenFile != null)
-            {
-                var folder = "~/Content/images/Productos";
-                var local = "/";
-                var file = string.Format("{0}.jpg", articuloKFC.Descripcion);
-                var responseLogo = FilesHelper.UploadPhoto(articuloKFC.ImagenFile, folder, file);
-                if (responseLogo)
-                {
-                    var pic = string.Format("{0}/{1}", local, file);
-                    articuloKFC.Imagen = pic;
-                    db.Entry(articuloKFC).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-            }
-        }
+        //private void CargarImagen(Articulo articuloKFC)
+        //{
+        //    if (articuloKFC.ImagenFile != null)
+        //    {
+        //        var folder = "~/Content/images/Productos";
+        //        var local = "/";
+        //        var file = string.Format("{0}.jpg", articuloKFC.Descripcion);
+        //        var responseLogo = FilesHelper.UploadPhoto(articuloKFC.ImagenFile, folder, file);
+        //        if (responseLogo)
+        //        {
+        //            var pic = string.Format("{0}/{1}", local, file);
+        //            articuloKFC.Imagen = pic;
+        //            db.Entry(articuloKFC).State = EntityState.Modified;
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //}
 
         [AuthorizeUser(idOperacion: 2)]
         [HttpGet]
         public ActionResult Restaurantes(int? id, string cat)
         {
 
-            var restaurantesList = db.Database.SqlQuery<spArticulosTiendas>("spGetArticuloTiendas @ArticuloKFCId, @EquityFranquicia",
-                new SqlParameter("@ArticuloKFCId", id),
-                new SqlParameter("@EquityFranquicia", cat)).ToList();
+            var restaurantesList = db.Database.SqlQuery<spArticulosTiendas>("spGetArticuloTiendas @ArticuloId",
+                new SqlParameter("@ArticuloId", id)).ToList();
 
             if (restaurantesList == null)
             {
@@ -276,7 +286,7 @@ namespace CampaniasSB.Controllers
             var usuario = db.Usuarios.Where(u => u.NombreUsuario == User.Identity.Name).FirstOrDefault().UsuarioId;
 
             string[] campañaId = fc.GetValues("Campaña");
-            string[] articuloKFCTMPId = fc.GetValues("TiendaArticuloId");
+            string[] articuloTMPId = fc.GetValues("TiendaArticuloId");
             string[] seleccionado = fc.GetValues("Seleccionado");
 
             var selec = false;
@@ -285,9 +295,9 @@ namespace CampaniasSB.Controllers
 
             if (campañaId == null)
             {
-                for (var i = 0; i < articuloKFCTMPId.Length; i++)
+                for (var i = 0; i < articuloTMPId.Length; i++)
                 {
-                    TiendaArticulo tiendaArticulo = db.TiendaArticulos.Find(Convert.ToInt32(articuloKFCTMPId[i]));
+                    TiendaArticulo tiendaArticulo = db.TiendaArticulos.Find(Convert.ToInt32(articuloTMPId[i]));
 
                     var tiendaId = tiendaArticulo.TiendaId;
                     var articuloId = tiendaArticulo.ArticuloId;
@@ -307,7 +317,7 @@ namespace CampaniasSB.Controllers
                     {
                         for (var j = 0; j < seleccionado.Length; j++)
                         {
-                            if (articuloKFCTMPId[i] == seleccionado[j])
+                            if (articuloTMPId[i] == seleccionado[j])
                             {
                                 selec = true;
 
@@ -341,9 +351,9 @@ namespace CampaniasSB.Controllers
                     Campaña campañaArtId = db.Campañas.Find(Convert.ToInt32(campañaId[c]));
                     campId = campañaArtId.CampañaId;
 
-                    for (var i = 0; i < articuloKFCTMPId.Length; i++)
+                    for (var i = 0; i < articuloTMPId.Length; i++)
                     {
-                        TiendaArticulo tiendaArticulo = db.TiendaArticulos.Find(Convert.ToInt32(articuloKFCTMPId[i]));
+                        TiendaArticulo tiendaArticulo = db.TiendaArticulos.Find(Convert.ToInt32(articuloTMPId[i]));
 
                         var tiendaId = tiendaArticulo.TiendaId;
                         var articuloId = tiendaArticulo.ArticuloId;
@@ -368,7 +378,7 @@ namespace CampaniasSB.Controllers
                             {
                                 for (var j = 0; j < seleccionado.Length; j++)
                                 {
-                                    if (articuloKFCTMPId[i] == seleccionado[j])
+                                    if (articuloTMPId[i] == seleccionado[j])
                                     {
                                         selec = true;
 
@@ -435,7 +445,7 @@ namespace CampaniasSB.Controllers
                                 {
                                     for (var j = 0; j < seleccionado.Length; j++)
                                     {
-                                        if (articuloKFCTMPId[i] == seleccionado[j])
+                                        if (articuloTMPId[i] == seleccionado[j])
                                         {
                                             selec = true;
 
@@ -478,7 +488,7 @@ namespace CampaniasSB.Controllers
                 }
             }
 
-            TiendaArticulo articulo = db.TiendaArticulos.Find(Convert.ToInt32(articuloKFCTMPId[0]));
+            TiendaArticulo articulo = db.TiendaArticulos.Find(Convert.ToInt32(articuloTMPId[0]));
 
             movimiento = "Asignar Restaurantes / " + articulo.ArticuloId;
             MovementsHelper.MovimientosBitacora(usuario, modulo, movimiento);

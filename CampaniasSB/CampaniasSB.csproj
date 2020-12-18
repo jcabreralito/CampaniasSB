@@ -2928,14 +2928,9 @@
     <Content Include="Views\Materiales\Index.cshtml" />
     <Content Include="Views\Materiales\AddOrEdit.cshtml" />
     <Content Include="Views\Shared\_Layout_Restaurantes.cshtml" />
-    <Content Include="Views\Restaurantes\IndexDev.cshtml" />
-    <Content Include="Views\Restaurantes\AddOrEdit.cshtml" />
-    <Content Include="Views\Restaurantes\EditCGDev.cshtml" />
-    <Content Include="Views\Restaurantes\EditCP.cshtml" />
-    <Content Include="Views\Restaurantes\EditCME.cshtml" />
-    <Content Include="Views\Restaurantes\EditCER.cshtml" />
-    <Content Include="Views\Restaurantes\AsignarMateriales.cshtml" />
-    <Content Include="Views\Restaurantes\Materiales.cshtml" />
+    <Content Include="Views\Tiendas\AddOrEdit.cshtml" />
+    <Content Include="Views\Tiendas\AsignarMateriales.cshtml" />
+    <Content Include="Views\Tiendas\Articulos.cshtml" />
     <Content Include="Views\Shared\_Layout_Modales.cshtml" />
     <Content Include="Views\Campañas\Index.cshtml" />
     <Content Include="Views\Campañas\AddOrEdit.cshtml" />
@@ -2946,25 +2941,16 @@
     <Content Include="Views\Reglas\AddOrEdit.cshtml" />
     <Content Include="Views\Reglas\Index.cshtml" />
     <Content Include="Views\Reglas\Materiales.cshtml" />
-    <Content Include="Views\Restaurantes\EditCMES.cshtml" />
     <Content Include="Views\RestauranteCaracteristicas\Index.cshtml" />
     <Content Include="Views\RestauranteCaracteristicas\AddOrEdit.cshtml" />
-    <Content Include="Views\Restaurantes\AsignarCaracteristicaG.cshtml" />
+    <Content Include="Views\Tiendas\AsignarCaracteristicaG.cshtml" />
     <Content Include="Views\Shared\_Layout_Reglas.cshtml" />
     <Content Include="Views\Reglas\Caracteristicas.cshtml" />
     <Content Include="Views\Reglas\AddOrEditCat.cshtml" />
-    <Content Include="Views\Restaurantes\IndexOP.cshtml" />
-    <Content Include="Views\Restaurantes\EditCG.cshtml" />
     <Content Include="Views\Bitacora\Index.cshtml" />
     <Content Include="Views\Campañas\ResumenProveedor.cshtml" />
     <Content Include="Views\Campañas\Reports\ArtKFC.cshtml" />
-    <Content Include="Views\Restaurantes\IndexFQ.cshtml" />
-    <Content Include="Views\Restaurantes\IndexSK.cshtml" />
-    <Content Include="Views\Restaurantes\Index.cshtml" />
-    <Content Include="Views\Restaurantes\EditCPDev.cshtml" />
-    <Content Include="Views\Restaurantes\EditCMEDev.cshtml" />
-    <Content Include="Views\Restaurantes\EditCERDev.cshtml" />
-    <Content Include="Views\Restaurantes\EditCMESDev.cshtml" />
+    <Content Include="Views\Tiendas\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
